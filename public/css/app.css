@@ -6,30 +6,8 @@
   }
 }
 
-#mainMenu {
-  color: #9aa0ac;
-  font-size: 17px;
-}
-
-#mainMenu a {
-  color: inherit;
-  font-family: "Mukta";
-}
-
-#mainMenu a.active {
-  color: #333333;
-}
-
-#mainMenu a:hover {
-  color: #333333;
-}
-
-#mainMenu a .icon {
-  color: inherit !important;
-}
-
-#mainMenu a i {
-  margin-right: 0.25em;
+.card {
+  border-radius: 20px;
 }
 
 .page-header {

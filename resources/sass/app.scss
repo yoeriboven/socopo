@@ -3,25 +3,8 @@
     .container { max-width: 1000px;}
 }
 
-#mainMenu {
-    // margin-top:50px;
-    color:#9aa0ac;
-    font-size: 17px;
-
-    a {
-        color:inherit;
-        &.active {
-            color:#333333;
-            // font-weight: 500;
-        }
-        &:hover {
-            color:#333333;
-        }
-        font-family: 'Mukta';
-
-        .icon {color:inherit !important;}
-        i { margin-right:.25em; }
-    }
+.card {
+    border-radius: 20px;
 }
 
 .page-header {
