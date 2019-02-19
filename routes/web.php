@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('app/', 'PostController@index')->name('posts.index');
+});
+
+Auth::routes();

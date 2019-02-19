@@ -1,14 +1,38 @@
+/* Navigation */
+@media (min-width: 1280px) {
+    .container { max-width: 1000px;}
+}
 
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+#mainMenu {
+    // margin-top:50px;
+    color:#9aa0ac;
+    font-size: 17px;
 
-// Variables
-@import 'variables';
+    a {
+        color:inherit;
+        &.active {
+            color:#333333;
+            // font-weight: 500;
+        }
+        &:hover {
+            color:#333333;
+        }
+        font-family: 'Mukta';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+        .icon {color:inherit !important;}
+        i { margin-right:.25em; }
+    }
+}
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+.page-header {
+    margin:0;
+}
+
+.header {
+    background: transparent;
+    border-bottom: none;
+}
+
+.footer {
+    opacity: 0;
 }
