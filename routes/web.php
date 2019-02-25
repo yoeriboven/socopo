@@ -16,7 +16,9 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('app/', 'PostController@index')->name('posts.index');
+    Route::get('/', 'PostController@index')->name('posts.index');
+
+    Route::post('/profiles', 'ProfileController@store')->name('profiles.index');
 });
 
 Auth::routes();
