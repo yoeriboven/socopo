@@ -35,7 +35,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $profile = Profile::create([
+        $profile = Profile::firstOrCreate([
             'username' => request('username')
         ]);
 

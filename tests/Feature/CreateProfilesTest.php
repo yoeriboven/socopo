@@ -2,12 +2,13 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use App\Profile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class CreateProfilesTest extends TestCase
 {
-    use RefreshDatabase;
+    // use RefreshDatabase;
 
     /** @test */
     public function an_authenticated_user_can_add_a_profile()
@@ -16,8 +17,7 @@ class CreateProfilesTest extends TestCase
         $user = $this->signIn();
 
         // Create the profile
-        $profile = factory('App\Profile')->make();
-        $this->post('/profiles', $profile->toArray());
+        $profile = $this->publishProfile();
 
         // Assert it has been created
         $this->assertDatabaseHas('profiles', ['username' => $profile->username]);
@@ -28,5 +28,28 @@ class CreateProfilesTest extends TestCase
             'profile_id' => $createdProfile->id,
             'user_id' => $user->id
         ]);
+    }
+
+    /** @test */
+    public function a_username_is_unique()
+    {
+        $this->withoutExceptionHandling();
+        $this->signIn();
+
+        $this->assertCount(0, Profile::all());
+
+        $this->publishProfile(['username' => 'brucewayne']);
+        $this->publishProfile(['username' => 'brucewayne']);
+
+        $this->assertCount(1, Profile::all());
+    }
+
+    protected function publishProfile($overrides = [])
+    {
+        $profile = factory('App\Profile')->make($overrides);
+
+        $this->post('/profiles', $profile->toArray());
+
+        return $profile;
     }
 }
