@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class CreateProfilesTest extends TestCase
 {
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     /** @test */
     public function an_authenticated_user_can_add_a_profile()

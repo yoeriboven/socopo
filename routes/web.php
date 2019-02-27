@@ -18,7 +18,8 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'PostController@index')->name('posts.index');
 
-    Route::post('/profiles', 'ProfileController@store')->name('profiles.index');
+    Route::get('/profiles', 'ProfileController@index')->name('profiles.index');
+    Route::post('/profiles', 'ProfileController@store')->name('profiles.store');
 });
 
 Auth::routes();
