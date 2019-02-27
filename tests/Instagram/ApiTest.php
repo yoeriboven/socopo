@@ -7,35 +7,14 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
 use App\Console\Commands\Instagram\Api;
-use App\Console\Commands\Instagram\Exception\CacheException;
 use App\Console\Commands\Instagram\Exception\InstagramException;
 use App\Console\Commands\Instagram\Hydrator\Component\Feed;
 use App\Console\Commands\Instagram\Hydrator\Component\Media;
-use App\Console\Commands\Instagram\Storage\CacheManager;
 
 use Tests\TestCase;
 
 class ApiTest extends TestCase
 {
-    /**
-     * @var CacheManager
-     */
-    private $validCacheManager;
-
-    /**
-     * @var CacheManager
-     */
-    private $invalidCacheManager;
-
-    /**
-     * @var CacheManager
-     */
-    private $emptyCacheManager;
-
-    /**
-     * @var CacheManager
-     */
-    private $unwritableCacheManager;
 
     /**
      * @var Client
@@ -53,32 +32,13 @@ class ApiTest extends TestCase
     private $invalidHtmlClient;
 
     /**
-     * @var Client
-     */
-    private $validJsonClient;
-
-    /**
-     * @var Client
-     */
-    private $invalidJsonClient;
-
-    /**
      * @return void
      */
     public function setUp()
     {
-        if (is_file(__DIR__ . '/cache/empty/pgrimaud.cache')) {
-            unlink(__DIR__ . '/cache/empty/pgrimaud.cache');
-        }
-
-        copy(__DIR__ . '/cache/invalid/demo.cache', __DIR__ . '/cache/invalid/pgrimaud.cache');
-
         $validHtmlFixtures       = file_get_contents(__DIR__ . '/fixtures/pgrimaud.html');
         $invalidHtmlJsonFixtures = file_get_contents(__DIR__ . '/fixtures/invalid_pgrimaud.html');
         $invalidHtmlFixtures     = '<html></html>';
-
-        $validJsonFixtures   = file_get_contents(__DIR__ . '/fixtures/pgrimaud.json');
-        $invalidJsonFixtures = '<html></html>';
 
         $headers = [
             'Set-Cookie' => 'cookie'
@@ -98,84 +58,9 @@ class ApiTest extends TestCase
         $mock                        = new MockHandler([$response]);
         $handler                     = HandlerStack::create($mock);
         $this->invalidJsonHtmlClient = new Client(['handler' => $handler]);
-
-        $response              = new Response(200, $headers, $validJsonFixtures);
-        $mock                  = new MockHandler([$response]);
-        $handler               = HandlerStack::create($mock);
-        $this->validJsonClient = new Client(['handler' => $handler]);
-
-        $response                = new Response(200, [], $invalidJsonFixtures);
-        $mock                    = new MockHandler([$response]);
-        $handler                 = HandlerStack::create($mock);
-        $this->invalidJsonClient = new Client(['handler' => $handler]);
-
-        if (is_dir(__DIR__ . '/cache/unwritable')) {
-            rmdir(__DIR__ . '/cache/unwritable');
-        }
-        mkdir(__DIR__ . '/cache/unwritable', 0555);
-
-        $this->validCacheManager      = new CacheManager(__DIR__ . '/cache/valid/');
-        $this->invalidCacheManager    = new CacheManager(__DIR__ . '/cache/invalid/');
-        $this->emptyCacheManager      = new CacheManager(__DIR__ . '/cache/empty/');
-        $this->unwritableCacheManager = new CacheManager(__DIR__ . '/cache/unwritable/');
     }
 
     /**
-     * @throws CacheException
-     * @throws InstagramException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function testEmptyCacheValueOnJsonFeed()
-    {
-        $api = new Api($this->emptyCacheManager, $this->validJsonClient);
-        $api->setUserName('pgrimaud');
-        $api->setEndCursor('endCursor');
-        $api->getFeed();
-    }
-
-    /**
-     * @throws CacheException
-     * @throws InstagramException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function testInvalidCacheValueOnJsonFeed()
-    {
-        $api = new Api($this->invalidCacheManager, $this->validJsonClient);
-        $api->setUserName('pgrimaud');
-        $api->setEndCursor('endCursor');
-        $api->getFeed();
-    }
-
-    /**
-     * @throws CacheException
-     * @throws InstagramException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function testValidCacheValueOnJsonFeed()
-    {
-        $api = new Api($this->validCacheManager, $this->validJsonClient);
-        $api->setUserName('pgrimaud');
-        $api->setEndCursor('endCursor');
-        $api->getFeed();
-    }
-
-    /**
-     * @throws CacheException
-     * @throws InstagramException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function testInvalidJsonFeedReturn()
-    {
-        $this->expectException(InstagramException::class);
-
-        $api = new Api($this->validCacheManager, $this->invalidJsonClient);
-        $api->setUserName('pgrimaud');
-        $api->setEndCursor('endCursor');
-        $api->getFeed();
-    }
-
-    /**
-     * @throws CacheException
      * @throws InstagramException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -183,18 +68,17 @@ class ApiTest extends TestCase
     {
         $this->expectException(InstagramException::class);
 
-        $api = new Api($this->validCacheManager, $this->validHtmlClient);
+        $api = new Api($this->validHtmlClient);
         $api->getFeed();
     }
 
     /**
-     * @throws CacheException
      * @throws InstagramException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function testValidFeedReturn()
     {
-        $api = new Api($this->validCacheManager, $this->validHtmlClient);
+        $api = new Api($this->validHtmlClient);
         $api->setUserName('pgrimaud');
 
         $feed = $api->getFeed();
@@ -203,7 +87,6 @@ class ApiTest extends TestCase
     }
 
     /**
-     * @throws CacheException
      * @throws InstagramException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -211,13 +94,12 @@ class ApiTest extends TestCase
     {
         $this->expectException(InstagramException::class);
 
-        $api = new Api($this->validCacheManager, $this->invalidHtmlClient);
+        $api = new Api($this->invalidHtmlClient);
         $api->setUserName('pgrimaud');
         $api->getFeed();
     }
 
     /**
-     * @throws CacheException
      * @throws InstagramException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
@@ -225,34 +107,18 @@ class ApiTest extends TestCase
     {
         $this->expectException(InstagramException::class);
 
-        $api = new Api($this->validCacheManager, $this->invalidJsonHtmlClient);
+        $api = new Api($this->invalidJsonHtmlClient);
         $api->setUserName('pgrimaud');
         $api->getFeed();
     }
 
     /**
-     * @throws CacheException
-     * @throws InstagramException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function testUnwritableCacheManager()
-    {
-        $this->expectException(CacheException::class);
-
-        $api = new Api($this->unwritableCacheManager, $this->validJsonClient);
-        $api->setUserName('pgrimaud');
-        $api->setEndCursor('endCursor');
-        $api->getFeed();
-    }
-
-    /**
-     * @throws CacheException
      * @throws InstagramException
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function testFeedContent()
     {
-        $api = new Api($this->validCacheManager, $this->validHtmlClient);
+        $api = new Api($this->validHtmlClient);
         $api->setUserName('pgrimaud');
 
         $feed = $api->getFeed();
@@ -286,7 +152,7 @@ class ApiTest extends TestCase
      */
     public function testMediaContent()
     {
-        $api = new Api($this->validCacheManager, $this->validHtmlClient);
+        $api = new Api($this->validHtmlClient);
         $api->setUserName('pgrimaud');
 
         /** @var Feed $feed */
@@ -320,20 +186,5 @@ class ApiTest extends TestCase
         $this->assertCount(5, $media->getThumbnails());
         $this->assertSame(false, $media->isVideo());
         $this->assertSame(0, $media->getVideoViewCount());
-    }
-
-    /**
-     * @throws CacheException
-     * @throws InstagramException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
-    public function testHtmlFeedWithNoCacheManager()
-    {
-        $this->expectException(CacheException::class);
-
-        $api = new Api(null, $this->validHtmlClient);
-        $api->setUserName('pgrimaud');
-        $api->setEndCursor('endCursor');
-        $api->getFeed();
     }
 }

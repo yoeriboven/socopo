@@ -4,8 +4,6 @@ namespace App\Console\Commands\Instagram\Transport;
 
 use GuzzleHttp\Client;
 use App\Console\Commands\Instagram\Exception\InstagramException;
-use App\Console\Commands\Instagram\Storage\Cache;
-use App\Console\Commands\Instagram\Storage\CacheManager;
 
 class HtmlTransportFeed extends TransportFeed
 {
@@ -13,11 +11,10 @@ class HtmlTransportFeed extends TransportFeed
      * HtmlTransportFeed constructor.
      *
      * @param Client            $client
-     * @param CacheManager|null $cacheManager
      */
-    public function __construct(Client $client, CacheManager $cacheManager = null)
+    public function __construct(Client $client)
     {
-        parent::__construct($client, $cacheManager);
+        parent::__construct($client);
     }
 
     /**
@@ -27,7 +24,6 @@ class HtmlTransportFeed extends TransportFeed
      *
      * @throws InstagramException
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Instagram\Exception\CacheException
      */
     public function fetchData($userName)
     {
@@ -53,17 +49,6 @@ class HtmlTransportFeed extends TransportFeed
 
         if ($data === null) {
             throw new InstagramException(json_last_error_msg());
-        }
-
-        if ($this->cacheManager instanceof CacheManager) {
-            $newCache = new Cache();
-            $newCache->setRhxGis($data->rhx_gis);
-            $newCache->setUserId($data->entry_data->ProfilePage[0]->graphql->user->id);
-            if ($res->hasHeader('Set-Cookie')) {
-                $newCache->setCookie($res->getHeaders()['Set-Cookie']);
-            }
-
-            $this->cacheManager->set($newCache, $userName);
         }
 
         return $data->entry_data->ProfilePage[0]->graphql->user;
