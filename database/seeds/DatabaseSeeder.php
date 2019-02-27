@@ -11,10 +11,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\User')->create([
+        $user = factory('App\User')->create([
             'name' => 'Yoeri.me',
             'email' => 'yoeri@yoeri.me',
             'password' => bcrypt('toetsenbord')
         ]);
+
+        // Add profiles
+        $dobrik = factory('App\Profile')->create([ 'username' => 'daviddobrik' ]);
+        $besiktas = factory('App\Profile')->create([ 'username' => 'besiktas' ]);
+        $ajax = factory('App\Profile')->create([ 'username' => 'afcajax' ]);
+
+        $besiktas->attachToUser($user);
+        $dobrik->attachToUser($user);
+        $ajax->attachToUser($user);
     }
 }

@@ -6,7 +6,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-use App\Libraries\Instagram\Api;
+use App\Libraries\Instagram\InstagramDownloader;
 use App\Libraries\Instagram\Exception\InstagramException;
 use App\Libraries\Instagram\Hydrator\Component\Feed;
 use App\Libraries\Instagram\Hydrator\Component\Media;
@@ -68,7 +68,7 @@ class ApiTest extends TestCase
     {
         $this->expectException(InstagramException::class);
 
-        $api = new Api($this->validHtmlClient);
+        $api = new InstagramDownloader($this->validHtmlClient);
         $api->getFeed();
     }
 
@@ -78,7 +78,7 @@ class ApiTest extends TestCase
      */
     public function testValidFeedReturn()
     {
-        $api = new Api($this->validHtmlClient);
+        $api = new InstagramDownloader($this->validHtmlClient);
         $api->setUserName('pgrimaud');
 
         $feed = $api->getFeed();
@@ -94,7 +94,7 @@ class ApiTest extends TestCase
     {
         $this->expectException(InstagramException::class);
 
-        $api = new Api($this->invalidHtmlClient);
+        $api = new InstagramDownloader($this->invalidHtmlClient);
         $api->setUserName('pgrimaud');
         $api->getFeed();
     }
@@ -107,7 +107,7 @@ class ApiTest extends TestCase
     {
         $this->expectException(InstagramException::class);
 
-        $api = new Api($this->invalidJsonHtmlClient);
+        $api = new InstagramDownloader($this->invalidJsonHtmlClient);
         $api->setUserName('pgrimaud');
         $api->getFeed();
     }
@@ -118,7 +118,7 @@ class ApiTest extends TestCase
      */
     public function testFeedContent()
     {
-        $api = new Api($this->validHtmlClient);
+        $api = new InstagramDownloader($this->validHtmlClient);
         $api->setUserName('pgrimaud');
 
         $feed = $api->getFeed();
@@ -152,7 +152,7 @@ class ApiTest extends TestCase
      */
     public function testMediaContent()
     {
-        $api = new Api($this->validHtmlClient);
+        $api = new InstagramDownloader($this->validHtmlClient);
         $api->setUserName('pgrimaud');
 
         /** @var Feed $feed */

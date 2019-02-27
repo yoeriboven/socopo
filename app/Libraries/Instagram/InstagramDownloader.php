@@ -7,7 +7,7 @@ use App\Libraries\Instagram\Exception\InstagramException;
 use App\Libraries\Instagram\Hydrator\HtmlHydrator;
 use App\Libraries\Instagram\Transport\HtmlTransportFeed;
 
-class Api
+class InstagramDownloader
 {
     /**
      * @var Client
