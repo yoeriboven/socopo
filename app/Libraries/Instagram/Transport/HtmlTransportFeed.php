@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Console\Commands\Instagram\Transport;
+namespace App\Libraries\Instagram\Transport;
 
 use GuzzleHttp\Client;
-use App\Console\Commands\Instagram\Exception\InstagramException;
+use App\Libraries\Instagram\Exception\InstagramException;
 
 class HtmlTransportFeed extends TransportFeed
 {

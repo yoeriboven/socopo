@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Instagram\Hydrator\Component;
+namespace App\Libraries\Instagram\Hydrator\Component;
 
 class Feed
 {

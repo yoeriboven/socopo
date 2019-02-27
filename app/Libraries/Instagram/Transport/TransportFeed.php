@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Instagram\Transport;
+namespace App\Libraries\Instagram\Transport;
 
 use GuzzleHttp\Client;
 

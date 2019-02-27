@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Console\Commands\Instagram;
+namespace App\Libraries\Instagram;
 
 use GuzzleHttp\Client;
-use App\Console\Commands\Instagram\Exception\InstagramException;
-use App\Console\Commands\Instagram\Hydrator\HtmlHydrator;
-use App\Console\Commands\Instagram\Transport\HtmlTransportFeed;
+use App\Libraries\Instagram\Exception\InstagramException;
+use App\Libraries\Instagram\Hydrator\HtmlHydrator;
+use App\Libraries\Instagram\Transport\HtmlTransportFeed;
 
 class Api
 {

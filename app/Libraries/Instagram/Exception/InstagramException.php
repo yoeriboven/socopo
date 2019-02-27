@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Instagram\Exception;
+namespace App\Libraries\Instagram\Exception;
 
 class InstagramException extends \Exception
 {

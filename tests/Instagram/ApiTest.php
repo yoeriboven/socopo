@@ -6,10 +6,10 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 
-use App\Console\Commands\Instagram\Api;
-use App\Console\Commands\Instagram\Exception\InstagramException;
-use App\Console\Commands\Instagram\Hydrator\Component\Feed;
-use App\Console\Commands\Instagram\Hydrator\Component\Media;
+use App\Libraries\Instagram\Api;
+use App\Libraries\Instagram\Exception\InstagramException;
+use App\Libraries\Instagram\Hydrator\Component\Feed;
+use App\Libraries\Instagram\Hydrator\Component\Media;
 
 use Tests\TestCase;
 

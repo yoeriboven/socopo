@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Console\Commands\Instagram\Hydrator;
+namespace App\Libraries\Instagram\Hydrator;
 
-use App\Console\Commands\Instagram\Hydrator\Component\Feed;
-use App\Console\Commands\Instagram\Hydrator\Component\Media;
-use App\Console\Commands\Instagram\Transport\TransportFeed;
+use App\Libraries\Instagram\Hydrator\Component\Feed;
+use App\Libraries\Instagram\Hydrator\Component\Media;
+use App\Libraries\Instagram\Transport\TransportFeed;
 
 class HtmlHydrator
 {
