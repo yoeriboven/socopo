@@ -11,7 +11,7 @@ class Profile extends Model
      *
      * @var array
      */
-    protected $fillable = ['username'];
+    protected $fillable = ['username', 'avatar'];
 
     /**
      * Attaches the current profile to the given user

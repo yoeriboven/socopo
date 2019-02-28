@@ -36,7 +36,8 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $profile = Profile::firstOrCreate([
-            'username' => request('username')
+            'username' => request('username'),
+            'avatar' => request('avatar')
         ]);
 
         $profile->attachToUser();
