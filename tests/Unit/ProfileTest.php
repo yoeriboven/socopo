@@ -3,9 +3,12 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProfileTest extends TestCase
 {
+    use RefreshDatabase;
+
     /** @test */
     public function a_profile_can_be_attached_to_a_user()
     {
@@ -21,5 +24,17 @@ class ProfileTest extends TestCase
             'profile_id' => $profile->id,
             'user_id' => $user->id
         ]);
+    }
+
+    /** @test */
+    public function it_can_update_the_avatar()
+    {
+        $profile = factory('App\Profile')->create([
+            'avatar' => 'instagramURL'
+        ]);
+
+        $profile->updateAvatar('new link');
+
+        $this->assertEquals('new link', $profile->avatar);
     }
 }
