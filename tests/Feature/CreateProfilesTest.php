@@ -11,6 +11,13 @@ class CreateProfilesTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function guests_cant_add_profiles()
+    {
+        $this->post('profiles')
+             ->assertRedirect('login');
+    }
+
+    /** @test */
     public function an_authenticated_user_can_add_a_profile()
     {
         $this->withoutExceptionHandling();

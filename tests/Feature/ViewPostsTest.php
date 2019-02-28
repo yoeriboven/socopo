@@ -10,6 +10,13 @@ class ViewPostsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function guests_cant_view_posts()
+    {
+        $this->get('/')
+             ->assertRedirect('login');
+    }
+
+    /** @test */
     public function an_authorized_user_can_view_its_posts()
     {
         $this->withoutExceptionHandling();

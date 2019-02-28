@@ -10,6 +10,7 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * Signs in a user
+     *
      * @param  App\User $user An optional user to sign in
      * @return App\User       Signed in user
      */
