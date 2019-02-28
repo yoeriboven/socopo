@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class CreateProfilesTest extends TestCase
 {
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     /** @test */
     public function an_authenticated_user_can_add_a_profile()
@@ -23,7 +23,7 @@ class CreateProfilesTest extends TestCase
         $this->assertDatabaseHas('profiles', ['username' => $profile->username]);
 
         // Assert it is attached to the signed in user
-        $createdProfile = \App\Profile::where('username', $profile->username)->get()->first();
+        $createdProfile = Profile::where('username', $profile->username)->get()->first();
         $this->assertDatabaseHas('profile_user', [
             'profile_id' => $createdProfile->id,
             'user_id' => $user->id

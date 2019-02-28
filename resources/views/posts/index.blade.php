@@ -6,7 +6,10 @@
 @section('content')
 
 <div class="card" style="min-height: 1000px;">
-    ding
+    @foreach ($posts as $post)
+    	{{ $post->caption }}
+    	<hr/>
+    @endforeach
 </div>
 
 @endsection

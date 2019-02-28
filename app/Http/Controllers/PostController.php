@@ -3,9 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Repositories\PostRepository;
 
 class PostController extends Controller
 {
+    /**
+     * The PostRepository object.
+     *
+     * @var array
+     */
+    protected $posts;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(PostRepository $posts)
+    {
+        $this->posts = $posts;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +31,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index');
+        return view('posts.index', [
+            'posts' => $this->posts->forUser(auth()->user())
+        ]);
     }
 
     /**
