@@ -17,7 +17,6 @@ class CreateProfileUserTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('profile_id');
             $table->unsignedInteger('user_id');
-            $table->timestamps();
         });
     }
 

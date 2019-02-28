@@ -1,3 +1,7 @@
+body {
+  background: #F0F4F8;
+}
+
 /* Navigation */
 
 @media (min-width: 1280px) {
@@ -15,8 +19,17 @@
 }
 
 .header {
-  background: transparent;
+  background: #334E68;
   border-bottom: none;
+  color: white;
+}
+
+.header h2 {
+  margin-bottom: 0;
+}
+
+.header .text-default {
+  color: white !important;
 }
 
 .footer {

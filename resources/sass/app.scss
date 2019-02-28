@@ -1,3 +1,6 @@
+body {
+	background:#F0F4F8;
+}
 /* Navigation */
 @media (min-width: 1280px) {
     .container { max-width: 1000px;}
@@ -12,8 +15,17 @@
 }
 
 .header {
-    background: transparent;
+    background: #334E68;
     border-bottom: none;
+    color:white;
+
+    h2 {
+    	margin-bottom: 0;
+    }
+
+    .text-default {
+    	color:white !important;
+    }
 }
 
 .footer {
