@@ -31,6 +31,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        // dump($this->posts->forUser(auth()->user()));
         return view('posts.index', [
             'posts' => $this->posts->forUser(auth()->user())
         ]);
