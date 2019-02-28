@@ -20,6 +20,8 @@ class InstagramCommand
         foreach ($profiles as $profile) {
             $feed = $this->getFeed($profile->username);
 
+            $profile->updateAvatar($feed->profilePicture);
+
             echo '<pre>';
             print_r($feed);
             echo '</pre>';
