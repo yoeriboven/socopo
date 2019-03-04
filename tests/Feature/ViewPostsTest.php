@@ -17,30 +17,17 @@ class ViewPostsTest extends TestCase
     }
 
     /** @test */
-    public function an_authorized_user_can_view_its_posts()
-    {
-        $this->withoutExceptionHandling();
-
-        // Given we have a user that follows a profile with a post
-        $user = $this->signIn();
-        $post = $this->createPostForUser($user);
-
-        // When he visits the posts page
-        // Then he sees the posts
-        $this->get(route('posts.index'))
-            ->assertSee($post->caption);
-    }
-
-    /** @test */
     public function an_authorized_user_can_only_view_its_own_posts()
     {
         $this->withoutExceptionHandling();
 
         // Given we have a user that follows a profile with a post
         $user = $this->signIn();
+
+        // The user should see this post
         $post = $this->createPostForUser($user);
 
-        // The user doesn't follow the next profile so shouldn't see it
+        // The user doesn't follow the next profile so shouldn't see it's post
         $hiddenProfile = factory('App\Profile')->create();
         $hiddenPost = factory('App\Post')->create(['profile_id' => $hiddenProfile->id]);
 

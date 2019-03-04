@@ -14,7 +14,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        return auth()->user()->profiles;
     }
 
     /**
@@ -41,8 +41,6 @@ class ProfileController extends Controller
         ]);
 
         $profile->attachToUser();
-
-        return redirect(route('profiles.index'));
     }
 
     /**
