@@ -2,7 +2,7 @@ body {
   background: #F0F4F8;
 }
 
-/* Navigation */
+/* Overrides */
 
 @media (min-width: 1280px) {
   .container {
@@ -34,5 +34,23 @@ body {
 
 .footer {
   opacity: 0;
+}
+
+#profilesModal table {
+  width: 100%;
+}
+
+#profilesModal table tr > td {
+  padding: 20px 0px;
+}
+
+#profilesModal table tr > td:first-child {
+  width: 1px;
+  padding: 0px 5px;
+  white-space: nowrap;
+}
+
+#profilesModal table tr > td:nth-child(2) {
+  padding-left: 10px;
 }
 
