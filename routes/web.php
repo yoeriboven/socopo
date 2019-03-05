@@ -12,9 +12,9 @@
 */
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'PostController@index')->name('posts.index');
