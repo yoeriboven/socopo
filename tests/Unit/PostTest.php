@@ -12,7 +12,7 @@ class PostTest extends TestCase
         $user = $this->signIn();
 
         $profile = factory('App\Profile')->create();
-        $profile->attachToUser($user);
+        $profile->attachUser($user);
 
         $post = factory('App\Post')->create(['profile_id' => $profile->id]);
 

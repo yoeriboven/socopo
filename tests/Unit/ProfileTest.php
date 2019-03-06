@@ -17,10 +17,28 @@ class ProfileTest extends TestCase
         $profile = factory('App\Profile')->create();
 
         // When they are attached
-        $profile->attachToUser($user);
+        $profile->attachUser($user);
 
         // It should show up in the database
         $this->assertDatabaseHas('profile_user', [
+            'profile_id' => $profile->id,
+            'user_id' => $user->id
+        ]);
+    }
+
+    /** @test */
+    public function a_profile_can_be_detached_from_a_user()
+    {
+        // Given we have a user and a profile
+        $user = factory('App\User')->create();
+        $profile = factory('App\Profile')->create();
+
+        $profile->attachUser($user);
+
+        $profile->detachUser($user);
+
+        // It should show up in the database
+        $this->assertDatabaseMissing('profile_user', [
             'profile_id' => $profile->id,
             'user_id' => $user->id
         ]);

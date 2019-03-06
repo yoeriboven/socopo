@@ -40,7 +40,7 @@ class ProfileController extends Controller
             'avatar' => request('avatar')
         ]);
 
-        $profile->attachToUser();
+        $profile->attachUser();
     }
 
     /**
@@ -85,6 +85,13 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        //
+        if (auth()->user()->profiles()->where('profile_id', $profile->id)->exists()) {
+            $profile->detachUser();
+
+            return response([], 204);
+        } else {
+            // Profile not attached to logged in user
+            return response([], 401);
+        }
     }
 }

@@ -41,7 +41,7 @@ class ViewPostsTest extends TestCase
     protected function createPostForUser($user)
     {
         $profile = factory('App\Profile')->create();
-        $profile->attachToUser($user);
+        $profile->attachUser($user);
 
         return factory('App\Post')->create(['profile_id' => $profile->id]);
     }

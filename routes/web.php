@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/profiles', 'ProfileController@store')->name('profiles.store');
 
     Route::get('api/profiles', 'ProfileController@index');
+    Route::delete('api/profiles/{profile}', 'ProfileController@destroy');
 });
 
 Auth::routes();

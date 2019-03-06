@@ -27,11 +27,27 @@ class Profile extends Model
      *
      * @param  User $user
      */
-    public function attachToUser($user = null)
+    public function attachUser($user = null)
     {
         $user = $user ?? auth()->user();
 
         $user->profiles()->attach($this);
+
+        return $this;
+    }
+
+    /**
+     * Detaches the current profile to the given user
+     *
+     * @param  User $user
+     */
+    public function detachUser($user = null)
+    {
+        $user = $user ?? auth()->user();
+
+        $user->profiles()->detach($this);
+
+        return $this;
     }
 
     /**
