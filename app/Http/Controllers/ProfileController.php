@@ -85,13 +85,12 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        if (auth()->user()->profiles()->where('profile_id', $profile->id)->exists()) {
-            $profile->detachUser();
-
-            return response([], 204);
-        } else {
-            // Profile not attached to logged in user
+        // Checks if the $profile is attached to the signed in user
+        if (auth()->user()->canNot('delete', $profile)) {
             return response([], 401);
         }
+
+        $profile->detachUser();
+        return response([], 204);
     }
 }

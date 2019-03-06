@@ -46,6 +46,10 @@ class ProfileApiTest extends TestCase
 
         // Then it should be deleted
         $this->assertCount(0, $user->profiles);
+        $this->assertDatabaseMissing('profile_user', [
+            'profile_id' => $profile->id,
+            'user_id' => $user->id
+        ]);
     }
 
     /** @test */
