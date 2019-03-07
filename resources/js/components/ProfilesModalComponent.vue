@@ -12,10 +12,7 @@
                     </div>
                     <div class="modal-body">
                         <table>
-                            <tr v-for="profile in profiles">
-                                <td><span class="avatar avatar-lg" v-bind:style="{ backgroundImage: 'url(' + profile.avatar + ')' }"></span></td>
-                                <td>@{{ profile.username }}</td>
-                            </tr>
+                            <profile-component v-for="profile in profiles" :profile="profile" :key="profile.id"></profile-component>
                         </table>
                     </div>
                 </div>
@@ -31,13 +28,16 @@
                 profiles: []
             }
         },
+        methods: {
+            getProfiles() {
+                axios.get('api/profiles')
+                    .then(response => {
+                        this.profiles = response.data;
+                    });
+            }
+        },
         created() {
-            axios.get('api/profiles')
-              .then(response => {
-                // handle success
-                this.profiles = response.data;
-                // console.log(response);
-              });
+            this.getProfiles();
         }
     }
 </script>
