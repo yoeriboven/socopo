@@ -5,7 +5,7 @@ namespace App\Libraries\Instagram;
 use GuzzleHttp\Client;
 use App\Libraries\Instagram\Exception\InstagramException;
 use App\Libraries\Instagram\Hydrator\HtmlHydrator;
-use App\Libraries\Instagram\Transport\HtmlTransportFeed;
+use App\Libraries\Instagram\Transport\TransportFeed;
 
 class InstagramDownloader
 {
@@ -29,6 +29,8 @@ class InstagramDownloader
     }
 
     /**
+     * Returns the feed for the given username
+     *
      * @return Hydrator\Component\Feed
      *
      * @throws InstagramException
@@ -37,30 +39,28 @@ class InstagramDownloader
      */
     public function getFeed()
     {
-        if (empty($this->userName)) {
-            throw new InstagramException('Username cannot be empty');
-        }
+        $data = $this->getData();
 
-        $feed     = new HtmlTransportFeed($this->client);
         $hydrator = new HtmlHydrator();
-
-        $dataFetched = $feed->fetchData($this->userName);
-
-        $hydrator->setData($dataFetched);
+        $hydrator->setData($data);
 
         return $hydrator->getHydratedData();
     }
 
+    /**
+     * Returns the profile picture for the given username
+     *
+     * @return Hydrator\Component\Feed
+     *
+     * @throws InstagramException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Exception
+     */
     public function getAvatar()
     {
-        if (empty($this->userName)) {
-            throw new InstagramException('Username cannot be empty');
-        }
+        $data = $this->getData();
 
-        $feed     = new HtmlTransportFeed($this->client);
-        $dataFetched = $feed->fetchData($this->userName);
-
-        return $dataFetched->profile_pic_url_hd;
+        return $data->profile_pic_url_hd;
     }
 
     /**
@@ -69,5 +69,30 @@ class InstagramDownloader
     public function setUserName($userName)
     {
         $this->userName = $userName;
+    }
+
+    /**
+     * Returns the profile data fetched from Instagram
+     *
+     * @return \stdClass
+     */
+    protected function getData()
+    {
+        $this->checkUsername();
+
+        $feed = new TransportFeed($this->client);
+        return $feed->fetchData($this->userName);
+    }
+
+    /**
+     * Checks wether the username is set
+     *
+     * @throws InstagramException
+     */
+    protected function checkUsername()
+    {
+        if (empty($this->userName)) {
+            throw new InstagramException('Username cannot be empty');
+        }
     }
 }
