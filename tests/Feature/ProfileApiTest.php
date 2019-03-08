@@ -96,10 +96,29 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function a_profile_requires_a_valid_username()
     {
+        // Limit - 30 symbols. Username must contains only letters, numbers, periods and underscores.
+
         $this->signIn();
 
-        $this->json('POST', '/api/profiles', ['username' => 'd'])
-            ->assertStatus(422);
+        /*
+         * 1. Too short (minimum 3)
+         * 2. Too long (maximum 30)
+         * 3 - ... Character not allowed
+         */
+        $usernames = [
+            'd',
+            'thisstringismorethanthirtychars',
+            'yoeri%',
+            'yoeri(',
+            'yoeri!',
+            'yoeri&',
+            'yo eri'
+        ];
+
+        foreach ($usernames as $username) {
+            $this->json('POST', '/api/profiles', ['username' => $username])
+                 ->assertStatus(422);
+        }
     }
 
     protected function publishProfile($overrides = [])

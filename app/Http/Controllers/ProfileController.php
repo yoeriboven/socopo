@@ -37,7 +37,7 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         request()->validate([
-            'username' => 'min:3'
+            'username' => 'min:3|max:30|regex:/^[a-zA-Z0-9._]+$/'
         ]);
 
         $api = new InstagramDownloader();
