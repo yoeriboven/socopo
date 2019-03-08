@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Profile;
 use Illuminate\Http\Request;
+use App\Libraries\Instagram\InstagramDownloader;
 
 class ProfileController extends Controller
 {
@@ -35,9 +36,12 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+        $api = new InstagramDownloader();
+        $api->setUsername(request('username'));
+
         $profile = Profile::firstOrCreate([
             'username' => request('username'),
-            'avatar' => 'https://scontent-ams3-1.cdninstagram.com/vp/939c87a37fda9a5a14cb6fb2a160f562/5D11BFD4/t51.2885-19/s150x150/13774452_308754809468576_1008534704_a.jpg?_nc_ht=scontent-ams3-1.cdninstagram.com'
+            'avatar' => $api->getAvatar()
         ]);
 
         $profile->attachUser();
