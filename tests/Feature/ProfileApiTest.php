@@ -10,8 +10,6 @@ class ProfileApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    const EXPECTED_AVATAR = "https://scontent-ams3-1.cdninstagram.com/vp/939c87a37fda9a5a14cb6fb2a160f562/5D11BFD4/t51.2885-19/s150x150/13774452_308754809468576_1008534704_a.jpg?_nc_ht=scontent-ams3-1.cdninstagram.com";
-
     /** @test */
     public function guest_cant_access_profile_controller()
     {
@@ -84,7 +82,7 @@ class ProfileApiTest extends TestCase
         // Assert it has been created
         $this->assertDatabaseHas('profiles', [
             'username' => $profile->username,
-            'avatar' => self::EXPECTED_AVATAR
+            'avatar' => 'https://scontent-ams3-1.cdninstagram.com/vp/939c87a37fda9a5a14cb6fb2a160f562/5D11BFD4/t51.2885-19/s150x150/13774452_308754809468576_1008534704_a.jpg?_nc_ht=scontent-ams3-1.cdninstagram.com'
         ]);
 
         // Assert it is attached to the signed in user
@@ -93,6 +91,15 @@ class ProfileApiTest extends TestCase
             'profile_id' => $createdProfile->id,
             'user_id' => $user->id
         ]);
+    }
+
+    /** @test */
+    public function a_profile_requires_a_valid_username()
+    {
+        $this->signIn();
+
+        $this->json('POST', '/api/profiles', ['username' => 'd'])
+            ->assertStatus(422);
     }
 
     protected function publishProfile($overrides = [])

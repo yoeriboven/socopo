@@ -36,6 +36,10 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
+        request()->validate([
+            'username' => 'min:3'
+        ]);
+
         $api = new InstagramDownloader();
         $api->setUsername(request('username'));
 
