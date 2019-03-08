@@ -37,7 +37,7 @@ class ProfileController extends Controller
     {
         $profile = Profile::firstOrCreate([
             'username' => request('username'),
-            'avatar' => request('avatar')
+            'avatar' => 'https://scontent-ams3-1.cdninstagram.com/vp/939c87a37fda9a5a14cb6fb2a160f562/5D11BFD4/t51.2885-19/s150x150/13774452_308754809468576_1008534704_a.jpg?_nc_ht=scontent-ams3-1.cdninstagram.com'
         ]);
 
         $profile->attachUser();

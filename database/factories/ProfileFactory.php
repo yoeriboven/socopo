@@ -4,7 +4,6 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Profile::class, function (Faker $faker) {
     return [
-        'username' => $faker->userName,
-        'avatar' => 'avatar'
+        'username' => $faker->userName
     ];
 });
