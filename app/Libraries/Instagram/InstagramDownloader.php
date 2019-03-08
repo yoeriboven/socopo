@@ -51,6 +51,18 @@ class InstagramDownloader
         return $hydrator->getHydratedData();
     }
 
+    public function getAvatar()
+    {
+        if (empty($this->userName)) {
+            throw new InstagramException('Username cannot be empty');
+        }
+
+        $feed     = new HtmlTransportFeed($this->client);
+        $dataFetched = $feed->fetchData($this->userName);
+
+        return $dataFetched->profile_pic_url_hd;
+    }
+
     /**
      * @param string $userName
      */

@@ -187,4 +187,17 @@ class ApiTest extends TestCase
         $this->assertSame(false, $media->isVideo());
         $this->assertSame(0, $media->getVideoViewCount());
     }
+
+    /**
+     * @throws CacheException
+     * @throws InstagramException
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function testAvatar()
+    {
+        $api = new InstagramDownloader($this->validHtmlClient);
+        $api->setUserName('pgrimaud');
+
+        $this->assertSame('https://scontent-cdg2-1.cdninstagram.com/vp/f49bc1ac9af43314d3354b4c4a987c6d/5B5BB12E/t51.2885-19/10483606_1498368640396196_604136733_a.jpg', $api->getAvatar());
+    }
 }
