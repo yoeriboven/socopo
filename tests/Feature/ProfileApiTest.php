@@ -121,6 +121,15 @@ class ProfileApiTest extends TestCase
         }
     }
 
+    /** @test */
+    public function it_shows_an_error_if_the_username_doesnt_exist_on_instagram()
+    {
+        $this->withoutExceptionHandling()->signIn();
+
+        $this->json('POST', '/api/profiles', ['username' => 'eioaienf'])
+             ->assertStatus(500);
+    }
+
     protected function publishProfile($overrides = [])
     {
         $profile = factory('App\Profile')->make($overrides);

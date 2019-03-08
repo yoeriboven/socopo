@@ -40,15 +40,22 @@ class ProfileController extends Controller
             'username' => 'min:3|max:30|regex:/^[a-zA-Z0-9._]+$/'
         ]);
 
-        $api = new InstagramDownloader();
-        $api->setUsername(request('username'));
+        try {
+            $api = new InstagramDownloader();
+            $api->setUsername(request('username'));
+            $avatar = $api->getAvatar();
+        } catch (\Exception $e) {
+            return response(['Profile not found for this username'], 500);
+        }
 
         $profile = Profile::firstOrCreate([
             'username' => request('username'),
-            'avatar' => $api->getAvatar()
+            'avatar' => $avatar
         ]);
 
         $profile->attachUser();
+
+        return response(['Profile added'], 201);
     }
 
     /**
