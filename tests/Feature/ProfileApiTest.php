@@ -4,11 +4,14 @@ namespace Tests\Feature;
 
 use App\Profile;
 use Tests\TestCase;
+use App\Libraries\Instagram\InstagramDownloader;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProfileApiTest extends TestCase
 {
     use RefreshDatabase;
+
+    const AVATAR = 'https://scontent-ams3-1.cdninstagram.com/vp/939c87a37fda9a5a14cb6fb2a160f562/5D11BFD4/t51.2885-19/s150x150/13774452_308754809468576_1008534704_a.jpg?_nc_ht=scontent-ams3-1.cdninstagram.com';
 
     /** @test */
     public function guest_cant_access_profile_controller()
@@ -76,13 +79,18 @@ class ProfileApiTest extends TestCase
         $this->withoutExceptionHandling();
         $user = $this->signIn();
 
+        // Mock the InstagramDownloader object
+        $this->mock(InstagramDownloader::class, function ($mock) {
+            $mock->shouldReceive('getAvatar')->andReturn(self::AVATAR);
+        });
+
         // Create the profile
         $profile = $this->publishProfile(['username' => 'yoeriboven']);
 
         // Assert it has been created
         $this->assertDatabaseHas('profiles', [
             'username' => $profile->username,
-            'avatar' => 'https://scontent-ams3-1.cdninstagram.com/vp/939c87a37fda9a5a14cb6fb2a160f562/5D11BFD4/t51.2885-19/s150x150/13774452_308754809468576_1008534704_a.jpg?_nc_ht=scontent-ams3-1.cdninstagram.com'
+            'avatar' => self::AVATAR
         ]);
 
         // Assert it is attached to the signed in user

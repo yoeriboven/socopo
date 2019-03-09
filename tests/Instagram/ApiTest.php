@@ -69,7 +69,7 @@ class ApiTest extends TestCase
         $this->expectException(InstagramException::class);
 
         $api = new InstagramDownloader($this->validHtmlClient);
-        $api->getFeed();
+        $api->getFeed('');
     }
 
     /**
@@ -79,9 +79,8 @@ class ApiTest extends TestCase
     public function testValidFeedReturn()
     {
         $api = new InstagramDownloader($this->validHtmlClient);
-        $api->setUserName('pgrimaud');
 
-        $feed = $api->getFeed();
+        $feed = $api->getFeed('pgrimaud');
 
         $this->assertInstanceOf(Feed::class, $feed);
     }
@@ -95,8 +94,7 @@ class ApiTest extends TestCase
         $this->expectException(InstagramException::class);
 
         $api = new InstagramDownloader($this->invalidHtmlClient);
-        $api->setUserName('pgrimaud');
-        $api->getFeed();
+        $api->getFeed('pgrimaud');
     }
 
     /**
@@ -108,8 +106,7 @@ class ApiTest extends TestCase
         $this->expectException(InstagramException::class);
 
         $api = new InstagramDownloader($this->invalidJsonHtmlClient);
-        $api->setUserName('pgrimaud');
-        $api->getFeed();
+        $api->getFeed('pgrimaud');
     }
 
     /**
@@ -119,9 +116,8 @@ class ApiTest extends TestCase
     public function testFeedContent()
     {
         $api = new InstagramDownloader($this->validHtmlClient);
-        $api->setUserName('pgrimaud');
 
-        $feed = $api->getFeed();
+        $feed = $api->getFeed('pgrimaud');
 
         $this->assertInstanceOf(Feed::class, $feed);
 
@@ -153,10 +149,9 @@ class ApiTest extends TestCase
     public function testMediaContent()
     {
         $api = new InstagramDownloader($this->validHtmlClient);
-        $api->setUserName('pgrimaud');
 
         /** @var Feed $feed */
-        $feed = $api->getFeed();
+        $feed = $api->getFeed('pgrimaud');
 
         $this->assertInstanceOf(Feed::class, $feed);
 
@@ -196,8 +191,7 @@ class ApiTest extends TestCase
     public function testAvatar()
     {
         $api = new InstagramDownloader($this->validHtmlClient);
-        $api->setUserName('pgrimaud');
 
-        $this->assertSame('https://scontent-cdg2-1.cdninstagram.com/vp/f49bc1ac9af43314d3354b4c4a987c6d/5B5BB12E/t51.2885-19/10483606_1498368640396196_604136733_a.jpg', $api->getAvatar());
+        $this->assertSame('https://scontent-cdg2-1.cdninstagram.com/vp/f49bc1ac9af43314d3354b4c4a987c6d/5B5BB12E/t51.2885-19/10483606_1498368640396196_604136733_a.jpg', $api->getAvatar('pgrimaud'));
     }
 }

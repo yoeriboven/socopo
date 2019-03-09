@@ -34,16 +34,14 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, InstagramDownloader $instagram)
     {
         request()->validate([
             'username' => 'min:3|max:30|regex:/^[a-zA-Z0-9._]+$/'
         ]);
 
         try {
-            $api = new InstagramDownloader();
-            $api->setUsername(request('username'));
-            $avatar = $api->getAvatar();
+            $avatar = $instagram->getAvatar(request('username'));
         } catch (\Exception $e) {
             return response(['Profile not found for this username'], 500);
         }

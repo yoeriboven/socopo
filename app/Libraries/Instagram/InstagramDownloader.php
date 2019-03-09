@@ -33,12 +33,16 @@ class InstagramDownloader
      *
      * @return Hydrator\Component\Feed
      *
+     * @param  $userName Username
+     *
      * @throws InstagramException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Exception
      */
-    public function getFeed()
+    public function getFeed($userName)
     {
+        $this->checkUsername($userName);
+
         $data = $this->getData();
 
         $hydrator = new HtmlHydrator();
@@ -50,25 +54,21 @@ class InstagramDownloader
     /**
      * Returns the profile picture for the given username
      *
+     * @param  $userName Username
+     *
      * @return Hydrator\Component\Feed
      *
      * @throws InstagramException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Exception
      */
-    public function getAvatar()
+    public function getAvatar($userName)
     {
+        $this->checkUsername($userName);
+
         $data = $this->getData();
 
         return $data->profile_pic_url_hd;
-    }
-
-    /**
-     * @param string $userName
-     */
-    public function setUserName($userName)
-    {
-        $this->userName = $userName;
     }
 
     /**
@@ -78,20 +78,20 @@ class InstagramDownloader
      */
     protected function getData()
     {
-        $this->checkUsername();
-
         $feed = new TransportFeed($this->client);
         return $feed->fetchData($this->userName);
     }
 
     /**
-     * Checks wether the username is set
+     * Throws an exception if the userName is not set
      *
-     * @throws InstagramException
+     * @param  String $userName
+     *
+     * @throws  InstagramException
      */
-    protected function checkUsername()
+    protected function checkUsername($userName)
     {
-        if (empty($this->userName)) {
+        if (empty($this->userName = $userName)) {
             throw new InstagramException('Username cannot be empty');
         }
     }
