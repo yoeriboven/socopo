@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Profile;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfileRequest;
 use App\Libraries\Instagram\InstagramDownloader;
 
 class ProfileController extends Controller
@@ -34,24 +35,15 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, InstagramDownloader $instagram)
+    public function store(ProfileRequest $request, InstagramDownloader $instagram)
     {
-        request()->validate([
-            'username' => 'min:3|max:30|regex:/^[a-zA-Z0-9._]+$/'
-        ]);
-
         try {
             $avatar = $instagram->getAvatar(request('username'));
+
+            Profile::createAndAttach(request('username'), $avatar);
         } catch (\Exception $e) {
             return response(['Profile not found for this username'], 500);
         }
-
-        $profile = Profile::firstOrCreate([
-            'username' => request('username'),
-            'avatar' => $avatar
-        ]);
-
-        $profile->attachUser();
 
         return response(['Profile added'], 201);
     }

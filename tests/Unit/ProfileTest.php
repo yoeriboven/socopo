@@ -2,12 +2,34 @@
 
 namespace Tests\Unit;
 
+use App\Profile;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProfileTest extends TestCase
 {
     use RefreshDatabase;
+
+    /** @test */
+    public function a_profile_can_be_created_and_attached()
+    {
+        $user = $this->signIn();
+
+        $username = 'yoeriboven';
+        $avatar = '';
+
+        $profile = Profile::createAndAttach($username, $avatar);
+
+        $this->assertDatabaseHas('profiles', [
+            'username' => $username,
+            'avatar' => $avatar
+        ]);
+
+        $this->assertDatabaseHas('profile_user', [
+            'profile_id' => $profile->id,
+            'user_id' => $user->id
+        ]);
+    }
 
     /** @test */
     public function a_profile_can_be_attached_to_a_user()

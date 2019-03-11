@@ -23,6 +23,21 @@ class Profile extends Model
     ];
 
     /**
+     * Finds or creates a profile based on the username and then attaches it to the user
+     *
+     * @param  String $username
+     * @param  String $avatar
+     * @return User
+     */
+    public static function createAndAttach($username, $avatar)
+    {
+        return static::firstOrCreate([
+            'username' => $username,
+            'avatar' => $avatar
+        ])->attachUser();
+    }
+
+    /**
      * Attaches the current profile to the given user
      *
      * @param  User $user
