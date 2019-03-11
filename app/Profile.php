@@ -46,7 +46,7 @@ class Profile extends Model
     {
         $user = $user ?? auth()->user();
 
-        $user->profiles()->attach($this);
+        $user->profiles()->syncWithoutDetaching([$this->id]);
 
         return $this;
     }

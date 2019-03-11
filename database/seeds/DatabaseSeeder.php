@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
         $besiktas = factory('App\Profile')->create([ 'username' => 'besiktas' ]);
         $ajax = factory('App\Profile')->create([ 'username' => 'afcajax' ]);
 
-        $besiktas->attachToUser($user);
-        $dobrik->attachToUser($user);
-        $ajax->attachToUser($user);
+        $besiktas->attachUser($user);
+        $dobrik->attachUser($user);
+        $ajax->attachUser($user);
 
         // Add posts
         factory('App\Post')->create(['profile_id' => $dobrik->id]);

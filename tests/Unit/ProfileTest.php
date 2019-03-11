@@ -32,6 +32,19 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
+    public function a_username_is_unique()
+    {
+        $this->signIn();
+
+        $username = 'yoeriboven';
+
+        Profile::createAndAttach($username, '');
+        Profile::createAndAttach($username, '');
+
+        $this->assertCount(1, Profile::all());
+    }
+
+    /** @test */
     public function a_profile_can_be_attached_to_a_user()
     {
         // Given we have a user and a profile
@@ -64,6 +77,18 @@ class ProfileTest extends TestCase
             'profile_id' => $profile->id,
             'user_id' => $user->id
         ]);
+    }
+
+    /** @test */
+    public function a_profile_and_user_can_be_attached_only_once()
+    {
+        $user = factory('App\User')->create();
+        $profile = factory('App\Profile')->create();
+
+        $profile->attachUser($user);
+        $profile->attachUser($user);
+
+        $this->assertCount(1, $user->profiles);
     }
 
     /** @test */

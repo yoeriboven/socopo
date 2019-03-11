@@ -138,6 +138,20 @@ class ProfileApiTest extends TestCase
              ->assertStatus(500);
     }
 
+    /** @test */
+    public function a_username_is_unique()
+    {
+        $this->withoutExceptionHandling();
+        $this->signIn();
+
+        $this->assertCount(0, Profile::all());
+
+        $this->publishProfile(['username' => 'brucewayne']);
+        $this->publishProfile(['username' => 'brucewayne']);
+
+        $this->assertCount(1, Profile::all());
+    }
+
     protected function publishProfile($overrides = [])
     {
         $profile = factory('App\Profile')->make($overrides);
