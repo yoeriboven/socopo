@@ -23,6 +23,17 @@ class Profile extends Model
     ];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'pivot',
+        'created_at',
+        'updated_at'
+    ];
+
+    /**
      * Attaches the current profile to the given user
      *
      * @param  User $user
