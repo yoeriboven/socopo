@@ -1821,23 +1821,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       username: '',
       message: '',
-      errors: null
+      errors: null,
+      loading: false
     };
   },
   computed: {
     profiles: function profiles() {
       return this.$parent.profiles;
+    },
+    validInput: function validInput() {
+      return this.username.length < 3;
     }
   },
   methods: {
     addProfile: function addProfile() {
       var _this = this;
 
+      if (!this.validInput) {// Errormessage: Username is too short
+      }
+
+      this.loading = true;
       axios.post('api/profiles/', {
         username: this.username
       }).then(function (response) {
@@ -1851,6 +1863,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
         _this.errors = error.response.data.errors;
+      }).then(function () {
+        _this.loading = false;
       });
     },
     resetMessages: function resetMessages() {
@@ -37041,6 +37055,8 @@ var render = function() {
         ])
       ]
     ),
+    _vm._v(" "),
+    this.loading ? _c("div", [_vm._v("\n\t\tLoading\n\t")]) : _vm._e(),
     _vm._v(" "),
     this.message
       ? _c(
