@@ -53,4 +53,23 @@ class ProfilesTest extends DuskTestCase
                     });
         });
     }
+
+    /** @test */
+    public function a_user_can_add_a_profile()
+    {
+        $user = $this->signIn();
+
+        $this->browse(function (Browser $browser) use ($user) {
+            $browser->loginAs($user)
+                    ->visit('/')
+                    ->click('#modalOpener')
+                    ->pause(500)
+                    ->whenAvailable('.modal', function ($modal) {
+                        $modal->type('username', 'yoeriboven')
+                            ->click('@add-username')
+                            ->waitFor('.success-alert')
+                            ->assertSee('@yoeriboven');
+                    });
+        });
+    }
 }

@@ -1843,7 +1843,9 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (response) {
         _this.resetMessages();
 
-        _this.message = response.data[0];
+        _this.message = response.data.message;
+
+        _this.profiles.unshift(response.data.profile);
       }).catch(function (error) {
         _this.resetMessages(); // Only do this if status code is 422
 
@@ -37034,14 +37036,18 @@ var render = function() {
           }
         }),
         _vm._v(" "),
-        _c("button", { attrs: { type: "submit" } }, [_vm._v("Add")])
+        _c("button", { attrs: { type: "submit", dusk: "add-username" } }, [
+          _vm._v("Add")
+        ])
       ]
     ),
     _vm._v(" "),
     this.message
-      ? _c("div", { staticStyle: { color: "green" } }, [
-          _vm._v("\n\t\t" + _vm._s(this.message) + "\n\t")
-        ])
+      ? _c(
+          "div",
+          { staticClass: "success-alert", staticStyle: { color: "green" } },
+          [_vm._v("\n\t\t" + _vm._s(this.message) + "\n\t")]
+        )
       : _vm._e(),
     _vm._v(" "),
     this.errors

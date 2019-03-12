@@ -39,14 +39,18 @@ class ProfileController extends Controller
     public function store(ProfileRequest $request, InstagramDownloader $instagram)
     {
         try {
-            $avatar = $instagram->getAvatar(request('username'));
+            $profile = Profile::firstOrCreate(['username' => request('username')]);
 
-            Profile::createAndAttach(request('username'), $avatar);
+            if (!$profile->avatar) {
+                $profile->avatar = $instagram->getAvatar(request('username'));
+            }
+
+            $profile->attachUser()->save();
         } catch (\Exception $e) {
             return response(['Profile not found for this username'], 500);
         }
 
-        return response(['Profile added'], 201);
+        return response(['message' => 'Profile added', 'profile' => $profile->toArray()], 201);
     }
 
     /**

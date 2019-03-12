@@ -11,40 +11,6 @@ class ProfileTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_profile_can_be_created_and_attached()
-    {
-        $user = $this->signIn();
-
-        $username = 'yoeriboven';
-        $avatar = '';
-
-        $profile = Profile::createAndAttach($username, $avatar);
-
-        $this->assertDatabaseHas('profiles', [
-            'username' => $username,
-            'avatar' => $avatar
-        ]);
-
-        $this->assertDatabaseHas('profile_user', [
-            'profile_id' => $profile->id,
-            'user_id' => $user->id
-        ]);
-    }
-
-    /** @test */
-    public function a_username_is_unique()
-    {
-        $this->signIn();
-
-        $username = 'yoeriboven';
-
-        Profile::createAndAttach($username, '');
-        Profile::createAndAttach($username, '');
-
-        $this->assertCount(1, Profile::all());
-    }
-
-    /** @test */
     public function a_profile_can_be_attached_to_a_user()
     {
         // Given we have a user and a profile

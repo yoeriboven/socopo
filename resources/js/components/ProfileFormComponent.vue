@@ -2,10 +2,10 @@
 	<div>
 		<form @submit.prevent="addProfile">
 			<input type="text" name="username" v-model="username" />
-			<button type="submit">Add</button>
+			<button type="submit" :dusk="`add-username`">Add</button>
 		</form>
 
-		<div v-if="this.message" style="color:green;">
+		<div v-if="this.message" style="color:green;" class="success-alert">
 			{{ this.message }}
 		</div>
 
@@ -37,7 +37,8 @@
                     .then(response => {
                     	this.resetMessages();
 
-                        this.message = response.data[0];
+                        this.message = response.data.message;
+                        this.profiles.unshift(response.data.profile);
                     })
                     .catch(error => {
                     	this.resetMessages();
