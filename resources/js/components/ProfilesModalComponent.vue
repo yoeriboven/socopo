@@ -11,6 +11,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <profile-form-component></profile-form-component>
                         <table>
                             <profile-component v-for="profile in profiles" :profile="profile" :key="profile.id"></profile-component>
                         </table>

@@ -32,7 +32,8 @@ class Profile extends Model
     public static function createAndAttach($username, $avatar)
     {
         return static::firstOrCreate([
-            'username' => $username,
+            'username' => $username
+        ], [
             'avatar' => $avatar
         ])->attachUser();
     }

@@ -43,6 +43,6 @@ class User extends Authenticatable
      */
     public function profiles()
     {
-        return $this->belongsToMany('App\Profile');
+        return $this->belongsToMany('App\Profile')->withTimestamps();
     }
 }

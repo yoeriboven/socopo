@@ -17,6 +17,7 @@ class CreateProfileUserTable extends Migration
             $table->primary(['profile_id', 'user_id']);
             $table->unsignedInteger('profile_id');
             $table->unsignedInteger('user_id');
+            $table->timestamps();
         });
     }
 

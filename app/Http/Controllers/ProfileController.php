@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Profile;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfileRequest;
+use App\Repositories\ProfileRepository;
 use App\Libraries\Instagram\InstagramDownloader;
 
 class ProfileController extends Controller
@@ -14,9 +15,9 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ProfileRepository $profiles)
     {
-        return auth()->user()->profiles;
+        return $profiles->forUser(auth()->user());
     }
 
     /**

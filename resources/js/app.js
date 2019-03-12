@@ -22,6 +22,7 @@ window.Vue = require('vue');
 
 Vue.component('profiles-modal-component', require('./components/ProfilesModalComponent.vue').default);
 Vue.component('profile-component', require('./components/ProfileComponent.vue').default);
+Vue.component('profile-form-component', require('./components/ProfileFormComponent.vue').default);
 
 
 /**
