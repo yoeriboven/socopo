@@ -13,8 +13,8 @@
 			{{ this.message }}
 		</div>
 
-		<div v-if="this.errors" style="color:red;">
-			{{ JSON.stringify(this.errors) }}
+		<div v-if="this.error" style="color:red;">
+			{{ this.error }}
 		</div>
 	</div>
 </template>
@@ -25,7 +25,7 @@
 			return {
 				username : '',
 				message : '',
-				errors : null,
+				error : '',
 				loading: false
 			}
 		},
@@ -34,13 +34,14 @@
     			return this.$parent.profiles;
     		},
     		validInput: function() {
-        		return this.username.length < 3;
+                return this.username.length >= 3 && this.username.length <= 30;
         	}
         },
         methods: {
         	addProfile() {
         		if (!this.validInput) {
-        			// Errormessage: Username is too short
+                    this.error = 'Username not found on Instagram';
+                    return;
         		}
 
         		this.loading = true;
@@ -57,8 +58,16 @@
                 .catch(error => {
                 	this.resetMessages();
 
-                	// Only do this if status code is 422
-				    this.errors = error.response.data.errors;
+                    if (!error.response) {
+                        this.errorMessage = 'Adding profile failed';
+                    }
+
+                    // 422 means there are validation errors
+                    if (error.response.status == 422 && error.response.data.errors.username) {
+                        this.error = error.response.data.errors.username[0];
+                    } else if (error.response.data) {
+                        this.error = error.response.data[0];
+                    }
 				})
 				.then(() => {
 					this.loading = false;

@@ -1830,7 +1830,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       username: '',
       message: '',
-      errors: null,
+      error: '',
       loading: false
     };
   },
@@ -1839,14 +1839,16 @@ __webpack_require__.r(__webpack_exports__);
       return this.$parent.profiles;
     },
     validInput: function validInput() {
-      return this.username.length < 3;
+      return this.username.length >= 3 && this.username.length <= 30;
     }
   },
   methods: {
     addProfile: function addProfile() {
       var _this = this;
 
-      if (!this.validInput) {// Errormessage: Username is too short
+      if (!this.validInput) {
+        this.error = 'Username not found on Instagram';
+        return;
       }
 
       this.loading = true;
@@ -1859,10 +1861,18 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.profiles.unshift(response.data.profile);
       }).catch(function (error) {
-        _this.resetMessages(); // Only do this if status code is 422
+        _this.resetMessages();
+
+        if (!error.response) {
+          _this.errorMessage = 'Adding profile failed';
+        } // 422 means there are validation errors
 
 
-        _this.errors = error.response.data.errors;
+        if (error.response.status == 422 && error.response.data.errors.username) {
+          _this.error = error.response.data.errors.username[0];
+        } else if (error.response.data) {
+          _this.error = error.response.data[0];
+        }
       }).then(function () {
         _this.loading = false;
       });
@@ -1926,6 +1936,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getProfiles();
+  },
+  mounted: function mounted() {
+    $('#profilesModal').modal('show');
   }
 });
 
@@ -37066,9 +37079,9 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    this.errors
+    this.error
       ? _c("div", { staticStyle: { color: "red" } }, [
-          _vm._v("\n\t\t" + _vm._s(JSON.stringify(this.errors)) + "\n\t")
+          _vm._v("\n\t\t" + _vm._s(this.error) + "\n\t")
         ])
       : _vm._e()
   ])
