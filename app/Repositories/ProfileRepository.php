@@ -14,4 +14,15 @@ class ProfileRepository
     {
         return $user->profiles()->orderBy('pivot_created_at', 'desc')->get();
     }
+
+    /**
+     * Returns whether a profile is attached to the user already
+     *
+     * @param  String $username
+     * @return Boolean
+     */
+    public function attached($username)
+    {
+        return !! auth()->user()->profiles()->where('username', $username)->exists();
+    }
 }

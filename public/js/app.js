@@ -1859,7 +1859,9 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.message = response.data.message;
 
-        _this.profiles.unshift(response.data.profile);
+        if (response.data.profile) {
+          _this.profiles.unshift(response.data.profile);
+        }
       }).catch(function (error) {
         _this.resetMessages();
 
@@ -1871,7 +1873,7 @@ __webpack_require__.r(__webpack_exports__);
         if (error.response.status == 422 && error.response.data.errors.username) {
           _this.error = error.response.data.errors.username[0];
         } else if (error.response.data) {
-          _this.error = error.response.data[0];
+          _this.error = error.response.data.message;
         }
       }).then(function () {
         _this.loading = false;
@@ -1879,7 +1881,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     resetMessages: function resetMessages() {
       this.message = '';
-      this.errors = null;
+      this.error = '';
     }
   }
 });

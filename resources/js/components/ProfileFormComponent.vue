@@ -53,7 +53,10 @@
                 	this.resetMessages();
 
                     this.message = response.data.message;
-                    this.profiles.unshift(response.data.profile);
+
+                    if (response.data.profile) {
+                        this.profiles.unshift(response.data.profile);
+                    }
                 })
                 .catch(error => {
                 	this.resetMessages();
@@ -66,7 +69,7 @@
                     if (error.response.status == 422 && error.response.data.errors.username) {
                         this.error = error.response.data.errors.username[0];
                     } else if (error.response.data) {
-                        this.error = error.response.data[0];
+                        this.error = error.response.data.message;
                     }
 				})
 				.then(() => {
@@ -75,7 +78,7 @@
         	},
         	resetMessages() {
         		this.message = '';
-        		this.errors = null;
+        		this.error = '';
         	}
         }
     }

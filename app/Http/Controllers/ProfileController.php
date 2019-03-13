@@ -11,23 +11,30 @@ use App\Libraries\Instagram\InstagramDownloader;
 class ProfileController extends Controller
 {
     /**
+     * Contains the profiles
+     *
+     * @var ProfileRepository
+     */
+    protected $profiles;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(ProfileRepository $profiles)
+    {
+        $this->profiles = $profiles;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ProfileRepository $profiles)
+    public function index()
     {
-        return $profiles->forUser(auth()->user());
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->profiles->forUser(auth()->user());
     }
 
     /**
@@ -38,53 +45,24 @@ class ProfileController extends Controller
      */
     public function store(ProfileRequest $request, InstagramDownloader $instagram)
     {
+        if ($this->profiles->attached($request->username)) {
+            return response(['message' => 'Profile has already been added.'], 202);
+        }
+
         try {
-            $profile = Profile::firstOrCreate(['username' => request('username')]);
+            $profile = Profile::firstOrCreate(['username' => $request->username]);
 
             if (!$profile->avatar) {
-                $profile->avatar = $instagram->getAvatar(request('username'));
+                $profile->avatar = $instagram->getAvatar($request->username);
             }
 
             $profile->attachUser()->save();
         } catch (\Exception $e) {
-            return response(['Profile not found for this username'], 500);
+            // Sentry include username
+            return response(['message' => 'Profile not found for this username'], 500);
         }
 
         return response(['message' => 'Profile added', 'profile' => $profile->toArray()], 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Profile $profile)
-    {
-        //
     }
 
     /**

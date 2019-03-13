@@ -146,10 +146,23 @@ class ProfileApiTest extends TestCase
 
         $this->assertCount(0, Profile::all());
 
-        $this->publishProfile(['username' => 'brucewayne']);
-        $this->publishProfile(['username' => 'brucewayne']);
+        $this->publishProfile(['username' => 'yoeriboven']);
+        $this->publishProfile(['username' => 'yoeriboven']);
 
         $this->assertCount(1, Profile::all());
+    }
+
+    /** @test */
+    public function a_status_code_is_shown_when_an_account_tries_to_be_attached_again()
+    {
+        $this->withoutExceptionHandling();
+        $this->signIn();
+
+        $profile = factory('App\Profile')->make(['username' => 'yoeriboven']);
+
+        $this->post('/api/profiles', $profile->toArray());
+        $response = $this->post('/api/profiles', $profile->toArray());
+        $response->assertStatus(202);
     }
 
     protected function publishProfile($overrides = [])
