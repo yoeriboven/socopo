@@ -15,27 +15,36 @@ class InstagramCommand
 
     public function handle()
     {
-        $profiles = Profile::all();
+        $profiles = Profile::whereIn('id', [1,2,3,7])->get();
 
         foreach ($profiles as $profile) {
-            $feed = $this->getFeed($profile->username);
+            // Avoid 429 Rate limit from Instagram
+            sleep(.5);
+
+            echo $profile->username;
+
+            try {
+                $feed = $this->api->getFeed($profile->username);
+            } catch (\Exception $e) {
+                // Sentry (couldn't find user on Instagram)
+                continue;
+            }
 
             $profile->updateAvatar($feed->profilePicture);
 
             echo '<pre>';
             print_r($feed);
             echo '</pre>';
-            echo "<img src='{$feed->medias[0]->displaySrc}' />";
 
-            // Avoid 429 Rate limit from Instagram
-            sleep(.5);
+            if ($feed->getMediaCount() == 0) {
+                continue;
+            }
+
+            // Now check if this post is newer than the latest one stored on our end
+
+
+
+            echo '<hr/>';
         }
-    }
-
-    protected function getFeed($username)
-    {
-        $this->api->setUserName($username);
-
-        return $this->api->getFeed();
     }
 }

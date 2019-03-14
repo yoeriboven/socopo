@@ -254,6 +254,14 @@ class Feed
     }
 
     /**
+     * @return Media
+     */
+    public function getLatestMedia()
+    {
+        return $this->medias[0];
+    }
+
+    /**
      * @param Media $media
      */
     public function addMedia(Media $media)
