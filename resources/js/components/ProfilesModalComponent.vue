@@ -12,9 +12,13 @@
                     </div>
                     <div class="modal-body">
                         <profile-form-component></profile-form-component>
-                        <table>
+                        <table v-if="profiles.length">
                             <profile-component v-for="profile in profiles" :profile="profile" :key="profile.id"></profile-component>
                         </table>
+
+                        <div v-else>
+                            No profiles yet. Go add some!
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1921,6 +1921,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1938,9 +1942,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getProfiles();
-  },
-  mounted: function mounted() {
-    $('#profilesModal').modal('show');
   }
 });
 
@@ -37140,16 +37141,22 @@ var render = function() {
                 [
                   _c("profile-form-component"),
                   _vm._v(" "),
-                  _c(
-                    "table",
-                    _vm._l(_vm.profiles, function(profile) {
-                      return _c("profile-component", {
-                        key: profile.id,
-                        attrs: { profile: profile }
-                      })
-                    }),
-                    1
-                  )
+                  _vm.profiles.length
+                    ? _c(
+                        "table",
+                        _vm._l(_vm.profiles, function(profile) {
+                          return _c("profile-component", {
+                            key: profile.id,
+                            attrs: { profile: profile }
+                          })
+                        }),
+                        1
+                      )
+                    : _c("div", [
+                        _vm._v(
+                          "\n                        No profiles yet. Go add some!\n                    "
+                        )
+                      ])
                 ],
                 1
               )

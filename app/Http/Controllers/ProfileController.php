@@ -11,7 +11,7 @@ use App\Libraries\Instagram\InstagramDownloader;
 class ProfileController extends Controller
 {
     /**
-     * Contains the profiles
+     * Provides access to the profiles
      *
      * @var ProfileRepository
      */

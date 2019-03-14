@@ -16,7 +16,7 @@ class ProfileRepository
     }
 
     /**
-     * Returns whether a profile is attached to the user already
+     * Returns whether a profile is attached to the authorized user already
      *
      * @param  String $username
      * @return Boolean
