@@ -12,11 +12,20 @@
                     </div>
                     <div class="modal-body">
                         <profile-form-component></profile-form-component>
-                        <table v-if="profiles.length">
-                            <profile-component v-for="profile in profiles" :profile="profile" :key="profile.id"></profile-component>
+
+                        <div v-if="profiles.success" style="color:green;" class="success-alert">
+                            {{ profiles.success }}
+                        </div>
+
+                        <div v-if="profiles.error" style="color:red;">
+                            {{ profiles.error }}
+                        </div>
+
+                        <table v-if="profiles.data.length">
+                            <profile-component v-for="profile in profiles.data" :profile="profile" :key="profile.id"></profile-component>
                         </table>
 
-                        <div v-else>
+                        <div v-if="this.showEmptyDataView">
                             No profiles yet. Go add some!
                         </div>
                     </div>
@@ -27,18 +36,36 @@
 </template>
 
 <script>
+    import ProfileStore from '../ProfileStore.js';
+
     export default {
         data() {
             return {
-                profiles: []
+                profiles: ProfileStore.data
+            }
+        },
+        computed: {
+            showEmptyDataView() {
+                // Dont show 'empty data view' if there are no profiles because of a server error
+                return this.profiles.data.length == 0 && this.profiles.error == '';
             }
         },
         methods: {
             getProfiles() {
                 axios.get('api/profiles')
                     .then(response => {
-                        this.profiles = response.data;
+                        this.resetMessages();
+
+                        this.profiles.data = response.data;
+                    }).catch(error => {
+                        this.resetMessages();
+
+                        this.profiles.error = 'Fetching profiles failed';
                     });
+            },
+            resetMessages() {
+                this.profiles.success = '';
+                this.profiles.error = '';
             }
         },
         created() {

@@ -8,31 +8,21 @@
 		<div v-if="this.loading">
 			Loading
 		</div>
-
-		<div v-if="this.message" style="color:green;" class="success-alert">
-			{{ this.message }}
-		</div>
-
-		<div v-if="this.error" style="color:red;">
-			{{ this.error }}
-		</div>
 	</div>
 </template>
 
 <script>
+    import ProfileStore from '../ProfileStore.js';
+
 	export default {
 		data() {
 			return {
-				username : '',
-				message : '',
-				error : '',
-				loading: false
+				profiles : ProfileStore.data,
+                username : '',
+                loading: false
 			}
 		},
 		computed: {
-    		profiles: function() {
-    			return this.$parent.profiles;
-    		},
     		validInput: function() {
                 return this.username.length >= 3 && this.username.length <= 30;
         	}
@@ -40,7 +30,7 @@
         methods: {
         	addProfile() {
         		if (!this.validInput) {
-                    this.error = 'Username not found on Instagram';
+                    this.profiles.error = 'Username not found on Instagram';
                     return;
         		}
 
@@ -50,35 +40,33 @@
         			username : this.username
     			})
                 .then(response => {
-                	this.resetMessages();
+                	this.$parent.resetMessages();
 
-                    this.message = response.data.message;
+                    this.profiles.success = response.data.message;
+                    this.username = '';
 
                     if (response.data.profile) {
-                        this.profiles.unshift(response.data.profile);
+                        this.profiles.data.unshift(response.data.profile);
                     }
                 })
                 .catch(error => {
-                	this.resetMessages();
+                	this.$parent.resetMessages();
 
                     if (!error.response) {
-                        this.errorMessage = 'Adding profile failed';
+                        this.profiles.error = 'Adding profile failed';
                     }
 
                     // 422 means there are validation errors
                     if (error.response.status == 422 && error.response.data.errors.username) {
-                        this.error = error.response.data.errors.username[0];
+                        console.log(error.response.data.errors.username[0]);
+                        this.profiles.error = error.response.data.errors.username[0];
                     } else if (error.response.data) {
-                        this.error = error.response.data.message;
+                        this.profiles.error = error.response.data.message;
                     }
 				})
 				.then(() => {
 					this.loading = false;
 				});
-        	},
-        	resetMessages() {
-        		this.message = '';
-        		this.error = '';
         	}
         }
     }

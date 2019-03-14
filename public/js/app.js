@@ -1763,6 +1763,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileStore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ProfileStore.js */ "./resources/js/ProfileStore.js");
 //
 //
 //
@@ -1771,23 +1772,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['profile'],
-  computed: {
-    profiles: function profiles() {
-      return this.$parent.profiles;
-    }
+  data: function data() {
+    return {
+      profiles: _ProfileStore_js__WEBPACK_IMPORTED_MODULE_0__["default"].data
+    };
   },
   methods: {
     destroy: function destroy() {
       var _this = this;
 
       axios.delete('api/profiles/' + this.profile.id).then(function (response) {
-        _this.profiles.splice(_this.profiles.indexOf(_this.profile), 1);
+        _this.$parent.resetMessages();
 
-        console.log('Response: ' + response);
+        _this.profiles.data.splice(_this.profiles.data.indexOf(_this.profile), 1);
+
+        _this.profiles.success = 'Profile removed';
       }).catch(function (error) {
-        console.log('Error: ' + error);
+        this.profiles.error = 'Removing profile failed';
       });
     }
   }
@@ -1804,6 +1808,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileStore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ProfileStore.js */ "./resources/js/ProfileStore.js");
 //
 //
 //
@@ -1817,27 +1822,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      profiles: _ProfileStore_js__WEBPACK_IMPORTED_MODULE_0__["default"].data,
       username: '',
-      message: '',
-      error: '',
       loading: false
     };
   },
   computed: {
-    profiles: function profiles() {
-      return this.$parent.profiles;
-    },
     validInput: function validInput() {
       return this.username.length >= 3 && this.username.length <= 30;
     }
@@ -1847,7 +1841,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       if (!this.validInput) {
-        this.error = 'Username not found on Instagram';
+        this.profiles.error = 'Username not found on Instagram';
         return;
       }
 
@@ -1855,33 +1849,31 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('api/profiles/', {
         username: this.username
       }).then(function (response) {
-        _this.resetMessages();
+        _this.$parent.resetMessages();
 
-        _this.message = response.data.message;
+        _this.profiles.success = response.data.message;
+        _this.username = '';
 
         if (response.data.profile) {
-          _this.profiles.unshift(response.data.profile);
+          _this.profiles.data.unshift(response.data.profile);
         }
       }).catch(function (error) {
-        _this.resetMessages();
+        _this.$parent.resetMessages();
 
         if (!error.response) {
-          _this.errorMessage = 'Adding profile failed';
+          _this.profiles.error = 'Adding profile failed';
         } // 422 means there are validation errors
 
 
         if (error.response.status == 422 && error.response.data.errors.username) {
-          _this.error = error.response.data.errors.username[0];
+          console.log(error.response.data.errors.username[0]);
+          _this.profiles.error = error.response.data.errors.username[0];
         } else if (error.response.data) {
-          _this.error = error.response.data.message;
+          _this.profiles.error = error.response.data.message;
         }
       }).then(function () {
         _this.loading = false;
       });
-    },
-    resetMessages: function resetMessages() {
-      this.message = '';
-      this.error = '';
     }
   }
 });
@@ -1897,6 +1889,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ProfileStore_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ProfileStore.js */ "./resources/js/ProfileStore.js");
 //
 //
 //
@@ -1925,19 +1918,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      profiles: []
+      profiles: _ProfileStore_js__WEBPACK_IMPORTED_MODULE_0__["default"].data
     };
+  },
+  computed: {
+    showEmptyDataView: function showEmptyDataView() {
+      // Dont show 'empty data view' if there are no profiles because of a server error
+      return this.profiles.data.length == 0 && this.profiles.error == '';
+    }
   },
   methods: {
     getProfiles: function getProfiles() {
       var _this = this;
 
       axios.get('api/profiles').then(function (response) {
-        _this.profiles = response.data;
+        _this.resetMessages();
+
+        _this.profiles.data = response.data;
+      }).catch(function (error) {
+        _this.resetMessages();
+
+        _this.profiles.error = 'Fetching profiles failed';
       });
+    },
+    resetMessages: function resetMessages() {
+      this.profiles.success = '';
+      this.profiles.error = '';
     }
   },
   created: function created() {
@@ -37072,21 +37091,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    this.loading ? _c("div", [_vm._v("\n\t\tLoading\n\t")]) : _vm._e(),
-    _vm._v(" "),
-    this.message
-      ? _c(
-          "div",
-          { staticClass: "success-alert", staticStyle: { color: "green" } },
-          [_vm._v("\n\t\t" + _vm._s(this.message) + "\n\t")]
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    this.error
-      ? _c("div", { staticStyle: { color: "red" } }, [
-          _vm._v("\n\t\t" + _vm._s(this.error) + "\n\t")
-        ])
-      : _vm._e()
+    this.loading ? _c("div", [_vm._v("\n\t\tLoading\n\t")]) : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -37141,10 +37146,37 @@ var render = function() {
                 [
                   _c("profile-form-component"),
                   _vm._v(" "),
-                  _vm.profiles.length
+                  _vm.profiles.success
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "success-alert",
+                          staticStyle: { color: "green" }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.profiles.success) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.profiles.error
+                    ? _c("div", { staticStyle: { color: "red" } }, [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(_vm.profiles.error) +
+                            "\n                    "
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.profiles.data.length
                     ? _c(
                         "table",
-                        _vm._l(_vm.profiles, function(profile) {
+                        _vm._l(_vm.profiles.data, function(profile) {
                           return _c("profile-component", {
                             key: profile.id,
                             attrs: { profile: profile }
@@ -37152,11 +37184,15 @@ var render = function() {
                         }),
                         1
                       )
-                    : _c("div", [
+                    : _vm._e(),
+                  _vm._v(" "),
+                  this.showEmptyDataView
+                    ? _c("div", [
                         _vm._v(
                           "\n                        No profiles yet. Go add some!\n                    "
                         )
                       ])
+                    : _vm._e()
                 ],
                 1
               )
@@ -49293,6 +49329,25 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+
+/***/ "./resources/js/ProfileStore.js":
+/*!**************************************!*\
+  !*** ./resources/js/ProfileStore.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: {
+    data: [],
+    success: '',
+    error: ''
+  }
+});
 
 /***/ }),
 

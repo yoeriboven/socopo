@@ -7,24 +7,29 @@
 </template>
 
 <script>
+    import ProfileStore from '../ProfileStore.js';
+
     export default {
         props: ['profile'],
 
-        computed: {
-    		profiles: function() {
-    			return this.$parent.profiles;
-    		}
+        data() {
+            return {
+                profiles: ProfileStore.data
+            }
         },
 
         methods: {
         	destroy() {
         		axios.delete('api/profiles/' + this.profile.id)
                     .then(response => {
-                    	this.profiles.splice(this.profiles.indexOf(this.profile), 1);
-                        console.log('Response: ' + response);
+                        this.$parent.resetMessages();
+
+                    	this.profiles.data.splice(this.profiles.data.indexOf(this.profile), 1);
+
+                        this.profiles.success = 'Profile removed';
                     })
                     .catch(function (error) {
-					    console.log('Error: ' + error);
+                        this.profiles.error = 'Removing profile failed';
 					});
         	}
         }
