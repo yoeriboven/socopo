@@ -50,7 +50,7 @@ class ProfileController extends Controller
         }
 
         try {
-            $profile = Profile::firstOrCreate(['username' => $request->username]);
+            $profile = Profile::firstOrNew(['username' => $request->username]);
 
             if (!$profile->avatar) {
                 $profile->avatar = $instagram->getAvatar($request->username);
