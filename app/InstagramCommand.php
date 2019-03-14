@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Illuminate\Support\Carbon;
+use App\Repositories\PostRepository;
 use App\Libraries\Instagram\InstagramDownloader;
 
 class InstagramCommand
@@ -11,15 +13,16 @@ class InstagramCommand
     public function __construct()
     {
         $this->api = new InstagramDownloader();
+        $this->posts = new PostRepository();
     }
 
     public function handle()
     {
-        $profiles = Profile::whereIn('id', [1,2,3,7])->get();
+        $profiles = Profile::all();
+        $posts = $this->posts->latestForProfiles($profiles->pluck('id'));
 
         foreach ($profiles as $profile) {
-            // Avoid 429 Rate limit from Instagram
-            sleep(.5);
+            $this->avoidRateLimit();
 
             echo $profile->username;
 
@@ -41,10 +44,33 @@ class InstagramCommand
             }
 
             // Now check if this post is newer than the latest one stored on our end
+            $newPost = $feed->getLatestMedia();
+            $latestPost = $posts->get($profile->id);
 
+            // We have the newest post stored already
+            if ($newPost->id == $latestPost->ig_post_id) {
+                echo 'niet nieuwer';
+                continue;
+            }
 
-
-            echo '<hr/>';
+            // Store new post
+            Post::create([
+                'profile_id' => $profile->id,
+                'ig_post_id' => $newPost->id,
+                'caption' => $newPost->caption,
+                'type' => $newPost->typeName,
+                'image_url' => $newPost->displaySrc,
+                'post_url' => $newPost->link,
+                'posted_at' => Carbon::now()
+            ]);
         }
+    }
+
+    /**
+     * Wait for a little while to avoid an 429 Rate limit from Instagram
+     */
+    protected function avoidRateLimit()
+    {
+        sleep(.5);
     }
 }

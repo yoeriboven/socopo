@@ -30,4 +30,27 @@ class PostRepository
 
         return $posts;
     }
+
+    /**
+     * Gets the latest post for the given profiles
+     *
+     * @param  array $profiles  Contains the ids of the profiles
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function latestForProfiles($profiles)
+    {
+        // Gets every unique profile_id with the latest date
+        $sub = Post::select('profile_id', \DB::raw('MAX(posted_at) AS max_date'))->whereIn('profile_id', $profiles)->groupBy('profile_id');
+
+        // Grabs one post for every profile_id in $sub that's equal to the max_date
+        $posts = Post::joinSub($sub->toSql(), 'max_table', function ($join) {
+            $join->on('max_table.profile_id', '=', 'posts.profile_id');
+            $join->on('max_table.max_date', '=', 'posts.posted_at');
+        })
+        ->addBinding($sub->getBindings(), 'join')
+        ->get()
+        ->keyBy('profile_id');
+
+        return $posts;
+    }
 }

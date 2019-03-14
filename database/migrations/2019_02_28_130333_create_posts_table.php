@@ -16,11 +16,12 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('profile_id');
-            $table->unsignedInteger('ig_post_id');
-            $table->string('caption');
+            $table->string('ig_post_id');
+            $table->text('caption');
             $table->string('type');
-            $table->string('link');
-            $table->dateTime('posted_at');
+            $table->string('image_url', 500);
+            $table->string('post_url', 500);
+            $table->timestamp('posted_at');
             $table->timestamps();
         });
     }

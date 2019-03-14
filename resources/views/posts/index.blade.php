@@ -13,6 +13,7 @@
 	    @foreach ($posts as $post)
 	    	{{ $post->caption }}
 	    	<a href="">{{ '@'.$post->profile->username}}</a>
+	    	{{ $post->posted_at->diffForHumans() }}
 	    	<hr/>
 	    @endforeach
     @endif
