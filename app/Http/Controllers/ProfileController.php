@@ -56,7 +56,8 @@ class ProfileController extends Controller
                 $profile->avatar = $instagram->getAvatar($request->username);
             }
 
-            $profile->attachUser()->save();
+            $profile->save();
+            $profile->attachUser();
         } catch (\Exception $e) {
             // Sentry include username
             return response(['message' => 'Profile not found for this username'], 500);
