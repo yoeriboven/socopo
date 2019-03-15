@@ -12,11 +12,8 @@ class PostRepository
      * @param  User $user
      * @return \Illuminate\Database\Eloquent\Collection;
      */
-    public function forUser($user = null)
+    public function forUser($user)
     {
-        // Use the given user or the authenticated user
-        $user = $user ?? auth()->user();
-
         // Get the IDs of the profiles the user follows
         $profiles = $user->profiles()->get()->keyBy('id');
 
@@ -34,13 +31,16 @@ class PostRepository
     /**
      * Gets the latest post for the given profiles
      *
-     * @param  array $profiles  Contains the ids of the profiles
+     * @param  \Illuminate\Database\Eloquent\Collection $profiles
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function latestForProfiles($profiles)
     {
+        // Creates array with just the id from every profile
+        $ids = $profiles->pluck('id');
+
         // Gets every unique profile_id with the latest date
-        $sub = Post::select('profile_id', \DB::raw('MAX(posted_at) AS max_date'))->whereIn('profile_id', $profiles)->groupBy('profile_id');
+        $sub = Post::select('profile_id', \DB::raw('MAX(posted_at) AS max_date'))->whereIn('profile_id', $ids)->groupBy('profile_id');
 
         // Grabs one post for every profile_id in $sub that's equal to the max_date
         $posts = Post::joinSub($sub->toSql(), 'max_table', function ($join) {

@@ -1,0 +1,2 @@
+Every User follows multiple Profiles and every Profile can be followed by multiple Users. <Many-to-Many>
+Every Profile can have multiple Posts but every Post belongs to one Profile. <One-to-Many>

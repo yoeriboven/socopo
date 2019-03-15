@@ -19,7 +19,7 @@ class InstagramCommand
     public function handle()
     {
         $profiles = Profile::all();
-        $posts = $this->posts->latestForProfiles($profiles->pluck('id'));
+        $posts = $this->posts->latestForProfiles($profiles);
 
         foreach ($profiles as $profile) {
             $this->avoidRateLimit();
@@ -49,7 +49,6 @@ class InstagramCommand
 
             // We have the newest post stored already
             if ($newPost->id == $latestPost->ig_post_id) {
-                echo 'niet nieuwer';
                 continue;
             }
 
