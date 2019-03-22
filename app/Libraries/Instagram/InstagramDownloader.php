@@ -78,7 +78,10 @@ class InstagramDownloader
      */
     protected function getData()
     {
-        $feed = new TransportFeed($this->client);
+        $this->avoidRateLimit();
+
+        $feed = app(TransportFeed::class);
+        $feed->setClient($this->client);
         return $feed->fetchData($this->userName);
     }
 

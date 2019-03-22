@@ -33,8 +33,7 @@ class PostRepositoryTest extends TestCase
         // Both posts are attached to a profile $authUser follows
         $profileOne = factory('App\Profile')->create();
         $profileOne->attachUser($authUser);
-        $postOne = factory('App\Post')->create(['profile_id' => $profileOne->id]);
-        $postTwo = factory('App\Post')->create(['profile_id' => $profileOne->id]);
+        [$postOne, $postTwo] = factory('App\Post', 2)->create(['profile_id' => $profileOne->id]);
 
         // Not attached to $authUser
         $profileTwo = factory('App\Profile')->create();

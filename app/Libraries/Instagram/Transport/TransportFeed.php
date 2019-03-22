@@ -17,16 +17,6 @@ class TransportFeed
     protected $client;
 
     /**
-     * HtmlTransportFeed constructor.
-     *
-     * @param Client            $client
-     */
-    public function __construct(Client $client)
-    {
-        $this->client       = $client;
-    }
-
-    /**
      * @param $userName
      *
      * @return mixed
@@ -61,5 +51,13 @@ class TransportFeed
         }
 
         return $data->entry_data->ProfilePage[0]->graphql->user;
+    }
+
+    /**
+     * @param Client $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
     }
 }

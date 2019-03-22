@@ -19,12 +19,13 @@ class InstagramCommand
     public function handle()
     {
         $profiles = Profile::all();
+        // $profiles = Profile::whereIn('id', [1,3,10,11])->latest()->get();
         $posts = $this->posts->latestForProfiles($profiles);
 
         foreach ($profiles as $profile) {
             $this->avoidRateLimit();
 
-            echo $profile->username;
+            // echo $profile->username;
 
             try {
                 $feed = $this->api->getFeed($profile->username);
@@ -36,7 +37,7 @@ class InstagramCommand
             $profile->updateAvatar($feed->profilePicture);
 
             echo '<pre>';
-            print_r($feed);
+            // print_r($feed);
             echo '</pre>';
 
             if ($feed->getMediaCount() == 0) {
@@ -44,11 +45,16 @@ class InstagramCommand
             }
 
             // Now check if this post is newer than the latest one stored on our end
+            $latestPostId = 0;
+
             $newPost = $feed->getLatestMedia();
-            $latestPost = $posts->get($profile->id);
+            if ($posts->has($profile->id)) {
+                $latestPostId = $posts->get($profile->id)->ig_post_id;
+            }
 
             // We have the newest post stored already
-            if ($newPost->id == $latestPost->ig_post_id) {
+            // echo $newPost->id. ' - '.$latestPostId;
+            if ($newPost->id == $latestPostId) {
                 continue;
             }
 

@@ -79,7 +79,7 @@ class ProfileApiTest extends TestCase
         $this->withoutExceptionHandling();
         $user = $this->signIn();
 
-        // Mock the InstagramDownloader object
+        // Avatar shouldn't be downloaded
         $this->mock(InstagramDownloader::class, function ($mock) {
             $mock->shouldReceive('getAvatar')->andReturn(self::AVATAR);
         });
