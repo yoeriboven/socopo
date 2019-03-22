@@ -238,6 +238,14 @@ class Feed
     }
 
     /**
+     * @return  boolean
+     */
+    public function hasMedia()
+    {
+        return ! empty($this->medias);
+    }
+
+    /**
      * @param int $mediaCount
      */
     public function setMediaCount($mediaCount)

@@ -18,31 +18,18 @@ class InstagramCommand
 
     public function handle()
     {
-        $profiles = Profile::all();
-        // $profiles = Profile::whereIn('id', [1,3,10,11])->latest()->get();
+        $profiles = $this->getProfilesWithFeeds();
         $posts = $this->posts->latestForProfiles($profiles);
 
         foreach ($profiles as $profile) {
-            $this->avoidRateLimit();
-
-            // echo $profile->username;
-
-            try {
-                $feed = $this->api->getFeed($profile->username);
-            } catch (\Exception $e) {
-                // Sentry (couldn't find user on Instagram)
-                continue;
-            }
+            echo $profile->username;
+            $feed = $profile->feed;
 
             $profile->updateAvatar($feed->profilePicture);
 
             echo '<pre>';
-            // print_r($feed);
+            print_r($feed);
             echo '</pre>';
-
-            if ($feed->getMediaCount() == 0) {
-                continue;
-            }
 
             // Now check if this post is newer than the latest one stored on our end
             $latestPostId = 0;
@@ -58,6 +45,7 @@ class InstagramCommand
                 continue;
             }
 
+
             // Store new post
             Post::create([
                 'profile_id' => $profile->id,
@@ -72,10 +60,33 @@ class InstagramCommand
     }
 
     /**
-     * Wait for a little while to avoid an 429 Rate limit from Instagram
+     * Filters out profiles without a feed and those feeds without media
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
      */
-    protected function avoidRateLimit()
+    private function getProfilesWithFeeds()
     {
-        sleep(.5);
+        return Profile::all()->filter(function ($profile) {
+            $feed = $this->getFeedForUsername($profile->username);
+            $profile->setRelation('feed', $feed);
+            return $feed;
+        })->filter(function ($profile) {
+            return $profile->feed->hasMedia();
+        });
+    }
+
+    /**
+     * Fetches the feed from Instagram
+     *
+     * @param  string $username
+     * @return App\Libraries\Instagram\Hydrator\Component\Feed or null
+     */
+    private function getFeedForUsername($username)
+    {
+        try {
+            return $this->api->getFeed($username);
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }

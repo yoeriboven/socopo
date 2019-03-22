@@ -98,4 +98,12 @@ class InstagramDownloader
             throw new InstagramException('Username cannot be empty');
         }
     }
+
+    /**
+     * Wait for a little while to avoid an 429 Rate limit from Instagram
+     */
+    private function avoidRateLimit()
+    {
+        sleep(.5);
+    }
 }
