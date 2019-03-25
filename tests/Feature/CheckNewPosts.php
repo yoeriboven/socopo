@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Illuminate\Support\Carbon;
 use App\Repositories\PostRepository;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Libraries\Instagram\Transport\TransportFeed;
@@ -11,11 +12,18 @@ class CheckNewPosts extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->createMocks();
+    }
+
     /** @test */
     public function it_stores_new_posts_from_instagram()
     {
         $this->withoutExceptionHandling();
-        $this->createMocks();
+
 
         /*
             Profiles:
@@ -44,6 +52,20 @@ class CheckNewPosts extends TestCase
         $this->assertEquals($posts->get($profileTwo->id)->ig_post_id, 2005270146746340578);
         $this->assertFalse($posts->has($profileThree->id));
         $this->assertEquals($posts->get($profileFour->id)->ig_post_id, 2004749804235801150);
+    }
+
+    /** @test */
+    public function it_stores_the_correct_date()
+    {
+        $this->withoutExceptionHandling();
+
+        $profile = factory('App\Profile')->create(['username' => 'daviddobrik']);
+
+        (new \App\InstagramCommand)->handle();
+
+        $posts = (new PostRepository)->latestForProfiles(collect([$profile]));
+
+        $this->assertEquals($posts->get($profile->id)->posted_at, new Carbon("2019-03-20 19:00:10"));
     }
 
     private function createMocks()

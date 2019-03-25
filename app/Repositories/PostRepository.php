@@ -64,7 +64,7 @@ class PostRepository
             'type' => $post->typeName,
             'image_url' => $post->displaySrc,
             'post_url' => $post->link,
-            'posted_at' => Carbon::now()
+            'posted_at' => Carbon::instance($post->date)
         ]);
     }
 }
