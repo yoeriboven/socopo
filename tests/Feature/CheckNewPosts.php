@@ -34,8 +34,6 @@ class CheckNewPosts extends TestCase
 
         $profileFour = factory('App\Profile')->create(['username' => 'afcajax']);
 
-        $repo = new PostRepository();
-
         // When we call the command
         (new \App\InstagramCommand)->handle();
 

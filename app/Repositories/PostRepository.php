@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Post;
+use Illuminate\Support\Carbon;
 
 class PostRepository
 {
@@ -52,5 +53,18 @@ class PostRepository
         ->keyBy('profile_id');
 
         return $posts;
+    }
+
+    public function create($post, $profile)
+    {
+        Post::create([
+            'profile_id' => $profile->id,
+            'ig_post_id' => $post->id,
+            'caption' => $post->caption,
+            'type' => $post->typeName,
+            'image_url' => $post->displaySrc,
+            'post_url' => $post->link,
+            'posted_at' => Carbon::now()
+        ]);
     }
 }

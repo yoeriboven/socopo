@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Support\Carbon;
 use App\Repositories\PostRepository;
 use App\Libraries\Instagram\InstagramDownloader;
 
@@ -18,54 +17,64 @@ class InstagramCommand
 
     public function handle()
     {
+        $profiles = $this->getProfilesToNotify();
+
+        $profiles->each(function ($profile) {
+            $profile->updateAvatar($profile->feed->profilePicture);
+
+            $this->posts->create($profile->feed->getLatestMedia(), $profile);
+        });
+    }
+
+    /**
+     * Gets profiles which have a new post on IG
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function getProfilesToNotify()
+    {
         $profiles = $this->getProfilesWithFeeds();
-        $posts = $this->posts->latestForProfiles($profiles);
+        $latestPosts = $this->posts->latestForProfiles($profiles);
 
-        foreach ($profiles as $profile) {
-            echo $profile->username;
-            $feed = $profile->feed;
+        return $this->getProfilesWithNewPosts($profiles, $latestPosts);
+    }
 
-            $profile->updateAvatar($feed->profilePicture);
+    /**
+     * Gets profiles which have a new post on IG
+     *
+     * @param  \Illuminate\Database\Eloquent\Collection $profiles
+     * @param  \Illuminate\Database\Eloquent\Collection $latestPosts [Returns the latest stored posts]
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function getProfilesWithNewPosts($profiles, $latestPosts)
+    {
+        return $profiles->filter(function ($profile) use ($latestPosts) {
+            /**
+             * If a profiile has a latest post it means we need to check
+             * whether the post found on IG is newer or not
+             *
+             * No post stored? Then the post found on IG is newest and should be stored
+             */
+            if ($latestPosts->has($profile->id)) {
+                $latestPost = $latestPosts->get($profile->id);
 
-            echo '<pre>';
-            print_r($feed);
-            echo '</pre>';
-
-            // Now check if this post is newer than the latest one stored on our end
-            $latestPostId = 0;
-
-            $newPost = $feed->getLatestMedia();
-            if ($posts->has($profile->id)) {
-                $latestPostId = $posts->get($profile->id)->ig_post_id;
+                // Checks if the latest IG post is newer than what we have stored
+                return $profile->feed->getLatestMedia()->id != $latestPost->ig_post_id;
             }
 
-            // We have the newest post stored already
-            // echo $newPost->id. ' - '.$latestPostId;
-            if ($newPost->id == $latestPostId) {
-                continue;
-            }
-
-
-            // Store new post
-            Post::create([
-                'profile_id' => $profile->id,
-                'ig_post_id' => $newPost->id,
-                'caption' => $newPost->caption,
-                'type' => $newPost->typeName,
-                'image_url' => $newPost->displaySrc,
-                'post_url' => $newPost->link,
-                'posted_at' => Carbon::now()
-            ]);
-        }
+            return true;
+        });
     }
 
     /**
      * Filters out profiles without a feed and those feeds without media
+     * Also attaches the feed to the profile
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
     private function getProfilesWithFeeds()
     {
+        // $profiles = Profile::whereIn('id', [1,10])->latest()->get();
         return Profile::all()->filter(function ($profile) {
             $feed = $this->getFeedForUsername($profile->username);
             $profile->setRelation('feed', $feed);
