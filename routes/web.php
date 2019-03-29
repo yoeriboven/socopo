@@ -20,14 +20,16 @@
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'PostController@index')->name('posts.index');
 
+    /* Setting routes */
+    Route::get('settings', 'SettingsController@index');
+    Route::post('settings/details', 'UserDetailsController@store');
+
     /* Profile routes (return JSON) */
     Route::group(['middleware' => 'ajax'], function () {
         Route::get('api/profiles', 'ProfileController@index');
         Route::post('api/profiles', 'ProfileController@store');
         Route::delete('api/profiles/{profile}', 'ProfileController@destroy');
     });
-
-    Route::post('settings/details', 'UserDetailsController@store');
 });
 
 Auth::routes();

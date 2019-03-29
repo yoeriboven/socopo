@@ -20,7 +20,7 @@
                                     <i class="dropdown-icon fe fe-user"></i> Profile
                                 </a>
 
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/settings">
                                     <i class="dropdown-icon fe fe-settings"></i> Settings
                                 </a>
 
