@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('api/profiles', 'ProfileController@store');
         Route::delete('api/profiles/{profile}', 'ProfileController@destroy');
     });
+
+    Route::post('settings/details', 'UserDetailsController@store');
 });
 
 Auth::routes();

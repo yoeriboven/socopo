@@ -31,4 +31,12 @@ class UserTest extends TestCase
         $this->assertTrue($this->user->profiles->contains($profile));
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->user->profiles);
     }
+
+    /** @test */
+    public function it_can_have_details()
+    {
+        $details = factory('App\UserDetails')->create(['user_id' => $this->user->id]);
+
+        $this->assertInstanceOf('App\UserDetails', $this->user->details);
+    }
 }

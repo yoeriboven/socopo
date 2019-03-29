@@ -45,4 +45,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Profile')->withTimestamps();
     }
+
+    /**
+     * A user has details (name, address, country, etc.)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function details()
+    {
+        return $this->hasOne('App\UserDetails');
+    }
 }
