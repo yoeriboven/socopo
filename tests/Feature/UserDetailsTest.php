@@ -31,4 +31,18 @@ class UserDetailsTest extends TestCase
         $this->assertDatabaseHas('user_details', $details->toArray());
         $this->assertEquals($user->details->country, $attributes['country']);
     }
+
+    /** @test */
+    public function it_shows_the_current_details()
+    {
+        $user = $this->signIn();
+        $details = factory('App\UserDetails')->create(['user_id' => $user->id, 'vat_id' => 'NL102910397B01']);
+
+        $this->get('settings')
+            ->assertSee($details->name)
+            ->assertSee($details->vat_id)
+            ->assertSee($details->address)
+            ->assertSee($details->postal)
+            ->assertSee($details->city);
+    }
 }

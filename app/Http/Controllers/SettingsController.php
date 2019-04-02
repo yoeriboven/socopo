@@ -11,6 +11,8 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        return view('settings.settings');
+        return view('settings.settings', [
+            'details' => auth()->user()->details
+        ]);
     }
 }
