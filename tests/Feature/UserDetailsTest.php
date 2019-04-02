@@ -16,7 +16,6 @@ class UserDetailsTest extends TestCase
         $user = $this->signIn();
 
         $attributes = [
-            'business' => true,
             'country' => 'NL',
             'vat_id' => 'NL019301B01',
             'name' => 'Yoeri.me',

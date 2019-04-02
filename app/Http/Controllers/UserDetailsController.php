@@ -26,7 +26,6 @@ class UserDetailsController extends Controller
     {
         UserDetails::create([
             'user_id' => auth()->id(),
-            'business' => request('business'),
             'country' => request('country'),
             'vat_id' => request('vat_id'),
             'name' => request('name'),
