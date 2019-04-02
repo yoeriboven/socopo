@@ -4,11 +4,11 @@ use Faker\Generator as Faker;
 
 $factory->define(App\UserDetails::class, function (Faker $faker) {
     return [
-        'country' => 'US',
         'vat_id' => '',
         'name' => $faker->company,
-        'street' => $faker->streetAddress,
+        'address' => $faker->streetAddress,
         'postal' => $faker->postcode,
-        'city' => $faker->city
+        'city' => $faker->city,
+        'country' => 'US'
     ];
 });

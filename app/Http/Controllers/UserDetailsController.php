@@ -26,12 +26,14 @@ class UserDetailsController extends Controller
     {
         UserDetails::create([
             'user_id' => auth()->id(),
-            'country' => request('country'),
             'vat_id' => request('vat_id'),
             'name' => request('name'),
-            'street' => request('street'),
+            'address' => request('address'),
             'postal' => request('postal'),
-            'city' => request('city')
+            'city' => request('city'),
+            'country' => request('country')
         ]);
+
+        return back();
     }
 }

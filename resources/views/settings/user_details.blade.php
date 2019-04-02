@@ -3,12 +3,14 @@
 		<h4 class="card-title">Business info</h4>
 	</div>
 	<div class="col-9">
-		<form>
+		<form method="POST" action="{{ url('settings/details') }}">
+			@csrf
+
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="form-label">Name</label>
-						<input type="text" class="form-control" name="example-text-input" placeholder="Acme Inc. / John Appleseed" required>
+						<input type="text" class="form-control" name="name" placeholder="Acme Inc. / John Appleseed" required>
 					</div>
 				</div>
 
@@ -17,7 +19,7 @@
 						<label class="form-label">VAT Number</label>
 						<div class="row gutters-sm">
                             <div class="col">
-                            	<input type="text" class="form-control" name="example-text-input" placeholder="NL390193263B01">
+                            	<input type="text" class="form-control" name="vat_id" placeholder="NL390193263B01">
                             </div>
                         	<span class="col-auto align-self-center">
                           		<span class="form-help" data-toggle="popover" data-placement="top"
@@ -31,21 +33,21 @@
 				<div class="col-12">
 					<div class="form-group">
 						<label class="form-label">Address</label>
-						<input type="text" class="form-control" name="example-text-input" placeholder="One Infinite Loop" required>
+						<input type="text" class="form-control" name="address" placeholder="One Infinite Loop" required>
 					</div>
 				</div>
 
 				<div class="col-md-4">
 					<div class="form-group">
 						<label class="form-label">Postal code</label>
-						<input type="text" class="form-control" name="example-text-input" placeholder="95014" required>
+						<input type="text" class="form-control" name="postal" placeholder="95014" required>
 					</div>
 				</div>
 
 				<div class="col-md-4">
 					<div class="form-group">
 						<label class="form-label">City</label>
-						<input type="text" class="form-control" name="example-text-input" placeholder="Cupertino, CA" required>
+						<input type="text" class="form-control" name="city" placeholder="Cupertino, CA" required>
 					</div>
 				</div>
 

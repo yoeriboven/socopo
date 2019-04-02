@@ -16,12 +16,12 @@ class CreateUserDetailsTable extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('country');
             $table->string('vat_id')->nullable();
             $table->string('name');
-            $table->string('street');
+            $table->string('address');
             $table->string('postal');
             $table->string('city');
+            $table->string('country');
             $table->timestamps();
         });
     }

@@ -16,12 +16,12 @@ class UserDetailsTest extends TestCase
         $user = $this->signIn();
 
         $attributes = [
-            'country' => 'NL',
             'vat_id' => 'NL019301B01',
             'name' => 'Yoeri.me',
-            'street' => 'De Werf 9',
+            'address' => 'De Werf 9',
             'postal' => '9514CN',
-            'city' => 'Gasselternijveen'
+            'city' => 'Gasselternijveen',
+            'country' => 'NL'
         ];
 
         $details = factory('App\UserDetails')->make($attributes);
