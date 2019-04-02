@@ -19,7 +19,7 @@ class PostRepository
         $profiles = $user->profiles()->get()->keyBy('id');
 
         // Get all the posts which belong to the profiles
-        $posts = Post::whereIn('profile_id', $profiles->modelKeys())->latest()->get();
+        $posts = Post::whereIn('profile_id', $profiles->modelKeys())->latest('posted_at')->get();
 
         // Add the profiles to the posts
         $posts->transform(function ($post) use ($profiles) {

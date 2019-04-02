@@ -12,7 +12,12 @@
 	@else
 	    @foreach ($posts as $post)
 	    	{{ $post->caption }}
-	    	<a href="">{{ '@'.$post->profile->username}}</a>
+	    	<a href="https://www.instagram.com/{{ $post->profile->username}}"
+				target="_blank"
+	    		rel="noopener">
+	    		{{ '@'.$post->profile->username}}
+	    	</a>
+	    	<img src="{{ $post->image_url }}" />
 	    	{{ $post->posted_at->diffForHumans() }}
 	    	<hr/>
 	    @endforeach
