@@ -1,4 +1,4 @@
-<div class="row" style="margin-bottom:20px;border-bottom:1px solid rgba(0, 40, 100, 0.12);">
+<div class="row" style="margin-bottom:20px;border-bottom:1px solid rgba(0, 40, 100, 0.12);padding-bottom:10px;">
 	<div class="col-3">
 		<h4 class="card-title">Business info</h4>
 	</div>
@@ -63,7 +63,9 @@
 					</div>
 				</div>
 
-				<button type="submit">Go</button>
+				<div class="col-12 text-right">
+					<button class="btn btn-primary" type="submit">Change info</button>
+				</div>
 			</div>
 		</form>
 	</div>
