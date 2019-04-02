@@ -10,7 +10,7 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="form-label">Name</label>
-						<input type="text" class="form-control" name="name" placeholder="Acme Inc. / John Appleseed" value="{{ $details->name }}" required>
+						<input type="text" class="form-control" name="name" placeholder="Acme Inc. / John Appleseed" value="{{ $details->name ?? '' }}" required>
 					</div>
 				</div>
 
@@ -19,7 +19,7 @@
 						<label class="form-label">VAT Number</label>
 						<div class="row gutters-sm">
                             <div class="col">
-                            	<input type="text" class="form-control" name="vat_id" placeholder="NL390193263B01" value="{{ $details->vat_id }}">
+                            	<input type="text" class="form-control" name="vat_id" placeholder="NL390193263B01" value="{{ $details->vat_id ?? '' }}">
                             </div>
                         	<span class="col-auto align-self-center">
                           		<span class="form-help" data-toggle="popover" data-placement="top"
@@ -33,21 +33,21 @@
 				<div class="col-12">
 					<div class="form-group">
 						<label class="form-label">Address</label>
-						<input type="text" class="form-control" name="address" placeholder="One Infinite Loop" value="{{ $details->address }}" required>
+						<input type="text" class="form-control" name="address" placeholder="One Infinite Loop" value="{{ $details->address ?? '' }}" required>
 					</div>
 				</div>
 
 				<div class="col-md-4">
 					<div class="form-group">
 						<label class="form-label">Postal code</label>
-						<input type="text" class="form-control" name="postal" placeholder="95014" value="{{ $details->postal }}" required>
+						<input type="text" class="form-control" name="postal" placeholder="95014" value="{{ $details->postal ?? '' }}" required>
 					</div>
 				</div>
 
 				<div class="col-md-4">
 					<div class="form-group">
 						<label class="form-label">City</label>
-						<input type="text" class="form-control" name="city" placeholder="Cupertino, CA" value="{{ $details->city }}" required>
+						<input type="text" class="form-control" name="city" placeholder="Cupertino, CA" value="{{ $details->city ?? '' }}" required>
 					</div>
 				</div>
 
@@ -59,7 +59,10 @@
 
 	                        @foreach (config('countries') as $code => $country)
 								<option value="{{ $code }}"
-	                        		{{ ($code == $details->country) ? 'selected' : '' }}>
+									@if (isset($details->country))
+	                        			{{ ($code == $details->country) ? 'selected' : '' }}
+	                        		@endif
+	                        		>
 	                        		{{ $country }}
 	                        	</option>
 							@endforeach

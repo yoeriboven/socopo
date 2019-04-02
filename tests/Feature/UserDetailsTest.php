@@ -45,4 +45,23 @@ class UserDetailsTest extends TestCase
             ->assertSee($details->postal)
             ->assertSee($details->city);
     }
+
+    /** @test */
+    public function it_can_update_details()
+    {
+        $this->withoutExceptionHandling();
+        $user = $this->signIn();
+
+        // Initial details
+        $details = factory('App\UserDetails')->make();
+        $this->post('settings/details', $details->toArray());
+
+        $this->assertEquals($user->details->name, $details->name);
+
+        // Updated details
+        $details->name = 'Yoeri.me';
+        $this->post('settings/details', $details->toArray());
+
+        $this->assertEquals($user->details->fresh()->name, 'Yoeri.me');
+    }
 }

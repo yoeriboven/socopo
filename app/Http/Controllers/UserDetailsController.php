@@ -24,8 +24,7 @@ class UserDetailsController extends Controller
      */
     public function store(Request $request)
     {
-        UserDetails::create([
-            'user_id' => auth()->id(),
+        UserDetails::updateOrCreate(['user_id' => auth()->id()], [
             'vat_id' => request('vat_id'),
             'name' => request('name'),
             'address' => request('address'),
