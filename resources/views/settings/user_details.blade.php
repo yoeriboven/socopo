@@ -1,6 +1,6 @@
 <div class="row" style="margin-bottom:20px;border-bottom:1px solid rgba(0, 40, 100, 0.12);padding-bottom:10px;">
 	<div class="col-3">
-		<h4 class="card-title">Business info</h4>
+		<h4 class="card-title">User info</h4>
 	</div>
 	<div class="col-9">
 		<form method="POST" action="{{ url('settings/details') }}">

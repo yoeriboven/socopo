@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\UserDetails;
 use Illuminate\Http\Request;
+use App\Http\Requests\UserDetailsRequest;
 
 class UserDetailsController extends Controller
 {
@@ -22,11 +23,11 @@ class UserDetailsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserDetailsRequest $request)
     {
         UserDetails::updateOrCreate(['user_id' => auth()->id()], [
-            'vat_id' => request('vat_id'),
             'name' => request('name'),
+            'vat_id' => request('vat_id'),
             'address' => request('address'),
             'postal' => request('postal'),
             'city' => request('city'),
