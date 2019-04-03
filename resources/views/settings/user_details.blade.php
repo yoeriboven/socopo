@@ -10,7 +10,8 @@
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="form-label">Name</label>
-						<input type="text" class="form-control" name="name" placeholder="Acme Inc. / John Appleseed" value="{{ $details->name ?? '' }}" required>
+						<input type="text" class="form-control {{{ $errors->has('name') ? 'is-invalid' : '' }}}" name="name" placeholder="Acme Inc. / John Appleseed" value="{{ old('name') ?? $details->name ?? '' }}" required>
+						<div class="invalid-feedback">{{ $errors->first('name') }}</div>
 					</div>
 				</div>
 
@@ -19,7 +20,8 @@
 						<label class="form-label">VAT Number</label>
 						<div class="row gutters-sm">
                             <div class="col">
-                            	<input type="text" class="form-control" name="vat_id" placeholder="NL390193263B01" value="{{ $details->vat_id ?? '' }}">
+                            	<input type="text" class="form-control {{{ $errors->has('vat_id') ? 'is-invalid' : '' }}}" name="vat_id" placeholder="NL390193263B01" value="{{ old('vat_id') ?? $details->vat_id ?? '' }}">
+                            	<div class="invalid-feedback">{{ $errors->first('vat_id') }}</div>
                             </div>
                         	<span class="col-auto align-self-center">
                           		<span class="form-help" data-toggle="popover" data-placement="top"
@@ -33,33 +35,38 @@
 				<div class="col-12">
 					<div class="form-group">
 						<label class="form-label">Address</label>
-						<input type="text" class="form-control" name="address" placeholder="One Infinite Loop" value="{{ $details->address ?? '' }}" required>
+						<input type="text" class="form-control {{{ $errors->has('address') ? 'is-invalid' : '' }}}" name="address" placeholder="One Infinite Loop" value="{{ old('address') ?? $details->address ?? '' }}" required>
+						<div class="invalid-feedback">{{ $errors->first('address') }}</div>
 					</div>
 				</div>
 
 				<div class="col-md-4">
 					<div class="form-group">
 						<label class="form-label">Postal code</label>
-						<input type="text" class="form-control" name="postal" placeholder="95014" value="{{ $details->postal ?? '' }}" required>
+						<input type="text" class="form-control {{{ $errors->has('postal') ? 'is-invalid' : '' }}}" name="postal" placeholder="95014" value="{{ old('postal') ?? $details->postal ?? '' }}" required>
+						<div class="invalid-feedback">{{ $errors->first('postal') }}</div>
 					</div>
 				</div>
 
 				<div class="col-md-4">
 					<div class="form-group">
 						<label class="form-label">City</label>
-						<input type="text" class="form-control" name="city" placeholder="Cupertino, CA" value="{{ $details->city ?? '' }}" required>
+						<input type="text" class="form-control {{{ $errors->has('city') ? 'is-invalid' : '' }}}" name="city" placeholder="Cupertino, CA" value="{{ old('city') ?? $details->city ?? '' }}" required>
+						<div class="invalid-feedback">{{ $errors->first('city') }}</div>
 					</div>
 				</div>
 
 				<div class="col-md-4">
 					<div class="form-group">
 						<label class="form-label">Country</label>
-                        <select name="country" id="select-countries" class="form-control custom-select" required>
+                        <select name="country" id="select-countries" class="form-control custom-select {{{ $errors->has('country') ? 'is-invalid' : '' }}}" required>
 	                        <option value="" disabled selected>Country...</option>
 
 	                        @foreach (config('countries') as $code => $country)
 								<option value="{{ $code }}"
-									@if (isset($details->country))
+									@if (old('country') !== null)
+										{{ ($code == old('country')) ? 'selected' : '' }}
+									@elseif (isset($details->country))
 	                        			{{ ($code == $details->country) ? 'selected' : '' }}
 	                        		@endif
 	                        		>
@@ -68,6 +75,7 @@
 							@endforeach
 
                         </select>
+                        <div class="invalid-feedback">{{ $errors->first('country') }}</div>
 					</div>
 				</div>
 
