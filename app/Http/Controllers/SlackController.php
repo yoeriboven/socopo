@@ -18,8 +18,14 @@ class SlackController extends Controller
     {
         try {
             $user = Socialite::driver('slack')->user();
-            dump($user);
-            dd($user->accessTokenResponseBody);
+
+            if (!$url = $user->accessTokenResponseBody['incoming_webhook']['url']) {
+                dd('No url found');
+            }
+
+            auth()->user()->settings()->update(['slack_url' => $url]);
+
+            dd('Done! Return naar settings');
         } catch (\Exception $e) {
             dd($e);
             // Show error message
