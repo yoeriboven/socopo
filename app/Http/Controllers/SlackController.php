@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 
 class SlackController extends Controller
 {
+    /**
+     * Redirects the user to the Slack authorization page
+     */
     public function login()
     {
         return Socialite::with('slack')
@@ -14,26 +16,24 @@ class SlackController extends Controller
             ->redirect();
     }
 
+    /**
+     * Accepts the data coming from Slack and stores
+     * the relevant information before returning back to the settings page.
+     */
     public function webhook()
     {
         try {
             $user = Socialite::driver('slack')->user();
 
             if (!$url = $user->accessTokenResponseBody['incoming_webhook']['url']) {
-                dd('No url found');
+                return redirect()->route('settings')->withErrors(['Authorization failed']);
             }
 
             auth()->user()->settings()->update(['slack_url' => $url]);
 
-            dd('Done! Return naar settings');
+            return redirect()->route('settings')->with('success', 'Authorization success');
         } catch (\Exception $e) {
-            dd($e);
-            // Show error message
-
-            /*
-            Unsuccessful request: `POST https://slack.com/api/oauth.access` resulted in a `200 OK` response:\n
-    {"ok":false,"error":"invalid_code"}\n
-             */
+            return redirect()->route('settings')->withErrors(['Authorization failed']);
         }
     }
 }

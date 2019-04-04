@@ -28,7 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     /* Setting routes */
-    Route::get('settings', 'SettingsController@index');
+    Route::get('settings', 'SettingsController@index')->name('settings');
     Route::post('settings/details', 'UserDetailsController@store');
 
     /* Slack authorization */
