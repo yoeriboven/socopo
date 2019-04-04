@@ -32,8 +32,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('settings/details', 'UserDetailsController@store');
 
     /* Slack authorization */
-    Route::get('slack_login', 'SlackController@login');
-    Route::get('slack_webhook', 'SlackController@webhook');
+    Route::get('slack/login', 'SlackController@login')->name('slack.login');
+    Route::get('slack/webhook', 'SlackController@webhook');
+    Route::get('slack/logout', 'SlackController@logout')->name('slack.logout');
 });
 
 Auth::routes();

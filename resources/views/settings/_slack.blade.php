@@ -12,7 +12,7 @@
 
 			@if (Session::has('success'))
 				<div class="alert alert-icon alert-success" role="alert" style="width:100%;">
-					<i class="fe fe-check mr-2" aria-hidden="true"></i> Slack authorization succeeded.
+					<i class="fe fe-check mr-2" aria-hidden="true"></i> {{ Session::get('success') }}
 				</div>
 			@endif
 

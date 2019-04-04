@@ -31,9 +31,16 @@ class SlackController extends Controller
 
             auth()->user()->settings()->update(['slack_url' => $url]);
 
-            return redirect()->route('settings')->with('success', 'Authorization success');
+            return redirect()->route('settings')->with('success', 'Slack authorization succeeded.');
         } catch (\Exception $e) {
             return redirect()->route('settings')->withErrors(['Authorization failed']);
         }
+    }
+
+    public function logout()
+    {
+        auth()->user()->settings()->update(['slack_url' => null]);
+
+        return redirect()->route('settings')->with('success', 'Removed authorization');
     }
 }
