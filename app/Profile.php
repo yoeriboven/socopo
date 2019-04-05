@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\NewPostAdded;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
@@ -38,7 +39,7 @@ class Profile extends Model
      *
      * @param  User $user
      */
-    public function attachUser($user = null)
+    public function attachUser(User $user = null)
     {
         $user = $user ?? auth()->user();
 
@@ -52,7 +53,7 @@ class Profile extends Model
      *
      * @param  User $user
      */
-    public function detachUser($user = null)
+    public function detachUser(User $user = null)
     {
         $user = $user ?? auth()->user();
 
@@ -71,5 +72,25 @@ class Profile extends Model
         if ($link != $this->avatar) {
             $this->update(['avatar' => $link]);
         }
+    }
+
+    /**
+     * A user belongs to many followers (Users)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
+    /**
+     * Notifies followers when a new post is stored
+     *
+     * @param  Post $post
+     */
+    public function notifyFollowers(Post $post)
+    {
+        $this->followers->each->notify(new NewPostAdded());
     }
 }

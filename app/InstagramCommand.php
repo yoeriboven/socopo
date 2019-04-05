@@ -22,7 +22,9 @@ class InstagramCommand
         $profiles->each(function ($profile) {
             $profile->updateAvatar($profile->feed->profilePicture);
 
-            $this->posts->create($profile->feed->getLatestMedia(), $profile);
+            $post = $this->posts->store($profile->feed->getLatestMedia(), $profile);
+
+            $profile->notifyFollowers($post);
         });
     }
 

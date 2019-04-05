@@ -55,9 +55,9 @@ class PostRepository
         return $posts;
     }
 
-    public function create($post, $profile)
+    public function store($post, $profile)
     {
-        Post::create([
+        return Post::create([
             'profile_id' => $profile->id,
             'ig_post_id' => $post->id,
             'caption' => $post->caption,

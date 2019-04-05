@@ -4,7 +4,9 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Support\Carbon;
+use App\Notifications\NewPostAdded;
 use App\Repositories\PostRepository;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Libraries\Instagram\Transport\TransportFeed;
 
@@ -22,8 +24,8 @@ class CheckNewPosts extends TestCase
     /** @test */
     public function it_stores_new_posts_from_instagram()
     {
-        $this->withoutExceptionHandling();
-
+        // This is used as the posted_at date because `latestForProfiles` returns the post with the most recent posted_at
+        $historicPostedAt = Carbon::now()->subYear();
 
         /*
             Profiles:
@@ -33,10 +35,10 @@ class CheckNewPosts extends TestCase
             4. Has no post in DB but multiple new posts on IG
         */
         $profileOne = factory('App\Profile')->create(['username' => 'daviddobrik']);
-        factory('App\Post')->create(['profile_id' => $profileOne->id, 'ig_post_id' => 1996822142546072191]);
+        factory('App\Post')->create(['profile_id' => $profileOne->id, 'ig_post_id' => 1996822142546072191, 'posted_at' => $historicPostedAt]);
 
         $profileTwo = factory('App\Profile')->create(['username' => 'fcbarcelona']);
-        factory('App\Post')->create(['profile_id' => $profileTwo->id, 'ig_post_id' => 2005270146746340578]);
+        factory('App\Post')->create(['profile_id' => $profileTwo->id, 'ig_post_id' => 2005270146746340578, 'posted_at' => $historicPostedAt]);
 
         $profileThree = factory('App\Profile')->create(['username' => 'yoeriboven']);
 
@@ -52,6 +54,26 @@ class CheckNewPosts extends TestCase
         $this->assertEquals($posts->get($profileTwo->id)->ig_post_id, 2005270146746340578);
         $this->assertFalse($posts->has($profileThree->id));
         $this->assertEquals($posts->get($profileFour->id)->ig_post_id, 2004749804235801150);
+    }
+
+    /** @test */
+    public function it_notifies_followers_when_profiles_have_uploaded_a_new_post()
+    {
+        Notification::fake();
+
+        $historicPostedAt = Carbon::now()->subYear();
+
+        // Given
+        $user = factory('App\User')->create();
+        $profileOne = factory('App\Profile')->create(['username' => 'daviddobrik']);
+        $profileOne->attachUser($user);
+        factory('App\Post')->create(['profile_id' => $profileOne->id, 'ig_post_id' => 1996822142546072191, 'posted_at' => $historicPostedAt]);
+
+        // When we call the command
+        (new \App\InstagramCommand)->handle();
+
+        // Then a notification should be sent
+        Notification::assertSentTo($user, NewPostAdded::class);
     }
 
     /** @test */

@@ -22,11 +22,7 @@ class UserTest extends TestCase
     public function it_is_attached_to_profiles()
     {
         $profile = factory('App\Profile')->create();
-
-        \DB::table('profile_user')->insert([
-            'profile_id' => $profile->id,
-            'user_id' => $this->user->id
-        ]);
+        $profile->attachUser($this->user);
 
         $this->assertTrue($this->user->profiles->contains($profile));
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->user->profiles);
@@ -35,8 +31,16 @@ class UserTest extends TestCase
     /** @test */
     public function it_can_have_details()
     {
-        $details = factory('App\UserDetails')->create(['user_id' => $this->user->id]);
+        factory('App\UserDetails')->create(['user_id' => $this->user->id]);
 
         $this->assertInstanceOf('App\UserDetails', $this->user->details);
+    }
+
+    /** @test */
+    public function it_can_have_settings()
+    {
+        factory('App\Settings')->create(['user_id' => $this->user->id]);
+
+        $this->assertInstanceOf('App\Settings', $this->user->settings);
     }
 }
