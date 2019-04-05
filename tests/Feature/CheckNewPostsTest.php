@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Libraries\Instagram\Transport\TransportFeed;
 
-class CheckNewPosts extends TestCase
+class CheckNewPostsTest extends TestCase
 {
     use RefreshDatabase;
 
