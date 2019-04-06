@@ -91,6 +91,6 @@ class Profile extends Model
      */
     public function notifyFollowers(Post $post)
     {
-        $this->followers->each->notify(new NewPostAdded());
+        $this->followers->filter->hasSlackSetup()->each->notify(new NewPostAdded());
     }
 }

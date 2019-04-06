@@ -43,4 +43,22 @@ class UserTest extends TestCase
 
         $this->assertInstanceOf('App\Settings', $this->user->settings);
     }
+
+    /** @test */
+    public function it_can_set_the_slack_url()
+    {
+        $this->user->setSlackUrl('The new Slack url');
+
+        $this->assertEquals('The new Slack url', $this->user->settings->slack_url);
+    }
+
+    /** @test */
+    public function it_returns_whether_slack_is_setup()
+    {
+        $this->user->settings->update(['slack_url' => null]);
+        $this->assertFalse($this->user->hasSlackSetup());
+
+        $this->user->settings->update(['slack_url' => 'Not null']);
+        $this->assertTrue($this->user->hasSlackSetup());
+    }
 }

@@ -90,7 +90,6 @@ class ProfileTest extends TestCase
         // Given
         $profile = factory('App\Profile')->create();
         $users = factory('App\User', 2)->create();
-
         $profile->attachUser($users[0]);
         $profile->attachUser($users[1]);
 
@@ -112,6 +111,27 @@ class ProfileTest extends TestCase
         // Given
         $profile = factory('App\Profile')->create();
         $user = factory('App\User')->create();
+
+        $post = factory('App\Post')->create(['profile_id' => $profile->id]);
+
+        // When
+        $profile->notifyFollowers($post);
+
+        // Then
+        Notification::assertNotSentTo($user, NewPostAdded::class);
+    }
+
+    /** @test */
+    public function followers_without_a_slack_url_arent_notified()
+    {
+        Notification::fake();
+
+        // Given
+        $user = factory('App\User')->create();
+        $user->settings()->update(['slack_url' => null]);
+
+        $profile = factory('App\Profile')->create();
+        $profile->attachUser($user);
 
         $post = factory('App\Post')->create(['profile_id' => $profile->id]);
 

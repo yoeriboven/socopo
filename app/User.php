@@ -70,12 +70,32 @@ class User extends Authenticatable
     }
 
     /**
-     * A user has settings (slack_url)
+     * A user has settings
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function settings()
     {
         return $this->hasOne('App\Settings');
+    }
+
+    /**
+     * Sets the slack_url on the settings object
+     *
+     * @param string $url
+     */
+    public function setSlackUrl($url)
+    {
+        $this->settings->update(['slack_url' => $url]);
+    }
+
+    /**
+     * Returns whether slack_url is set on settings
+     *
+     * @return bool
+     */
+    public function hasSlackSetup()
+    {
+        return !! $this->settings->slack_url;
     }
 }

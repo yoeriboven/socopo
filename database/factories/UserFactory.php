@@ -23,3 +23,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->afterCreating(App\User::class, function ($user, $faker) {
+    $user->settings->update(['slack_url' => 'Not null']);
+});
