@@ -98,4 +98,15 @@ class User extends Authenticatable
     {
         return !! $this->settings->slack_url;
     }
+
+    /**
+     * Route notifications for the Slack channel.
+     *
+     * @param  \Illuminate\Notifications\Notification  $notification
+     * @return string
+     */
+    public function routeNotificationForSlack($notification)
+    {
+        return $this->settings->slack_url;
+    }
 }
