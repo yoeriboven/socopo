@@ -15,6 +15,12 @@
         <p class="text-muted">Enter a new password to reset it.</p>
 
         <div class="form-group">
+            <label class="form-label">E-mail</label>
+            <input type="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="E-mail">
+            <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+        </div>
+
+        <div class="form-group">
             <label class="form-label">Password</label>
             <input type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Password">
             <div class="invalid-feedback">{{ $errors->first('password') }}</div>

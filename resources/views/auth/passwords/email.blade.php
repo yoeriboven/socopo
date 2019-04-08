@@ -9,6 +9,12 @@
     <div class="card-body p-6">
         <div class="card-title">Forgot Password</div>
 
+        @if (Session::has('status'))
+            <div class="alert alert-icon alert-success" role="alert">
+                <i class="fe fe-check mr-2" aria-hidden="true"></i> We have e-mailed your password reset link!
+            </div>
+        @endif
+
         <p class="text-muted">Enter your email address and your password will be reset and emailed to you.</p>
 
         <div class="form-group">

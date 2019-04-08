@@ -2,6 +2,12 @@ body {
   background: #F0F4F8;
 }
 
+/* Helpers */
+
+.full-width {
+  width: 100%;
+}
+
 /* Overrides */
 
 @media (min-width: 1280px) {
