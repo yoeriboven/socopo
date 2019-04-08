@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     /* Setting routes */
     Route::get('settings', 'SettingsController@index')->name('settings');
     Route::post('settings/details', 'UserDetailsController@store');
+    Route::post('settings/change_password', 'Auth\ChangePasswordController@change');
 
     /* Slack authorization */
     Route::get('slack/login', 'SlackController@login')->name('slack.login');
