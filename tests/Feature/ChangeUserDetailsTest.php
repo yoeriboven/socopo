@@ -5,15 +5,13 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserDetailsTest extends TestCase
+class ChangeUserDetailsTest extends TestCase
 {
     use RefreshDatabase;
 
     /** @test */
     public function guests_may_not_change_details()
     {
-        $this->withExceptionHandling();
-
         $this->post('settings/details')
             ->assertRedirect(route('login'));
     }
@@ -21,7 +19,6 @@ class UserDetailsTest extends TestCase
     /** @test */
     public function it_saves_the_users_details()
     {
-        $this->withoutExceptionHandling();
         $user = $this->signIn();
 
         $attributes = [
@@ -58,7 +55,6 @@ class UserDetailsTest extends TestCase
     /** @test */
     public function it_can_update_details()
     {
-        $this->withoutExceptionHandling();
         $user = $this->signIn();
 
         // Initial details

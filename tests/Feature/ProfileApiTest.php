@@ -42,8 +42,6 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function a_user_can_detach_a_profile()
     {
-        $this->withoutExceptionHandling();
-
         // Given we have a signed in user with a profile
         $user = $this->signIn();
         $profile = factory('App\Profile')->create()->attachUser();
@@ -62,8 +60,6 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function a_user_can_only_detach_their_own_profiles()
     {
-        $this->withoutExceptionHandling();
-
         // Given we have a signed in user
         // and a profile that is not attached to them
         $user = $this->signIn();
@@ -76,7 +72,6 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_add_profiles()
     {
-        $this->withoutExceptionHandling();
         $user = $this->signIn();
 
         // Avatar shouldn't be downloaded
@@ -132,7 +127,7 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function it_shows_an_error_if_the_username_doesnt_exist_on_instagram()
     {
-        $this->withoutExceptionHandling()->signIn();
+        $this->signIn();
 
         $this->json('POST', '/api/profiles', ['username' => 'eioaienf'])
              ->assertStatus(500);

@@ -19,8 +19,6 @@ class ViewPostsTest extends TestCase
     /** @test */
     public function an_authorized_user_can_only_view_its_own_posts()
     {
-        $this->withoutExceptionHandling();
-
         // Given we have a user that follows a profile with a post
         $user = $this->signIn();
 
