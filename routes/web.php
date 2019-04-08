@@ -17,7 +17,7 @@
 // });
 //
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'PostController@index')->name('posts.index');
 
     /* Profile routes (return JSON) */
@@ -37,6 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('slack/logout', 'SlackController@logout')->name('slack.logout');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('ig', 'Controller@instagramTester');
