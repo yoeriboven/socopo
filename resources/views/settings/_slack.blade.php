@@ -4,13 +4,14 @@
 	</div>
 	<div class="col-9">
 		<div class="row">
-			@if (count($errors))
+
+			@if ($errors->has('slack'))
 				<div class="alert alert-icon alert-danger full-width" role="alert">
 					<i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> Connecting to Slack has failed. Try again later.
 				</div>
 			@endif
 
-			@if (Session::has('success'))
+			@if (Session::has('slack.success'))
 				<div class="alert alert-icon alert-success full-width" role="alert">
 					<i class="fe fe-check mr-2" aria-hidden="true"></i> {{ Session::get('success') }}
 				</div>

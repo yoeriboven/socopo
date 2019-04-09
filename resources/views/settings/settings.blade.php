@@ -11,6 +11,7 @@
 	<div class="card-body">
 		@include('settings._slack')
 		@include('settings._user_details')
+		@include('settings._change_password')
 	</div>
 </div>
 

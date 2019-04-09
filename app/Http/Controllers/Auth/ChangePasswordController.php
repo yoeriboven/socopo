@@ -19,10 +19,12 @@ class ChangePasswordController extends Controller
 
         // Checks if the old_password (from the form) equals the current password of the user
         if (! Hash::check($request->old_password, $user->password)) {
-            abort(400);
+            return back()->withErrors(['old_password' => 'Current password is incorrect.']);
         }
 
         $user->password = Hash::make($request->password);
         $user->save();
+
+        return back()->with('change_password.success', 'Slack authorization succeeded.');
     }
 }

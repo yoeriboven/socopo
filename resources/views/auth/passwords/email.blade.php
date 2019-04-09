@@ -1,6 +1,6 @@
 @extends('auth/master')
 
-@section('page_title', 'Forgot password');
+@section('page_title', 'Forgot password')
 
 @section('content')
 <form method="POST" action="{{ route('password.email') }}" class="card">

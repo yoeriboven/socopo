@@ -35,7 +35,7 @@ class ChangePasswordTest extends TestCase
         $user->password = Hash::make('old_password');
 
         $this->post('settings/change_password', $this->getData(['old_password' => 'not_the_correct_old_password']))
-            ->assertStatus(400);
+            ->assertSessionHasErrors('old_password');
     }
 
     /** @test */

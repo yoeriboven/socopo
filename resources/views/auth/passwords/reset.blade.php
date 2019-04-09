@@ -1,6 +1,6 @@
 @extends('auth/master')
 
-@section('page_title', 'Reset password');
+@section('page_title', 'Reset password')
 
 @section('content')
 <form method="POST" action="{{ route('password.update') }}" class="card">
