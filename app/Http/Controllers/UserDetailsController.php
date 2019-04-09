@@ -34,6 +34,6 @@ class UserDetailsController extends Controller
             'country' => request('country')
         ]);
 
-        return back();
+        return back()->with('user_details.success', 'Details changed succesfully.');
     }
 }

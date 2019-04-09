@@ -13,7 +13,7 @@
 
 			@if (Session::has('slack.success'))
 				<div class="alert alert-icon alert-success full-width" role="alert">
-					<i class="fe fe-check mr-2" aria-hidden="true"></i> {{ Session::get('success') }}
+					<i class="fe fe-check mr-2" aria-hidden="true"></i> {{ Session::get('slack.success') }}
 				</div>
 			@endif
 

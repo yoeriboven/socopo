@@ -7,6 +7,13 @@
 			@csrf
 
 			<div class="row">
+
+				@if (Session::has('user_details.success'))
+					<div class="alert alert-icon alert-success full-width" role="alert">
+						<i class="fe fe-check mr-2" aria-hidden="true"></i> Details changed succesfully.
+					</div>
+				@endif
+
 				<div class="col-md-6">
 					<div class="form-group">
 						<label class="form-label">Name</label>
