@@ -37,6 +37,9 @@ class SlackController extends Controller
         }
     }
 
+    /**
+     * Resets the slack URL and undoes the Slack connection
+     */
     public function logout()
     {
         auth()->user()->setSlackUrl(null);
