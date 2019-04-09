@@ -43,7 +43,7 @@ class ChangePasswordTest extends TestCase
     {
         $user = $this->signIn();
 
-        $this->post('settings/change_password', $this->getData(['password' => 'short']))
+        $this->post('settings/change_password', $this->getData(['password' => 'shortps', 'password_confirmation' => 'shortps']))
             ->assertSessionHasErrors('password');
     }
 

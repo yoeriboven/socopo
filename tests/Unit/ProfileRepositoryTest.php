@@ -12,7 +12,7 @@ class ProfileRepositoryTest extends TestCase
 
     protected $profiles;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

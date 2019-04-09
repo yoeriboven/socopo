@@ -13,7 +13,7 @@ class PostRepositoryTest extends TestCase
 
     protected $posts;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
