@@ -47,7 +47,8 @@ class ProfileApiTest extends TestCase
         $profile = factory('App\Profile')->create()->attachUser();
 
         // When they reach the profile delete endpoint
-        $this->delete('api/profiles/'.$profile->id);
+        $this->delete('api/profiles/'.$profile->id)
+            ->assertStatus(204);
 
         // Then it should be deleted
         $this->assertCount(0, $user->profiles);
@@ -130,13 +131,12 @@ class ProfileApiTest extends TestCase
         $this->signIn();
 
         $this->json('POST', '/api/profiles', ['username' => 'eioaienf'])
-             ->assertStatus(500);
+             ->assertStatus(503);
     }
 
     /** @test */
     public function a_username_is_unique()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $this->assertCount(0, Profile::all());
@@ -150,14 +150,14 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function a_status_code_is_shown_when_an_account_tries_to_be_attached_again()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $profile = factory('App\Profile')->make(['username' => 'yoeriboven']);
 
         $this->post('/api/profiles', $profile->toArray());
-        $response = $this->post('/api/profiles', $profile->toArray());
-        $response->assertStatus(202);
+
+        $this->post('/api/profiles', $profile->toArray())
+            ->assertStatus(202);
     }
 
     protected function publishProfile($overrides = [])

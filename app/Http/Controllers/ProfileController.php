@@ -2,39 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Profile;
 use Illuminate\Http\Request;
+use App\Services\ProfileService;
 use App\Http\Requests\ProfileRequest;
 use App\Repositories\ProfileRepository;
-use App\Libraries\Instagram\InstagramDownloader;
+use App\Exceptions\DuplicateAttachmentException;
 
 class ProfileController extends Controller
 {
-    /**
-     * Provides access to the profiles
-     *
-     * @var ProfileRepository
-     */
-    protected $profiles;
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct(ProfileRepository $profiles)
-    {
-        $this->profiles = $profiles;
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ProfileRepository $profiles)
     {
-        return $this->profiles->forUser(auth()->user());
+        return $profiles->forUser(auth()->user());
     }
 
     /**
@@ -43,24 +28,17 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ProfileRequest $request, InstagramDownloader $instagram)
+    public function store(ProfileRequest $request, ProfileService $service)
     {
-        if ($this->profiles->attached($request->username)) {
-            return response(['message' => 'Profile has already been added.'], 202);
-        }
-
         try {
-            $profile = Profile::firstOrNew(['username' => $request->username]);
-
-            if (!$profile->avatar) {
-                $profile->avatar = $instagram->getAvatar($request->username);
-            }
-
-            $profile->save();
-            $profile->attachUser();
-        } catch (\Exception $e) {
+            $profile = $service->store($request);
+        } catch (DuplicateAttachmentException $e) {
+            return response(['message' => 'Profile has already been added.'], 202);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            return response(['message' => 'Profile not found for this username.'], 503);
+        } catch (Exception $e) {
             // Sentry include username
-            return response(['message' => 'Profile not found for this username'], 500);
+            return response(['message' => 'Something failed on our end. We\'ve been notified and will fix this. You can also try again.'], 500);
         }
 
         return response(['message' => 'Profile added', 'profile' => $profile->toArray()], 201);

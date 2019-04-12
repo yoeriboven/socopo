@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class UserDetailsService
 {
-    public static function store(Request $request)
+    public function store(Request $request)
     {
         return UserDetails::updateOrCreate(['user_id' => $request->user()->id], [
             'name' => $request->name,
