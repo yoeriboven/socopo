@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\UserDetails;
 use Illuminate\Http\Request;
+use App\Services\UserDetailsService;
 use App\Http\Requests\UserDetailsRequest;
 
 class UserDetailsController extends Controller
@@ -23,16 +23,9 @@ class UserDetailsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserDetailsRequest $request)
+    public function store(UserDetailsRequest $request, UserDetailsService $service)
     {
-        UserDetails::updateOrCreate(['user_id' => auth()->id()], [
-            'name' => request('name'),
-            'vat_id' => request('vat_id'),
-            'address' => request('address'),
-            'postal' => request('postal'),
-            'city' => request('city'),
-            'country' => request('country')
-        ]);
+        $service->store($request);
 
         return back()->with('user_details.success', 'Details changed succesfully.');
     }
