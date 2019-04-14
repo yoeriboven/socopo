@@ -32,6 +32,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('settings/details', 'UserDetailsController@store');
     Route::post('settings/change_password', 'Auth\ChangePasswordController@change');
 
+    /* Upgrade Plan */
+    Route::post('upgrade', 'SubscriptionController@store');
+
     /* Slack authorization */
     Route::get('slack/login', 'SlackController@login')->name('slack.login');
     Route::get('slack/webhook', 'SlackController@webhook');
