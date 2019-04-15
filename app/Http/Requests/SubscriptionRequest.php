@@ -14,6 +14,10 @@ class SubscriptionRequest extends FormRequest
      */
     public function rules()
     {
-        return UserDetails::getValidationRules();
+        $subscription_rules = [
+            'stripeToken' => 'required'
+        ];
+
+        return array_merge($subscription_rules, UserDetails::getValidationRules());
     }
 }

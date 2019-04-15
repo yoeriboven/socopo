@@ -50,6 +50,19 @@ class UpgradePlanTest extends TestCase
         $this->assertDatabaseHas('user_details', $user_details);
     }
 
+    /** @test */
+    public function a_stripe_token_is_required()
+    {
+        $this->signIn();
+
+        $user_details = $this->getUserDetails();
+        $subscription_data = $this->getSubscriptionData(['stripeToken' => '']);
+
+        $this->post('upgrade', array_merge($user_details, $subscription_data))
+            ->assertSessionHasErrors('stripeToken');
+    }
+
+    /** @test */
     // Plan in array
     /**
      * Validation is tested in ChangeUserDetailsTest
