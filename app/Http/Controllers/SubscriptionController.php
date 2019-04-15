@@ -37,6 +37,8 @@ class SubscriptionController extends Controller
     public function store(SubscriptionRequest $request, UserDetailsService $userDetailsService)
     {
         $userDetailsService->store($request);
+
+        auth()->user()->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create(request('stripeToken'));
     }
 
     /**
