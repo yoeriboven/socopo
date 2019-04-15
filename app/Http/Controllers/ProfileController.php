@@ -7,7 +7,6 @@ use App\Profile;
 use Illuminate\Http\Request;
 use App\Services\ProfileService;
 use App\Http\Requests\ProfileRequest;
-use App\Repositories\ProfileRepository;
 use App\Exceptions\DuplicateAttachmentException;
 
 class ProfileController extends Controller
@@ -17,9 +16,9 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ProfileRepository $profiles)
+    public function index()
     {
-        return $profiles->forUser(auth()->user());
+        return auth()->user()->profiles;
     }
 
     /**

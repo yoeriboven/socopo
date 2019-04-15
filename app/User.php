@@ -62,6 +62,27 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Fetches all profiles the user follows in the correct order
+     *
+     * @return \Illuminate\Database\Eloquent\Collection;
+     */
+    public function getProfilesAttribute()
+    {
+        return $this->profiles()->orderBy('pivot_created_at', 'desc')->get();
+    }
+
+    /**
+     * Returns whether a profile is attached to the user already
+     *
+     * @param  String $username
+     * @return Boolean
+     */
+    public function attached($username)
+    {
+        return !! $this->profiles()->where('username', $username)->exists();
+    }
+
+    /**
      * A user has details (name, address, country, etc.)
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

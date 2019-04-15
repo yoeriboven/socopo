@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
@@ -26,6 +27,41 @@ class UserTest extends TestCase
 
         $this->assertTrue($this->user->profiles->contains($profile));
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->user->profiles);
+    }
+
+    /** @test */
+    public function it_can_check_if_a_profile_is_attached_already()
+    {
+        $user = $this->signIn();
+
+        $profile = factory('App\Profile')->create();
+
+        $this->assertFalse($user->attached($profile->username));
+
+        $profile->attachUser();
+
+        $this->assertTrue($user->attached($profile->username));
+    }
+
+    /** @test */
+    public function profiles_are_ordered_in_descending_order_by_when_they_were_attached()
+    {
+        $user = $this->signIn();
+
+        $profiles_ids = [];
+
+        for ($i = 3; $i>=1; $i--) {
+            $profile = factory('App\Profile')->create()->attachUser($user);
+            $profiles_ids[] = $profile->id;
+
+            // Because all Profiles in this test are attached at the same time
+            // the date of the attachment needs to change so this test works correctly
+            $one = $user->profiles()->where('id', $profile->id)->first();
+            $one->pivot->created_at = Carbon::now()->subDays($i);
+            $one->pivot->save();
+        }
+
+        $this->assertEquals(array_reverse($profiles_ids), $user->profiles->pluck('id')->toArray());
     }
 
     /** @test */

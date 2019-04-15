@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Libraries\Instagram\Hydrator\Component\Media;
 
 class Post extends Model
 {
@@ -39,5 +41,25 @@ class Post extends Model
     public function profile()
     {
         return $this->belongsTo('App\Profile');
+    }
+
+    /**
+     * Stores new posts with Instagram data
+     *
+     * @param  Libraries\Instagram\Hydrator\Component\Media $post
+     * @param  App\Profile $profile
+     * @return App\Post
+     */
+    public static function storeFromInstagram(Media $post, Profile $profile)
+    {
+        return static::create([
+            'profile_id' => $profile->id,
+            'ig_post_id' => $post->id,
+            'caption' => $post->caption,
+            'type' => $post->typeName,
+            'image_url' => $post->displaySrc,
+            'post_url' => $post->link,
+            'posted_at' => Carbon::instance($post->date)
+        ]);
     }
 }
