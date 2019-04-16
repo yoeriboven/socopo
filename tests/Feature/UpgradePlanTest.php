@@ -63,6 +63,18 @@ class UpgradePlanTest extends TestCase
     }
 
     /** @test */
+    public function a_stripe_token_needs_to_be_valid()
+    {
+        $this->withoutExceptionHandling();
+        $this->signIn();
+
+        $user_details = $this->getUserDetails();
+        $subscription_data = $this->getSubscriptionData(['stripeToken' => 'invalid_stripe_token']);
+
+        $this->post('upgrade', array_merge($user_details, $subscription_data))
+            ->assertSessionHasErrors('stripeToken');
+    }
+
     // Plan in array
     /**
      * Validation is tested in ChangeUserDetailsTest
@@ -79,7 +91,6 @@ class UpgradePlanTest extends TestCase
         $this->post('upgrade', array_merge($user_details, $subscription_data))
             ->assertSessionHasErrors('name');
     }
-
 
 
     private function getUserDetails($overrides = [])

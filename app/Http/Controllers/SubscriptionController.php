@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\UserDetailsService;
+use App\Services\SubscriptionsService;
 use App\Http\Requests\SubscriptionRequest;
 
 class SubscriptionController extends Controller
@@ -34,11 +34,15 @@ class SubscriptionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SubscriptionRequest $request, UserDetailsService $userDetailsService)
+    public function store(SubscriptionRequest $request, SubscriptionsService $subscriptions)
     {
-        $userDetailsService->store($request);
-
-        auth()->user()->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create(request('stripeToken'));
+        try {
+            $subscriptions->upgrade($request);
+        } catch (\Stripe\Error\InvalidRequest $e) {
+            return back()->withErrors(['stripeToken' => 'Invalid credit card details. Refresh the page and try again.']);
+        } catch (\Exception $e) {
+            dd('fail: '.$e->getMessage());
+        }
     }
 
     /**
