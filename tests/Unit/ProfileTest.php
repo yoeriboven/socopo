@@ -85,6 +85,7 @@ class ProfileTest extends TestCase
     /** @test */
     public function it_notifies_followers_of_new_posts()
     {
+        $this->withoutExceptionHandling();
         Notification::fake();
 
         // Given
@@ -92,6 +93,10 @@ class ProfileTest extends TestCase
         $users = factory('App\User', 2)->create();
         $profile->attachUser($users[0]);
         $profile->attachUser($users[1]);
+
+        // Notifications won't be sent if you don't have a slack_url to send it to
+        $users[0]->settings->update(['slack_url' => 'Something']);
+        $users[1]->settings->update(['slack_url' => 'Something']);
 
         $post = factory('App\Post')->create(['profile_id' => $profile->id]);
 

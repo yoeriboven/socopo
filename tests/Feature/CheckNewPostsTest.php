@@ -65,9 +65,10 @@ class CheckNewPostsTest extends TestCase
 
         // Given
         $user = factory('App\User')->create();
+        $user->settings->update(['slack_url' => 'Something']);
+
         $profileOne = factory('App\Profile')->create(['username' => 'daviddobrik']);
         $profileOne->attachUser($user);
-        factory('App\Post')->create(['profile_id' => $profileOne->id, 'ig_post_id' => 1996822142546072191, 'posted_at' => $historicPostedAt]);
 
         // When we call the command
         (new \App\InstagramCommand)->handle();
