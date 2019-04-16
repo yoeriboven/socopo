@@ -36,13 +36,15 @@ class ChangeUserDetailsTest extends TestCase
 
         $this->assertDatabaseHas('user_details', $details->toArray());
         $this->assertEquals($user->details->country, $attributes['country']);
+        $this->get('settings')->assertSee($details->name);
     }
 
     /** @test */
     public function it_shows_the_current_details()
     {
         $user = $this->signIn();
-        $details = factory('App\UserDetails')->create(['user_id' => $user->id, 'vat_id' => 'NL102910397B01']);
+        $details = factory('App\UserDetails')->make(['vat_id' => 'NL102910397B01']);
+        $user->details()->update($details->toArray());
 
         $this->get('settings')
             ->assertSee($details->name)

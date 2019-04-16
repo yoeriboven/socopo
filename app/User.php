@@ -48,6 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
          */
         static::created(function (User $user) {
             $user->settings()->save(new Settings());
+            $user->details()->save(new UserDetails());
         });
     }
 

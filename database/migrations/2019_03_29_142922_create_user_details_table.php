@@ -17,11 +17,11 @@ class CreateUserDetailsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('vat_id')->nullable();
-            $table->string('name');
-            $table->string('address');
-            $table->string('postal');
-            $table->string('city');
-            $table->string('country');
+            $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->string('postal')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
             $table->timestamps();
         });
     }

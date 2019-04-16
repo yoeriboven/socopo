@@ -2,14 +2,13 @@
 
 namespace App\Services;
 
-use App\UserDetails;
 use Illuminate\Http\Request;
 
 class UserDetailsService
 {
     public function store(Request $request)
     {
-        return UserDetails::updateOrCreate(['user_id' => $request->user()->id], [
+        return $request->user()->details()->update([
             'name' => $request->name,
             'vat_id' => $request->vat_id,
             'address' => $request->address,
