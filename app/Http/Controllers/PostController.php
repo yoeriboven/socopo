@@ -12,7 +12,7 @@ class PostController extends Controller
      *
      * @var array
      */
-    protected $posts;
+    private $posts;
 
     /**
      * Create a new controller instance.

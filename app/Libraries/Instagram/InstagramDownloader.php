@@ -76,7 +76,7 @@ class InstagramDownloader
      *
      * @return \stdClass
      */
-    protected function getData()
+    private function getData()
     {
         $this->avoidRateLimit();
 
@@ -92,7 +92,7 @@ class InstagramDownloader
      *
      * @throws  InstagramException
      */
-    protected function checkUsername($userName)
+    private function checkUsername($userName)
     {
         if (empty($this->userName = $userName)) {
             throw new InstagramException('Username cannot be empty');

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class SubscriptionsService
 {
-    protected $userDetailsService;
+    private $userDetailsService;
 
     public function __construct(UserDetailsService $userDetailsService)
     {
