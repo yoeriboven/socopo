@@ -1,17 +1,16 @@
 <?php
 namespace Tests\Instagram;
 
+use Tests\TestCase;
 use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Handler\MockHandler;
 
+use App\Exceptions\InstagramException;
 use App\Libraries\Instagram\InstagramDownloader;
-use App\Libraries\Instagram\Exception\InstagramException;
 use App\Libraries\Instagram\Hydrator\Component\Feed;
 use App\Libraries\Instagram\Hydrator\Component\Media;
-
-use Tests\TestCase;
 
 class ApiTest extends TestCase
 {

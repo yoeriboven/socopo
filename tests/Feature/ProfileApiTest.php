@@ -150,8 +150,8 @@ class ProfileApiTest extends TestCase
 
         $this->assertCount(0, Profile::all());
 
-        $this->publishProfile(['username' => 'yoeriboven']);
-        $this->publishProfile(['username' => 'yoeriboven']);
+        $this->publishProfile(['username' => 'daviddobrik']);
+        $this->publishProfile(['username' => 'daviddobrik']);
 
         $this->assertCount(1, Profile::all());
     }
@@ -161,7 +161,7 @@ class ProfileApiTest extends TestCase
     {
         $this->signIn();
 
-        $profile = factory('App\Profile')->make(['username' => 'yoeriboven']);
+        $profile = factory('App\Profile')->make(['username' => 'daviddobrik']);
 
         $this->post('/api/profiles', $profile->toArray());
 

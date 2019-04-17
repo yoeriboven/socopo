@@ -3,7 +3,7 @@
 namespace App\Libraries\Instagram;
 
 use GuzzleHttp\Client;
-use App\Libraries\Instagram\Exception\InstagramException;
+use App\Exceptions\InstagramException;
 use App\Libraries\Instagram\Hydrator\HtmlHydrator;
 use App\Libraries\Instagram\Transport\TransportFeed;
 
