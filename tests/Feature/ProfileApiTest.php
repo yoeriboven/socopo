@@ -135,6 +135,15 @@ class ProfileApiTest extends TestCase
     }
 
     /** @test */
+    public function it_shows_an_error_if_the_instagram_profile_is_private()
+    {
+        $this->signIn();
+
+        $this->json('POST', '/api/profiles', ['username' => 'yoeriboven'])
+             ->assertStatus(503);
+    }
+
+    /** @test */
     public function a_username_is_unique()
     {
         $this->signIn();

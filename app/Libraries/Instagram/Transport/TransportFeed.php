@@ -3,6 +3,7 @@
 namespace App\Libraries\Instagram\Transport;
 
 use GuzzleHttp\Client;
+use App\Exceptions\PrivateProfileException;
 use App\Libraries\Instagram\Exception\InstagramException;
 
 class TransportFeed
@@ -49,7 +50,13 @@ class TransportFeed
             throw new InstagramException(json_last_error_msg());
         }
 
-        return $data->entry_data->ProfilePage[0]->graphql->user;
+        $profile = $data->entry_data->ProfilePage[0]->graphql->user;
+
+        if ($profile->is_private === true) {
+            throw new PrivateProfileException('Profile is private.');
+        }
+
+        return $profile;
     }
 
     /**

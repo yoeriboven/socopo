@@ -7,6 +7,7 @@ use App\Profile;
 use Illuminate\Http\Request;
 use App\Services\ProfileService;
 use App\Http\Requests\ProfileRequest;
+use App\Exceptions\PrivateProfileException;
 use App\Exceptions\DuplicateAttachmentException;
 
 class ProfileController extends Controller
@@ -35,6 +36,8 @@ class ProfileController extends Controller
             return response(['message' => 'Profile has already been added.'], 202);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             return response(['message' => 'Profile not found for this username.'], 503);
+        } catch (PrivateProfileException $e) {
+            return response(['message' => 'This Instagram account is private.'], 503);
         } catch (Exception $e) {
             // Sentry include username
             return response(['message' => 'Something failed on our end. We\'ve been notified and will fix this. You can also try again.'], 500);
