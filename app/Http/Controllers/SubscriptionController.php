@@ -15,7 +15,9 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        //
+        return view('upgrade.upgrade', [
+            'details' => auth()->user()->details
+        ]);
     }
 
     /**
