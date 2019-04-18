@@ -1948,7 +1948,8 @@ pre code {
 
 .form-control,
 .dataTables_wrapper .dataTables_filter input,
-.dataTables_wrapper .dataTables_length select {
+.dataTables_wrapper .dataTables_length select,
+.StripeElement {
   display: block;
   width: 100%;
   height: 2.375rem;
@@ -1966,21 +1967,24 @@ pre code {
 @media screen and (prefers-reduced-motion: reduce) {
   .form-control,
   .dataTables_wrapper .dataTables_filter input,
-  .dataTables_wrapper .dataTables_length select {
+  .dataTables_wrapper .dataTables_length select,
+  .StripeElement {
     transition: none;
   }
 }
 
 .form-control::-ms-expand,
 .dataTables_wrapper .dataTables_filter input::-ms-expand,
-.dataTables_wrapper .dataTables_length select::-ms-expand {
+.dataTables_wrapper .dataTables_length select::-ms-expand,
+.StripeElement::-ms-expand {
   background-color: transparent;
   border: 0;
 }
 
 .form-control:focus,
 .dataTables_wrapper .dataTables_filter input:focus,
-.dataTables_wrapper .dataTables_length select:focus {
+.dataTables_wrapper .dataTables_length select:focus,
+.StripeElement:focus {
   color: #495057;
   background-color: #fff;
   border-color: #1991eb;
@@ -1990,28 +1994,32 @@ pre code {
 
 .form-control::-webkit-input-placeholder,
 .dataTables_wrapper .dataTables_filter input::-webkit-input-placeholder,
-.dataTables_wrapper .dataTables_length select::-webkit-input-placeholder {
+.dataTables_wrapper .dataTables_length select::-webkit-input-placeholder,
+.StripeElement::-webkit-input-placeholder {
   color: #adb5bd;
   opacity: 1;
 }
 
 .form-control:-ms-input-placeholder,
 .dataTables_wrapper .dataTables_filter input:-ms-input-placeholder,
-.dataTables_wrapper .dataTables_length select:-ms-input-placeholder {
+.dataTables_wrapper .dataTables_length select:-ms-input-placeholder,
+.StripeElement:-ms-input-placeholder {
   color: #adb5bd;
   opacity: 1;
 }
 
 .form-control::-ms-input-placeholder,
 .dataTables_wrapper .dataTables_filter input::-ms-input-placeholder,
-.dataTables_wrapper .dataTables_length select::-ms-input-placeholder {
+.dataTables_wrapper .dataTables_length select::-ms-input-placeholder,
+.StripeElement::-ms-input-placeholder {
   color: #adb5bd;
   opacity: 1;
 }
 
 .form-control::placeholder,
 .dataTables_wrapper .dataTables_filter input::placeholder,
-.dataTables_wrapper .dataTables_length select::placeholder {
+.dataTables_wrapper .dataTables_length select::placeholder,
+.StripeElement::placeholder {
   color: #adb5bd;
   opacity: 1;
 }
@@ -2021,7 +2029,9 @@ pre code {
 .dataTables_wrapper .dataTables_length select:disabled,
 .form-control[readonly],
 .dataTables_wrapper .dataTables_filter input[readonly],
-.dataTables_wrapper .dataTables_length select[readonly] {
+.dataTables_wrapper .dataTables_length select[readonly],
+.StripeElement:disabled,
+.StripeElement[readonly] {
   background-color: #f8f9fa;
   opacity: 1;
 }

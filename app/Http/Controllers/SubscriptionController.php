@@ -45,6 +45,8 @@ class SubscriptionController extends Controller
         } catch (\Exception $e) {
             dd('fail: '.$e->getMessage());
         }
+
+        return 'Upgrade completed.';
     }
 
     /**
