@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 class SubscriptionsService
 {
+    private $request;
     private $userDetailsService;
 
     public function __construct(UserDetailsService $userDetailsService)
@@ -20,8 +21,19 @@ class SubscriptionsService
      */
     public function upgrade(Request $request)
     {
-        $this->userDetailsService->store($request);
+        $this->request = $request;
 
-        $request->user()->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create(request('stripeToken'));
+        $this->userDetailsService->store($this->request);
+
+        $this->subscribe();
+    }
+
+    private function subscribe()
+    {
+        $plan = config('plans')[$this->request->get('plan')];
+
+        $this->request->user()
+            ->newSubscription($plan['name'], $plan['id'])
+            ->create($this->request->get('stripeToken'));
     }
 }

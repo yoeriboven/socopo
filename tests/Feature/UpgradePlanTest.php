@@ -109,6 +109,20 @@ class UpgradePlanTest extends TestCase
             ->assertSessionHasErrors('plan');
     }
 
+    /** @test */
+    public function it_subscribes_to_the_correct_plan()
+    {
+        $user = $this->signIn();
+
+        $planKey = array_key_first(config('plans'));
+        $plan = config('plans')[$planKey];
+
+        $subscription_data = $this->getSubscriptionData(['plan' => $planKey, 'stripeToken' => $this->getStripeToken()]);
+        $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data));
+
+        $this->assertEquals($plan['id'], $user->subscription($plan['name'])->stripe_plan);
+    }
+
 
     private function getUserDetails($overrides = [])
     {
@@ -127,7 +141,7 @@ class UpgradePlanTest extends TestCase
     private function getSubscriptionData($overrides = [])
     {
         $subscription_data = [
-            'plan' => 'plan_ErRIL8fIR4sfRt',
+            'plan' => 'plan_1',
             'stripeToken' => 'placeholder_stripe_token'
         ];
 
