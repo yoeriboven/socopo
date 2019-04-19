@@ -5,11 +5,15 @@ namespace App;
 use Laravel\Cashier\Billable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Mpociot\VatCalculator\Facades\VatCalculator;
+use Mpociot\VatCalculator\Traits\BillableWithinTheEU;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, Billable;
+    use Notifiable, Billable, BillableWithinTheEU {
+        BillableWithinTheEU::taxPercentage insteadof Billable;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -132,5 +136,15 @@ class User extends Authenticatable implements MustVerifyEmail
     public function routeNotificationForSlack($notification)
     {
         return $this->settings->slack_url;
+    }
+
+    /**
+     * Checks whether the user is a business based on whether the vat_id is valid
+     *
+     * @return bool
+     */
+    public function isBusiness()
+    {
+        return VatCalculator::isValidVATNumber($this->details->vat_id);
     }
 }

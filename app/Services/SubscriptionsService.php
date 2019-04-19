@@ -38,6 +38,8 @@ class SubscriptionsService
      */
     private function subscribe()
     {
+        $this->setTaxRate();
+
         $plan = $this->getPlan();
 
         $this->request->user()
@@ -45,6 +47,17 @@ class SubscriptionsService
             ->create($this->request->stripeToken, [
                 'email' => $this->request->user()->email
             ]);
+    }
+
+    /**
+     * Set tax rate based on the country
+     * and whether the user is an individual or a company
+     */
+    public function setTaxRate()
+    {
+        $user = $this->request->user();
+
+        $user->setTaxForCountry($user->details->country, $user->isBusiness());
     }
 
     /**
@@ -66,7 +79,7 @@ class SubscriptionsService
      */
     public function getPlan()
     {
-        return config('plans')[$this->request->get('plan')];
+        return config('plans')[$this->request->plan];
     }
 
     /**

@@ -45,6 +45,8 @@ class SubscriptionController extends Controller
             return back()->withErrors(['stripeToken' => 'Invalid credit card details. Refresh the page and try again.']);
         } catch (AlreadySubscribedToPlanException $e) {
             return back()->withErrors(['You are already subscribed to this plan.']);
+        } catch (VATCheckUnavailableException $e) {
+            return back()->withErrors(['We couldn\'t verify your VAT Number at the moment. Upgrade as an individual or try again later.']);
         } catch (\Exception $e) {
             dd('fail: '.$e->getMessage());
         }
