@@ -46,7 +46,7 @@ class SubscriptionController extends Controller
             dd('fail: '.$e->getMessage());
         }
 
-        return 'Upgrade completed.';
+        return redirect()->route('posts.index')->with(['success' => 'Your account has been upgraded.']);
     }
 
     /**
