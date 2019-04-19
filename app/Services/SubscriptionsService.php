@@ -33,6 +33,9 @@ class SubscriptionsService
         $this->subscribe();
     }
 
+    /**
+     * Subscribes the user to the plan
+     */
     private function subscribe()
     {
         $plan = $this->getPlan();
@@ -44,6 +47,11 @@ class SubscriptionsService
             ]);
     }
 
+    /**
+     * Returns whether the user is already subscribed to this plan
+     *
+     * @return boolean
+     */
     public function alreadySubscribedToPlan()
     {
         $plan = $this->getPlan();
@@ -51,11 +59,21 @@ class SubscriptionsService
         return !! $this->request->user()->subscribed($plan['name']);
     }
 
+    /**
+     * Returns the plan the user is trying to subscribe to
+     *
+     * @return array
+     */
     public function getPlan()
     {
         return config('plans')[$this->request->get('plan')];
     }
 
+    /**
+     * Set the variable
+     *
+     * @param Request $request
+     */
     public function setRequest($request)
     {
         if (! is_null($request)) {
