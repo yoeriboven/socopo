@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\UserDetails;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SubscriptionRequest extends FormRequest
@@ -15,7 +16,8 @@ class SubscriptionRequest extends FormRequest
     public function rules()
     {
         $subscription_rules = [
-            'stripeToken' => 'required'
+            'stripeToken' => 'required',
+            'plan' => ['required', Rule::in(array_keys(config('plans')))]
         ];
 
         return array_merge($subscription_rules, UserDetails::getValidationRules());

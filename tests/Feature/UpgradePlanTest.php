@@ -75,7 +75,6 @@ class UpgradePlanTest extends TestCase
             ->assertSessionHasErrors('stripeToken');
     }
 
-    // Plan in array
     /**
      * Validation is tested in ChangeUserDetailsTest
      * This test is to check if it is implemented
@@ -90,6 +89,24 @@ class UpgradePlanTest extends TestCase
 
         $this->post('upgrade', array_merge($user_details, $subscription_data))
             ->assertSessionHasErrors('name');
+    }
+
+    /** @test */
+    public function a_plan_is_required_and_needs_to_exist_in_the_plans_list()
+    {
+        $user = $this->signIn();
+
+        $subscription_data = $this->getSubscriptionData(['plan' => null]);
+        $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data))
+            ->assertSessionHasErrors('plan');
+
+        $subscription_data = $this->getSubscriptionData(['plan' => 'plan_1']);
+        $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data))
+            ->assertSessionDoesntHaveErrors('plan');
+
+        $subscription_data = $this->getSubscriptionData(['plan' => 'plan_391']);
+        $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data))
+            ->assertSessionHasErrors('plan');
     }
 
 
