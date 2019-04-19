@@ -52,6 +52,7 @@
                             <form method="POST" action="{{ url('upgrade') }}" id="payment-form">
                                 @csrf
 
+                                @include('upgrade._plans')
                                 @include('upgrade._user_details')
                                 @include('upgrade._billing')
                             </form>
