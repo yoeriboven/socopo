@@ -120,7 +120,25 @@ class UpgradePlanTest extends TestCase
         $subscription_data = $this->getSubscriptionData(['plan' => $planKey, 'stripeToken' => $this->getStripeToken()]);
         $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data));
 
-        $this->assertEquals($plan['id'], $user->subscription($plan['name'])->stripe_plan);
+        $this->assertEquals($plan['id'], $user->fresh()->subscription($plan['name'])->stripe_plan);
+    }
+
+    /** @test */
+    public function it_has_errors_when_a_user_is_already_subscribed_to_the_requested_plan()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = $this->signIn();
+
+        $planKey = array_key_first(config('plans'));
+        $plan = config('plans')[$planKey];
+
+        $subscription = factory('Laravel\Cashier\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
+
+        $subscription_data = $this->getSubscriptionData(['plan' => $planKey]);
+
+        $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data))
+            ->assertSessionHasErrors();
     }
 
 

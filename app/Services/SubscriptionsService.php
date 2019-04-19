@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Exceptions\AlreadySubscribedToPlanException;
 
 class SubscriptionsService
 {
@@ -19,9 +20,13 @@ class SubscriptionsService
      *
      * @param  Request $request
      */
-    public function upgrade(Request $request)
+    public function upgrade(Request $request = null)
     {
-        $this->request = $request;
+        $this->setRequest($request);
+
+        if ($this->alreadySubscribedToPlan()) {
+            throw new AlreadySubscribedToPlanException();
+        }
 
         $this->userDetailsService->store($this->request);
 
@@ -35,5 +40,19 @@ class SubscriptionsService
         $this->request->user()
             ->newSubscription($plan['name'], $plan['id'])
             ->create($this->request->get('stripeToken'));
+    }
+
+    public function alreadySubscribedToPlan()
+    {
+        $plan = config('plans')[$this->request->get('plan')];
+
+        return !! $this->request->user()->subscribed($plan['name']);
+    }
+
+    public function setRequest($request)
+    {
+        if (! is_null($request)) {
+            $this->request = $request;
+        }
     }
 }

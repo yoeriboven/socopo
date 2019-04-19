@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\SubscriptionsService;
 use App\Http\Requests\SubscriptionRequest;
+use App\Exceptions\AlreadySubscribedToPlanException;
 
 class SubscriptionController extends Controller
 {
@@ -42,6 +43,8 @@ class SubscriptionController extends Controller
             $subscriptions->upgrade($request);
         } catch (\Stripe\Error\InvalidRequest $e) {
             return back()->withErrors(['stripeToken' => 'Invalid credit card details. Refresh the page and try again.']);
+        } catch (AlreadySubscribedToPlanException $e) {
+            return back()->withErrors(['You are already subscribed to this plan.']);
         } catch (\Exception $e) {
             dd('fail: '.$e->getMessage());
         }
