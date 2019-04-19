@@ -13,6 +13,13 @@
 			@endif
 
 			@include('partials._user_details_fields')
+
+			<div class="row">
+				<div class="col-12 text-right">
+					<button class="btn btn-primary" type="submit">Change info</button>
+				</div>
+			</div>
+
 		</form>
 	</div>
 </div>

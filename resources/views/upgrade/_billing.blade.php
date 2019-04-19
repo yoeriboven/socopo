@@ -12,6 +12,12 @@
 	                </div>
 					<div class="invalid-feedback" id="card-errors" role="alert"></div>
 				</div>
+
+				<div class="row">
+					<div class="col-12 text-right">
+						<button class="btn btn-primary" type="submit">Subscribe</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

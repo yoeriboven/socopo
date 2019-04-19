@@ -71,7 +71,5 @@
 		</div>
 	</div>
 
-	<div class="col-12 text-right">
-		<button class="btn btn-primary" type="submit">Change info</button>
-	</div>
+
 </div>
