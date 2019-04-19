@@ -35,18 +35,25 @@ class SubscriptionsService
 
     private function subscribe()
     {
-        $plan = config('plans')[$this->request->get('plan')];
+        $plan = $this->getPlan();
 
         $this->request->user()
             ->newSubscription($plan['name'], $plan['id'])
-            ->create($this->request->get('stripeToken'));
+            ->create($this->request->stripeToken, [
+                'email' => $this->request->user()->email
+            ]);
     }
 
     public function alreadySubscribedToPlan()
     {
-        $plan = config('plans')[$this->request->get('plan')];
+        $plan = $this->getPlan();
 
         return !! $this->request->user()->subscribed($plan['name']);
+    }
+
+    public function getPlan()
+    {
+        return config('plans')[$this->request->get('plan')];
     }
 
     public function setRequest($request)
