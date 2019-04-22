@@ -107,4 +107,29 @@ class UserTest extends TestCase
         $this->user->details->update(['vat_id' => 'invalid_vat_id']);
         $this->assertFalse($this->user->isBusiness());
     }
+
+    /** @test */
+    public function it_can_determine_if_there_is_a_subscription_active()
+    {
+        \Stripe\Stripe::setApiKey("sk_test_bnPhXRyMBzrzKzneJ0MWrxu800Cw50DbP1");
+
+        $token = \Stripe\Token::create([
+                    'card' => [
+                        'number' => '4242424242424242',
+                        'exp_month' => 1,
+                        'exp_year' => 2025,
+                        'cvc' => 123
+                    ]
+                ])->id;
+
+        $this->assertFalse($this->user->isSubscribed());
+
+        $this->user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($token);
+
+        $this->assertTrue($this->user->fresh()->isSubscribed());
+
+        $this->user->fresh()->subscription('Pro')->cancelNow();
+
+        $this->assertFalse($this->user->fresh()->isSubscribed());
+    }
 }

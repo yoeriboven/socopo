@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Laravel\Cashier\Billable;
+use App\Billing\Billable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Mpociot\VatCalculator\Facades\VatCalculator;

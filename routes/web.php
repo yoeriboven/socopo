@@ -33,7 +33,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::post('settings/change_password', 'Auth\ChangePasswordController@change');
 
     /* Upgrade Plan */
-    Route::get('upgrade', 'SubscriptionController@index');
+    Route::get('upgrade', 'SubscriptionController@index')->name('upgrade');
     Route::post('upgrade', 'SubscriptionController@store');
 
     /* Slack authorization */
@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('slack/logout', 'SlackController@logout')->name('slack.logout');
 });
 
+/* Authorization */
 Auth::routes(['verify' => true]);
 
 Route::get('ig', 'Controller@instagramTester');
