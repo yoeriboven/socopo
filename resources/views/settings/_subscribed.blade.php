@@ -4,7 +4,7 @@
 	</div>
 	<div class="col-9">
 		<strong>Plan: </strong> {{ auth()->user()->subscription()->name }}<br/>
-		<strong>Renewal date: </strong> {{ auth()->user()->subscription()->renewDate }}<br/>
+		<strong>Renewal date: </strong> {{ auth()->user()->subscription()->current_period_end->format('F jS, Y') }}<br/>
 
 		<div class="row">
 			<div class="col-6">

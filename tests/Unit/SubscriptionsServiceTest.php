@@ -23,7 +23,7 @@ class SubscriptionsServiceTest extends TestCase
         $planKey = array_key_first(config('plans'));
         $plan = config('plans')[$planKey];
 
-        factory('Laravel\Cashier\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
+        factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
 
         $service = $this->createService(['plan' => $planKey]);
 
@@ -38,7 +38,7 @@ class SubscriptionsServiceTest extends TestCase
         $planKey = array_key_first(config('plans'));
         $plan = config('plans')[$planKey];
 
-        factory('Laravel\Cashier\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
+        factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
 
         $service = $this->createService(['plan' => $planKey]);
 
@@ -109,17 +109,5 @@ class SubscriptionsServiceTest extends TestCase
             'plan' => 'plan_1',
             'stripeToken' => 'placeholder_stripe_token'
         ];
-    }
-
-    private function getStripeToken()
-    {
-        return \Stripe\Token::create([
-                    'card' => [
-                        'number' => '4242424242424242',
-                        'exp_month' => 1,
-                        'exp_year' => 2025,
-                        'cvc' => 123
-                    ]
-                ])->id;
     }
 }

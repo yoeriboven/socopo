@@ -3,31 +3,21 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Tests\Traits\InteractsWithStripe;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BillableTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, InteractsWithStripe;
 
     /** @test */
     public function it_can_determine_if_there_is_a_subscription_active()
     {
         $user = $this->signIn();
 
-        \Stripe\Stripe::setApiKey("sk_test_bnPhXRyMBzrzKzneJ0MWrxu800Cw50DbP1");
-
-        $token = \Stripe\Token::create([
-                    'card' => [
-                        'number' => '4242424242424242',
-                        'exp_month' => 1,
-                        'exp_year' => 2025,
-                        'cvc' => 123
-                    ]
-                ])->id;
-
         $this->assertFalse($user->isSubscribed());
 
-        $user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($token);
+        $user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($this->getStripeToken());
 
         $this->assertTrue($user->fresh()->isSubscribed());
 
@@ -81,18 +71,7 @@ class BillableTest extends TestCase
     {
         $user = $this->signIn();
 
-        \Stripe\Stripe::setApiKey("sk_test_bnPhXRyMBzrzKzneJ0MWrxu800Cw50DbP1");
-
-        $token = \Stripe\Token::create([
-                    'card' => [
-                        'number' => '4242424242424242',
-                        'exp_month' => 1,
-                        'exp_year' => 2025,
-                        'cvc' => 123
-                    ]
-                ])->id;
-
-        $subscription = $user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($token);
+        $subscription = $user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($this->getStripeToken());
 
         $subscription = $subscription->asStripeSubscription();
 

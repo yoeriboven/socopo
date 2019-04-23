@@ -48,7 +48,8 @@ class SubscriptionController extends Controller
         } catch (VATCheckUnavailableException $e) {
             return back()->withErrors(['We couldn\'t verify your VAT Number at the moment. Upgrade as an individual or try again later.']);
         } catch (\Exception $e) {
-            dd('fail: '.$e->getMessage());
+            // dd('fail: '.$e->getMessage());
+            return back()->withErrors(['Upgrading your account has failed. Please try again later.']);
         }
 
         return redirect()->route('posts.index')->with(['success' => 'Your account has been upgraded.']);

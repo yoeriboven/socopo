@@ -3,18 +3,12 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use Tests\Traits\InteractsWithStripe;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UpgradePlanTest extends TestCase
 {
-    use RefreshDatabase;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        \Stripe\Stripe::setApiKey("sk_test_bnPhXRyMBzrzKzneJ0MWrxu800Cw50DbP1");
-    }
+    use RefreshDatabase, InteractsWithStripe;
 
     /** @test */
     public function unauthorized_users_cant_access_the_upgrade_pages()
@@ -164,17 +158,5 @@ class UpgradePlanTest extends TestCase
         ];
 
         return array_merge($subscription_data, $overrides);
-    }
-
-    private function getStripeToken()
-    {
-        return \Stripe\Token::create([
-                    'card' => [
-                        'number' => '4242424242424242',
-                        'exp_month' => 1,
-                        'exp_year' => 2025,
-                        'cvc' => 123
-                    ]
-                ])->id;
     }
 }

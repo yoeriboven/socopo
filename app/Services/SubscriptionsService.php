@@ -7,7 +7,18 @@ use App\Exceptions\AlreadySubscribedToPlanException;
 
 class SubscriptionsService
 {
+    /**
+     * The current request
+     *
+     * @var Illuminate\Http\Request
+     */
     private $request;
+
+    /**
+     * Handles all events related to the user_details
+     *
+     * @var App\Services\UserDetailsService
+     */
     private $userDetailsService;
 
     public function __construct(UserDetailsService $userDetailsService)
