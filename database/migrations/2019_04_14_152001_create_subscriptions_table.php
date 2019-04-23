@@ -19,6 +19,7 @@ class CreateSubscriptionsTable extends Migration
             $table->string('stripe_id')->collation('utf8mb4_bin');
             $table->string('stripe_plan');
             $table->integer('quantity');
+            $table->timestamp('current_period_end')->nullable();
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('ends_at')->nullable();
             $table->timestamps();

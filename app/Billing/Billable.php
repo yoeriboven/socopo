@@ -4,7 +4,9 @@ namespace App\Billing;
 
 trait Billable
 {
-    use \Laravel\Cashier\Billable;
+    use \Laravel\Cashier\Billable {
+        \Laravel\Cashier\Billable::subscription as parentSubscription;
+    }
 
     /**
      * Gets the subscriptions and returns whether at least one is valid
@@ -19,7 +21,7 @@ trait Billable
     }
 
     /**
-     * Get a subscription instance by name.
+     * Get a subscription instance (by name).
      *
      * @param  string  $subscription
      * @return \Laravel\Cashier\Subscription|null
@@ -34,11 +36,7 @@ trait Billable
         }
 
         // Return the first found subscription with the $subscription name
-        return $this->subscriptions->sortByDesc(function ($value) {
-            return $value->created_at->getTimestamp();
-        })->first(function ($value) use ($subscription) {
-            return $value->name === $subscription;
-        });
+        return $this->parentSubscription($subscription);
     }
 
     /**
@@ -49,5 +47,17 @@ trait Billable
     public function subscriptions()
     {
         return $this->hasMany(Subscription::class, $this->getForeignKey())->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Begin creating a new subscription.
+     *
+     * @param  string  $subscription
+     * @param  string  $plan
+     * @return \Laravel\Cashier\SubscriptionBuilder
+     */
+    public function newSubscription($subscription, $plan)
+    {
+        return new SubscriptionBuilder($this, $subscription, $plan);
     }
 }

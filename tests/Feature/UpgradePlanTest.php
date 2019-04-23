@@ -133,7 +133,7 @@ class UpgradePlanTest extends TestCase
         $planKey = array_key_first(config('plans'));
         $plan = config('plans')[$planKey];
 
-        $subscription = factory('Laravel\Cashier\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
+        $subscription = factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
 
         $subscription_data = $this->getSubscriptionData(['plan' => $planKey]);
 

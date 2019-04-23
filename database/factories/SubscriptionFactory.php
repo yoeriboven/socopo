@@ -1,9 +1,8 @@
 <?php
 
 use Faker\Generator as Faker;
-use Laravel\Cashier\Subscription;
 
-$factory->define(Subscription::class, function (Faker $faker) {
+$factory->define(App\Billing\Subscription::class, function (Faker $faker) {
     return [
         'user_id' => '0',
         'name' => 'Pro',
