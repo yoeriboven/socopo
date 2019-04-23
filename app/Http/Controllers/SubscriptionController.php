@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Billing\Subscription;
 use App\Services\SubscriptionsService;
 use App\Http\Requests\SubscriptionRequest;
 use App\Exceptions\AlreadySubscribedToPlanException;
@@ -95,8 +96,10 @@ class SubscriptionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Subscription $subscription)
     {
-        //
+        $subscription->cancel();
+
+        return back()->with('success', 'Subscription cancelled.');
     }
 }

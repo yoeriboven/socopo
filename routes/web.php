@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     /* Upgrade Plan */
     Route::get('upgrade', 'SubscriptionController@index')->name('upgrade');
     Route::post('upgrade', 'SubscriptionController@store');
+    Route::delete('subscription/cancel/{subscription}', 'SubscriptionController@destroy')->name('subscription.destroy');
 
     /* Slack authorization */
     Route::get('slack/login', 'SlackController@login')->name('slack.login');

@@ -4,6 +4,13 @@
 
 
 @section('content')
+
+@if (Session::has('success'))
+	<div class="alert alert-icon alert-success full-width" role="alert">
+		<i class="fe fe-check mr-2" aria-hidden="true"></i> {{ Session::get('success') }}
+	</div>
+@endif
+
 <div class="card">
 	<div class="card-header">
 		<h3 class="card-title">Settings</h3>
@@ -12,9 +19,9 @@
 		@include('settings._slack')
 
 		@if (auth()->user()->isSubscribed())
-			@include('settings._subscribed')
+			@include('settings._subscription_active')
 		@else
-			@include('settings._not_subscribed')
+			@include('settings._subscription_inactive')
 		@endif
 
 		@include('settings._user_details')
