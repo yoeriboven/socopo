@@ -107,4 +107,47 @@ class BillableTest extends TestCase
         $user->details->update(['country' => 'US', 'vat_id' => null]);
         $this->assertEquals(0, $user->getTaxPercent());
     }
+
+    /** @test */
+    public function it_can_subscribe_a_user()
+    {
+        $user = $this->user;
+
+        // Subscribe to plan
+        $planKey = array_keys(config('plans'))[0];
+        $planOne = config('plans')[$planKey];
+
+        $user->subscribeToPlan($this->getStripeToken(), $planOne);
+
+        $user->refresh();
+
+        // Subscribe to different plan
+        $planKey = array_keys(config('plans'))[1];
+        $planTwo = config('plans')[$planKey];
+
+        $user->subscribeToPlan($this->getStripeToken(), $planTwo);
+
+        $this->assertEquals($user->fresh()->subscription()->name, $planTwo['name']);
+        $this->assertTrue($user->fresh()->subscription($planOne['name'])->cancelled());
+    }
+
+    /** @test */
+    public function it_can_cancel_all_subscriptions()
+    {
+        $user = $this->user;
+
+        // Subscribe to plan
+        $planKey = array_keys(config('plans'))[0];
+        $planOne = config('plans')[$planKey];
+
+        $user->subscribeToPlan($this->getStripeToken(), $planOne);
+
+        $this->assertTrue($user->fresh()->isSubscribed());
+
+        $user->refresh();
+
+        $user->cancelAllSubscriptions();
+
+        $this->assertCount(0, $user->subscriptions()->notCancelled()->get());
+    }
 }

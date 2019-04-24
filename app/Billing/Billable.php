@@ -14,6 +14,7 @@ trait Billable
      * Gets the subscriptions and returns whether at least one is valid
      *
      * @return bool
+     *
      */
     public function isSubscribed()
     {
@@ -91,5 +92,31 @@ trait Billable
     public function taxPercentage()
     {
         return $this->getTaxPercent();
+    }
+
+    /**
+     * A user will be subscribed to a new plan
+     *
+     * If a user is already subscribed to another plan, that one will be cancelled
+     *
+     * @return App\Billing\Subscription
+     */
+    public function subscribeToPlan($token, $plan)
+    {
+        $this->cancelAllSubscriptions();
+
+        return $this->newSubscription($plan['name'], $plan['id'])->create($token, [
+            'email' => $this->email
+        ]);
+    }
+
+    /**
+     * Cancels all previous subscriptions
+     */
+    public function cancelAllSubscriptions()
+    {
+        $this->subscriptions->each(function ($subscription) {
+            $subscription->cancel();
+        });
     }
 }

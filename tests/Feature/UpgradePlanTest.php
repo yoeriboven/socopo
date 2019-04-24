@@ -13,6 +13,9 @@ class UpgradePlanTest extends TestCase
     /** @test */
     public function unauthorized_users_cant_access_the_upgrade_pages()
     {
+        $this->get('upgrade')
+            ->assertRedirect('login');
+
         $this->post('upgrade')
             ->assertRedirect('login');
     }
@@ -133,6 +136,32 @@ class UpgradePlanTest extends TestCase
 
         $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data))
             ->assertSessionHasErrors();
+    }
+
+    /** @test */
+    public function if_a_user_is_already_subscribed_to_another_plan_the_old_plan_will_be_cancelled()
+    {
+        $this->withoutExceptionHandling();
+        $user = $this->signIn();
+
+        // Subscribe to plan
+        $planKey = array_keys(config('plans'))[0];
+        $planOne = config('plans')[$planKey];
+
+        $subscription_data = $this->getSubscriptionData(['plan' => $planKey, 'stripeToken' => $this->getStripeToken()]);
+        $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data));
+
+        $user->refresh();
+
+        // Subscribe to different plan
+        $planKey = array_keys(config('plans'))[1];
+        $planTwo = config('plans')[$planKey];
+
+        $subscription_data = $this->getSubscriptionData(['plan' => $planKey, 'stripeToken' => $this->getStripeToken()]);
+        $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data));
+
+        $this->assertEquals($user->fresh()->subscription()->name, $planTwo['name']);
+        $this->assertTrue($user->fresh()->subscription($planOne['name'])->cancelled());
     }
 
 

@@ -10,7 +10,7 @@
 				<a href="{{ route('upgrade') }}" style="position: absolute;bottom: 0;">View plans</a>
 			</div>
 			<div class="col-6 text-right">
-				<a href="{{ route('upgrade') }}" class="btn btn-primary">Change plan</a>
+				<a href="{{ route('upgrade') }}" class="btn btn-primary">Upgrade</a>
 			</div>
 		</div>
 	</div>

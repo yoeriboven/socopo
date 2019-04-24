@@ -38,40 +38,32 @@ class SubscriptionsService
     {
         $this->setRequest($request);
 
-        if ($this->alreadySubscribedToPlan()) {
+        $plan = $this->getPlan();
+
+        if ($this->alreadySubscribedToPlan($plan)) {
             throw new AlreadySubscribedToPlanException();
         }
 
         $this->userDetailsService->store($this->request);
 
-        $this->subscribe();
+        $this->subscribe($plan);
     }
 
     /**
      * Subscribes the user to the plan
      */
-    private function subscribe()
+    private function subscribe($plan)
     {
-        $plan = $this->getPlan();
-
-        $this->request->user()
-            ->newSubscription($plan['name'], $plan['id'])
-            ->create($this->request->stripeToken, [
-                'email' => $this->request->user()->email
-            ]);
+        $this->request->user()->subscribeToPlan($this->request->stripeToken, $plan);
     }
-
-
 
     /**
      * Returns whether the user is already subscribed to this plan
      *
      * @return boolean
      */
-    public function alreadySubscribedToPlan()
+    public function alreadySubscribedToPlan($plan)
     {
-        $plan = $this->getPlan();
-
         return !! $this->request->user()->subscribed($plan['name']);
     }
 

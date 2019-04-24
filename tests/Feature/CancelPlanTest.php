@@ -11,6 +11,13 @@ class CancelPlanTest extends TestCase
     use RefreshDatabase, InteractsWithStripe;
 
     /** @test */
+    public function unauthorized_users_cant_access_the_endpoints()
+    {
+        $this->delete('subscription/cancel/1')
+            ->assertRedirect(route('login'));
+    }
+
+    /** @test */
     public function an_authorized_user_can_cancel_a_subscription()
     {
         $user = $this->signIn();
