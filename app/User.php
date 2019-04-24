@@ -5,15 +5,11 @@ namespace App;
 use App\Billing\Billable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Mpociot\VatCalculator\Facades\VatCalculator;
-use Mpociot\VatCalculator\Traits\BillableWithinTheEU;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, Billable, BillableWithinTheEU {
-        BillableWithinTheEU::taxPercentage insteadof Billable;
-    }
+    use Notifiable, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -42,13 +38,16 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Boot the model
+     */
     public static function boot()
     {
         parent::boot();
 
         /*
-            A settings row on the settings table should be created
-            when a new user is created
+           Objects should be created in the database
+           when a new user is created
          */
         static::created(function (User $user) {
             $user->settings()->save(new Settings());
@@ -136,15 +135,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function routeNotificationForSlack($notification)
     {
         return $this->settings->slack_url;
-    }
-
-    /**
-     * Checks whether the user is a business based on whether the vat_id is valid
-     *
-     * @return bool
-     */
-    public function isBusiness()
-    {
-        return VatCalculator::isValidVATNumber($this->details->vat_id);
     }
 }

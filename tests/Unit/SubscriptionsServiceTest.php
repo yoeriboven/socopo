@@ -45,38 +45,6 @@ class SubscriptionsServiceTest extends TestCase
         $this->assertTrue($service->alreadySubscribedToPlan());
     }
 
-    /** @test */
-    public function it_sets_the_correct_tax_rate()
-    {
-        $this->withoutExceptionHandling();
-        $user = $this->signIn();
-
-        $user->details->update(['country' => 'NL', 'vat_id' => null]);
-        $service = $this->createService();
-        $service->setTaxRate();
-        $this->assertEquals(21, $user->getTaxPercent());
-
-        $user->details->update(['country' => 'NL', 'vat_id' => 'NL812334966B01']);
-        $service = $this->createService();
-        $service->setTaxRate();
-        $this->assertEquals(21, $user->getTaxPercent());
-
-        $user->details->update(['country' => 'IE', 'vat_id' => null]);
-        $service = $this->createService();
-        $service->setTaxRate();
-        $this->assertEquals(23, $user->getTaxPercent());
-
-        $user->details->update(['country' => 'IE', 'vat_id' => 'IE6388047V']);
-        $service = $this->createService();
-        $service->setTaxRate();
-        $this->assertEquals(0, $user->getTaxPercent());
-
-        $user->details->update(['country' => 'US', 'vat_id' => null]);
-        $service = $this->createService();
-        $service->setTaxRate();
-        $this->assertEquals(0, $user->getTaxPercent());
-    }
-
     private function createService($overrides = [])
     {
         $service = new SubscriptionsService(new UserDetailsService());

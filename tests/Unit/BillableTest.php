@@ -10,6 +10,13 @@ class BillableTest extends TestCase
 {
     use RefreshDatabase, InteractsWithStripe;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->signIn();
+    }
+
     /** @test */
     public function it_can_determine_if_there_is_a_subscription_active()
     {
@@ -29,35 +36,29 @@ class BillableTest extends TestCase
     /** @test */
     public function it_returns_the_correct_subscription_class()
     {
-        $user = $this->signIn();
+        $subscriptionOne = factory('App\Billing\Subscription')->create(['user_id' => $this->user->id]);
 
-        $subscriptionOne = factory('App\Billing\Subscription')->create(['user_id' => $user->id]);
-
-        $this->assertInstanceOf('App\Billing\Subscription', $user->subscriptions()->first());
+        $this->assertInstanceOf('App\Billing\Subscription', $this->user->subscriptions()->first());
     }
 
     /** @test */
     public function it_returns_the_correct_subscription_builder_class()
     {
-        $user = $this->signIn();
-
-        $this->assertInstanceOf('App\Billing\SubscriptionBuilder', $user->newSubscription(null, null));
+        $this->assertInstanceOf('App\Billing\SubscriptionBuilder', $this->user->newSubscription(null, null));
     }
 
     /** @test */
     public function it_can_return_a_subscription_if_no_name_is_given()
     {
-        $user = $this->signIn();
+        $subscriptionOne = factory('App\Billing\Subscription')->create(['user_id' => $this->user->id, 'name' => 'Pro', 'stripe_plan' => 'one']);
 
-        $subscriptionOne = factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => 'Pro', 'stripe_plan' => 'one']);
-
-        $this->assertEquals($user->subscription()->stripe_plan, 'one');
+        $this->assertEquals($this->user->subscription()->stripe_plan, 'one');
     }
 
     /** @test */
     public function it_can_return_a_subscription_if_a_name_is_given()
     {
-        $user = $this->signIn();
+        $user = $this->user;
 
         $subscriptionOne = factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => 'Pro', 'stripe_plan' => 'one']);
         $subscriptionTwo = factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => 'Enterprise', 'stripe_plan' => 'two']);
@@ -69,12 +70,41 @@ class BillableTest extends TestCase
     /** @test */
     public function it_stores_the_current_period_end_when_a_new_subscription_is_created()
     {
-        $user = $this->signIn();
-
-        $subscription = $user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($this->getStripeToken());
+        $subscription = $this->user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($this->getStripeToken());
 
         $subscription = $subscription->asStripeSubscription();
 
-        $this->assertEquals($user->subscription('Pro')->current_period_end->timestamp, $subscription->current_period_end);
+        $this->assertEquals($this->user->subscription('Pro')->current_period_end->timestamp, $subscription->current_period_end);
+    }
+
+    /** @test */
+    public function it_can_verify_vat_numbers()
+    {
+        $this->user->details->update(['vat_id' => 'NL812334966B01']);
+        $this->assertTrue($this->user->isBusiness());
+
+        $this->user->details->update(['vat_id' => 'invalid_vat_id']);
+        $this->assertFalse($this->user->isBusiness());
+    }
+
+    /** @test */
+    public function it_sets_the_correct_tax_rate()
+    {
+        $user = $this->user;
+
+        $user->details->update(['country' => 'NL', 'vat_id' => null]);
+        $this->assertEquals(21, $user->getTaxPercent());
+
+        $user->details->update(['country' => 'NL', 'vat_id' => 'NL812334966B01']);
+        $this->assertEquals(21, $user->getTaxPercent());
+
+        $user->details->update(['country' => 'IE', 'vat_id' => null]);
+        $this->assertEquals(23, $user->getTaxPercent());
+
+        $user->details->update(['country' => 'IE', 'vat_id' => 'IE6388047V']);
+        $this->assertEquals(0, $user->getTaxPercent());
+
+        $user->details->update(['country' => 'US', 'vat_id' => null]);
+        $this->assertEquals(0, $user->getTaxPercent());
     }
 }

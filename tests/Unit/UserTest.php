@@ -97,14 +97,4 @@ class UserTest extends TestCase
         $this->user->settings->update(['slack_url' => 'Not null']);
         $this->assertTrue($this->user->hasSlackSetup());
     }
-
-    /** @test */
-    public function it_can_verify_vat_numbers()
-    {
-        $this->user->details->update(['vat_id' => 'NL812334966B01']);
-        $this->assertTrue($this->user->isBusiness());
-
-        $this->user->details->update(['vat_id' => 'invalid_vat_id']);
-        $this->assertFalse($this->user->isBusiness());
-    }
 }

@@ -21,6 +21,9 @@ class SubscriptionsService
      */
     private $userDetailsService;
 
+    /**
+     * Creates a new instance of this class
+     */
     public function __construct(UserDetailsService $userDetailsService)
     {
         $this->userDetailsService = $userDetailsService;
@@ -49,8 +52,6 @@ class SubscriptionsService
      */
     private function subscribe()
     {
-        $this->setTaxRate();
-
         $plan = $this->getPlan();
 
         $this->request->user()
@@ -60,16 +61,7 @@ class SubscriptionsService
             ]);
     }
 
-    /**
-     * Set tax rate based on the country
-     * and whether the user is an individual or a company
-     */
-    public function setTaxRate()
-    {
-        $user = $this->request->user();
 
-        $user->setTaxForCountry($user->details->country, $user->isBusiness());
-    }
 
     /**
      * Returns whether the user is already subscribed to this plan

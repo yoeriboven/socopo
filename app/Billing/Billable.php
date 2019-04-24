@@ -2,6 +2,8 @@
 
 namespace App\Billing;
 
+use Mpociot\VatCalculator\Facades\VatCalculator;
+
 trait Billable
 {
     use \Laravel\Cashier\Billable {
@@ -59,5 +61,35 @@ trait Billable
     public function newSubscription($subscription, $plan)
     {
         return new SubscriptionBuilder($this, $subscription, $plan);
+    }
+
+    /**
+     * Checks whether the user is a business based on whether the vat_id is valid
+     *
+     * @return bool
+     */
+    public function isBusiness()
+    {
+        return VatCalculator::isValidVATNumber($this->details->vat_id);
+    }
+
+    /**
+     * Get the tax percentage to apply to the subscription.
+     *
+     * @return int
+     */
+    public function getTaxPercent()
+    {
+        return VatCalculator::getTaxRateForCountry($this->details->country, $this->isBusiness()) * 100;
+    }
+
+    /**
+     * Get the tax percentage to apply to the subscription for Cashier > 6.0.
+     *
+     * @return int
+     */
+    public function taxPercentage()
+    {
+        return $this->getTaxPercent();
     }
 }
