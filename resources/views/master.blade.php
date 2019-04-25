@@ -29,7 +29,7 @@
 </head>
 <body>
     <div id="app" class="page">
-        <div class="page-main">
+        <div class="flex-fill">
             @include('partials.header')
 
             <div class="my-3 my-md-5">

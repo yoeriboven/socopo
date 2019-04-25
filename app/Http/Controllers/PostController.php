@@ -14,7 +14,7 @@ class PostController extends Controller
     public function index(PostRepository $posts)
     {
         return view('posts', [
-            'posts' => $posts->forUser(auth()->user(), 15)
+            'posts' => $posts->forUser(auth()->user(), 10)
         ]);
     }
 }

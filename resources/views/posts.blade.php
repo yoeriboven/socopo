@@ -13,7 +13,7 @@
 
 <p class="text-right font-weight-bold"><a href="#profiles" id="modalOpener" data-toggle="modal" data-target="#profilesModal">Manage profiles</a></p>
 
-<div class="card" style="min-height: 1000px;">
+<div class="card">
 	@if (count($posts) == 0)
 		Geen posts. Ga naar profile manager.
 	@else
