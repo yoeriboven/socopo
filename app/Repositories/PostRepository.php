@@ -12,13 +12,13 @@ class PostRepository
      * @param  User $user
      * @return \Illuminate\Database\Eloquent\Collection;
      */
-    public function forUser($user)
+    public function forUser($user, $take)
     {
         // Get the IDs of the profiles the user follows
         $profiles = $user->profiles()->get()->keyBy('id');
 
         // Get all the posts which belong to the profiles
-        $posts = Post::whereIn('profile_id', $profiles->modelKeys())->latest('posted_at')->get();
+        $posts = Post::whereIn('profile_id', $profiles->modelKeys())->latest('posted_at')->paginate($take);
 
         // Add the profiles to the posts
         $posts->transform(function ($post) use ($profiles) {

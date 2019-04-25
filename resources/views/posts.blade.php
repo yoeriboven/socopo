@@ -31,6 +31,8 @@
     @endif
 </div>
 
+{{ $posts->links() }}
+
 <profiles-modal-component></profiles-modal-component>
 
 @endsection

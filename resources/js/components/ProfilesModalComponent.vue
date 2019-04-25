@@ -12,6 +12,8 @@
                     </div>
                     <div class="modal-body">
 
+                        <p>You can add and remove profiles to your account. We will send you a Slack message whenever any of these profiles uploads a new post.</p>
+
                         <div v-if="profiles.success" class="alert alert-icon alert-success full-width" role="alert">
                             <i class="fe fe-check mr-2" aria-hidden="true"></i> {{ profiles.success }}
                         </div>
@@ -19,8 +21,6 @@
                         <div v-if="profiles.error" class="alert alert-icon alert-danger full-width" role="alert">
                             <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{ profiles.error }}
                         </div>
-
-                        <p>You can add and remove profiles to your account. We will send you a Slack message whenever any of these profiles uploads a new post.</p>
 
                         <profile-form-component></profile-form-component>
 
