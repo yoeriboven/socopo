@@ -43,11 +43,15 @@ body {
 }
 
 #profilesModal table {
-  width: auto;
+  width: 100%;
+}
+
+#profilesModal table tr:nth-child(odd) {
+  background: #f5f5f5;
 }
 
 #profilesModal table tr > td {
-  padding: 20px 0px;
+  padding: 22px 0px;
 }
 
 #profilesModal table tr > td:first-child {
@@ -60,8 +64,8 @@ body {
   padding-left: 10px;
 }
 
-#profilesModal table tr > td:nth-child(3) {
-  padding-left: 80px;
+#profilesModal table .avatar {
+  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
 .nav-item a {

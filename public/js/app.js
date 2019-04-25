@@ -1929,6 +1929,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -37161,18 +37162,21 @@ var render = function() {
                 "div",
                 { staticClass: "modal-body" },
                 [
-                  _c("profile-form-component"),
-                  _vm._v(" "),
                   _vm.profiles.success
                     ? _c(
                         "div",
                         {
-                          staticClass: "success-alert",
-                          staticStyle: { color: "green" }
+                          staticClass:
+                            "alert alert-icon alert-success full-width",
+                          attrs: { role: "alert" }
                         },
                         [
+                          _c("i", {
+                            staticClass: "fe fe-check mr-2",
+                            attrs: { "aria-hidden": "true" }
+                          }),
                           _vm._v(
-                            "\n                        " +
+                            " " +
                               _vm._s(_vm.profiles.success) +
                               "\n                    "
                           )
@@ -37181,14 +37185,28 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.profiles.error
-                    ? _c("div", { staticStyle: { color: "red" } }, [
-                        _vm._v(
-                          "\n                        " +
-                            _vm._s(_vm.profiles.error) +
-                            "\n                    "
-                        )
-                      ])
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "alert alert-icon alert-danger full-width",
+                          attrs: { role: "alert" }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fe fe-alert-triangle mr-2",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.profiles.error) +
+                              "\n                    "
+                          )
+                        ]
+                      )
                     : _vm._e(),
+                  _vm._v(" "),
+                  _c("profile-form-component"),
                   _vm._v(" "),
                   _vm.profiles.data.length
                     ? _c(

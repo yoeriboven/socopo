@@ -11,15 +11,16 @@
                         </button>
                     </div>
                     <div class="modal-body">
+
+                        <div v-if="profiles.success" class="alert alert-icon alert-success full-width" role="alert">
+                            <i class="fe fe-check mr-2" aria-hidden="true"></i> {{ profiles.success }}
+                        </div>
+
+                        <div v-if="profiles.error" class="alert alert-icon alert-danger full-width" role="alert">
+                            <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{ profiles.error }}
+                        </div>
+
                         <profile-form-component></profile-form-component>
-
-                        <div v-if="profiles.success" style="color:green;" class="success-alert">
-                            {{ profiles.success }}
-                        </div>
-
-                        <div v-if="profiles.error" style="color:red;">
-                            {{ profiles.error }}
-                        </div>
 
                         <table v-if="profiles.data.length">
                             <profile-component v-for="profile in profiles.data" :profile="profile" :key="profile.id"></profile-component>
