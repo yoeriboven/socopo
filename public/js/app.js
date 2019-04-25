@@ -1822,6 +1822,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1962,6 +1964,9 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.getProfiles();
   }
+});
+$(window).on('load', function () {
+  $('#profilesModal').modal('show');
 });
 
 /***/ }),
@@ -37020,12 +37025,13 @@ var render = function() {
     _vm._v(" "),
     _c("td", [
       _c(
-        "button",
+        "a",
         {
-          attrs: { dusk: "delete-profile-" + _vm.profile.id },
+          staticClass: "icon",
+          attrs: { href: "#", dusk: "delete-profile-" + _vm.profile.id },
           on: { click: _vm.destroy }
         },
-        [_vm._v("Delete")]
+        [_c("i", { staticClass: "fe fe-trash" })]
       )
     ])
   ])
@@ -37064,34 +37070,45 @@ var render = function() {
         }
       },
       [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.username,
-              expression: "username"
-            }
-          ],
-          attrs: { type: "text", name: "username" },
-          domProps: { value: _vm.username },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c("div", { staticClass: "form-group" }, [
+          _c("div", { staticClass: "input-group" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.username,
+                  expression: "username"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "text", name: "username", placeholder: "@..." },
+              domProps: { value: _vm.username },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.username = $event.target.value
+                }
               }
-              _vm.username = $event.target.value
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("button", { attrs: { type: "submit", dusk: "add-username" } }, [
-          _vm._v("Add")
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "input-group-append" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  class: { "btn-loading": _vm.loading },
+                  attrs: { type: "submit", dusk: "add-username" }
+                },
+                [_vm._v("Add profile")]
+              )
+            ])
+          ])
         ])
       ]
-    ),
-    _vm._v(" "),
-    this.loading ? _c("div", [_vm._v("\n\t\tLoading\n\t")]) : _vm._e()
+    )
   ])
 }
 var staticRenderFns = []

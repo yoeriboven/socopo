@@ -2,7 +2,7 @@
 	<tr>
         <td><span class="avatar avatar-lg" :style="{ backgroundImage: 'url(' + profile.avatar + ')' }"></span></td>
         <td>{{ '@' + profile.username }}</td>
-        <td><button @click="destroy" :dusk="`delete-profile-${profile.id}`">Delete</button></td>
+        <td><a href="#" class="icon" @click="destroy" :dusk="`delete-profile-${profile.id}`"><i class="fe fe-trash"></i></a></td>
     </tr>
 </template>
 

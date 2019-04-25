@@ -1,13 +1,15 @@
 <template>
 	<div>
 		<form @submit.prevent="addProfile">
-			<input type="text" name="username" v-model="username" />
-			<button type="submit" :dusk="`add-username`">Add</button>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" name="username" v-model="username" class="form-control" placeholder="@...">
+                    <span class="input-group-append">
+                        <button class="btn btn-primary" v-bind:class="{ 'btn-loading': loading }" type="submit" :dusk="`add-username`">Add profile</button>
+                    </span>
+                </div>
+            </div>
 		</form>
-
-		<div v-if="this.loading">
-			Loading
-		</div>
 	</div>
 </template>
 

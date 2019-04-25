@@ -43,7 +43,7 @@ body {
 }
 
 #profilesModal table {
-  width: 100%;
+  width: auto;
 }
 
 #profilesModal table tr > td {
@@ -58,6 +58,10 @@ body {
 
 #profilesModal table tr > td:nth-child(2) {
   padding-left: 10px;
+}
+
+#profilesModal table tr > td:nth-child(3) {
+  padding-left: 80px;
 }
 
 .nav-item a {
