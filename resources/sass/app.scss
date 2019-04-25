@@ -56,3 +56,13 @@ body {
         }
     }
 }
+
+.nav-item a {
+    color:white;
+    font-size:1.05rem;
+
+    &:hover{
+        text-decoration:none;
+        color:#c4c4c4;
+    }
+}
