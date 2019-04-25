@@ -20,6 +20,8 @@
                             <i class="fe fe-alert-triangle mr-2" aria-hidden="true"></i> {{ profiles.error }}
                         </div>
 
+                        <p>You can add and remove profiles to your account. We will send you a Slack message whenever any of these profiles uploads a new post.</p>
+
                         <profile-form-component></profile-form-component>
 
                         <table v-if="profiles.data.length">

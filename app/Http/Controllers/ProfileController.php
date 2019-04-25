@@ -43,7 +43,7 @@ class ProfileController extends Controller
             return response(['message' => 'Something failed on our end. We\'ve been notified and will fix this. You can also try again.'], 500);
         }
 
-        return response(['message' => 'Profile added', 'profile' => $profile->toArray()], 201);
+        return response(['message' => 'Profile added to your account.', 'profile' => $profile->toArray()], 201);
     }
 
     /**

@@ -1930,6 +1930,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -37205,6 +37207,12 @@ var render = function() {
                         ]
                       )
                     : _vm._e(),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v(
+                      "You can add and remove profiles to your account. We will send you a Slack message whenever any of these profiles uploads a new post."
+                    )
+                  ]),
                   _vm._v(" "),
                   _c("profile-form-component"),
                   _vm._v(" "),
