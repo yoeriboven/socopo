@@ -38,6 +38,16 @@ body {
   color: white !important;
 }
 
+.nav-item a {
+  color: white;
+  font-size: 1.05rem;
+}
+
+.nav-item a:hover {
+  text-decoration: none;
+  color: #c4c4c4;
+}
+
 .footer {
   opacity: 0;
 }
@@ -64,17 +74,19 @@ body {
   padding-left: 10px;
 }
 
-#profilesModal table .avatar {
-  box-shadow: 1px 3px 10px 0px rgba(0, 0, 0, 0.25);
+.avatar {
+  box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.25);
 }
 
-.nav-item a {
-  color: white;
-  font-size: 1.05rem;
+.insta_post {
+  overflow: hidden;
 }
 
-.nav-item a:hover {
-  text-decoration: none;
-  color: #c4c4c4;
+.insta_post .insta_image {
+  padding-right: 0px;
+}
+
+.insta_post .caption {
+  margin-top: 20px;
 }
 

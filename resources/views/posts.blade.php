@@ -13,25 +13,17 @@
 
 <p class="text-right font-weight-bold"><a href="#profiles" id="modalOpener" data-toggle="modal" data-target="#profilesModal">Manage profiles</a></p>
 
-<div class="card">
-	@if (count($posts) == 0)
+@if (count($posts) == 0)
+	<div class="card">
 		Geen posts. Ga naar profile manager.
-	@else
-	    @foreach ($posts as $post)
-	    	{{ $post->caption }}
-	    	<a href="https://www.instagram.com/{{ $post->profile->username}}"
-				target="_blank"
-	    		rel="noopener">
-	    		{{ '@'.$post->profile->username}}
-	    	</a>
-	    	<img src="{{ $post->image_url }}" />
-	    	{{ $post->posted_at->diffForHumans() }}
-	    	<hr/>
-	    @endforeach
-    @endif
-</div>
+	</div>
+@else
+    @each('post', $posts, 'post')
 
-{{ $posts->links() }}
+    {{ $posts->links() }}
+@endif
+
+
 
 <profiles-modal-component></profiles-modal-component>
 
