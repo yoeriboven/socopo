@@ -1,4 +1,4 @@
-<div class="row" style="margin-bottom:20px;border-bottom:1px solid rgba(0, 40, 100, 0.12);padding-bottom:30px;">
+<div class="row settings_panel pb-30">
 	<div class="col-3">
 		<h4 class="card-title">Slack connection</h4>
 	</div>

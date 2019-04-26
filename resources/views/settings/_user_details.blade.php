@@ -1,4 +1,4 @@
-<div class="row" style="margin-bottom:20px;border-bottom:1px solid rgba(0, 40, 100, 0.12);padding-bottom:10px;">
+<div class="row settings_panel">
 	<div class="col-3">
 		<h4 class="card-title">User info</h4>
 	</div>

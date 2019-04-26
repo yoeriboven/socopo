@@ -12,7 +12,7 @@
 			</a>
 
 			<div>
-				<a href="./profile.html" class="text-default">{{ '@'.$post->profile->username}}</a>
+				<a href="https://www.instagram.com/{{ $post->profile->username }}" class="text-default">{{ '@'.$post->profile->username}}</a>
 				<small class="d-block text-muted">{{ $post->posted_at->diffForHumans() }}</small>
 			</div>
 		</div>
