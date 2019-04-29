@@ -25,7 +25,7 @@ class SlackController extends Controller
         try {
             $user = Socialite::driver('slack')->user();
 
-            if (!$url = $this->getWebhookUrl()) {
+            if (!$url = $this->getWebhookUrl($user)) {
                 return redirect()->route('settings')->withErrors(['slack' => 'Authorization failed']);
             }
 
@@ -48,11 +48,11 @@ class SlackController extends Controller
     }
 
     /**
-     * Returns the url from Slack needed to send messages to Slack
+     * Returns the url from Slack, needed to send messages to Slack
      *
      * @return string
      */
-    private function getWebhookUrl()
+    private function getWebhookUrl($user)
     {
         return $user->accessTokenResponseBody['incoming_webhook']['url'];
     }
