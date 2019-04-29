@@ -7,12 +7,12 @@
 		<div class="col-md-4">
 
 		<div class="d-flex align-items-center pt-2 mt-auto">
-			<a href="https://www.instagram.com/{{ $post->profile->username }}" target="_blank" rel="noopener">
+			<a href="{{ $post->profile_url }}" target="_blank" rel="noopener">
 				<div class="avatar avatar-md mr-3" style="background-image: url({{ $post->profile->avatar }})"></div>
 			</a>
 
 			<div>
-				<a href="https://www.instagram.com/{{ $post->profile->username }}" class="text-default">{{ '@'.$post->profile->username}}</a>
+				<a href="{{ $post->profile_url }}" target="_blank" rel="noopener" class="text-default">{{ '@'.$post->profile->username}}</a>
 				<small class="d-block text-muted">{{ $post->posted_at->diffForHumans() }}</small>
 			</div>
 		</div>

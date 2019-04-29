@@ -44,6 +44,26 @@ class Post extends Model
     }
 
     /**
+     * Returns the url to the profile on Instagram
+     *
+     * @return string
+     */
+    public function getProfileUrlAttribute()
+    {
+        return 'https://www.instagram.com/'.$this->profile->username;
+    }
+
+    /**
+     * Returns the url to the image
+     *
+     * @return string
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->post_url.'media/?size=l';
+    }
+
+    /**
      * Stores new posts with Instagram data
      *
      * @param  Libraries\Instagram\Hydrator\Component\Media $post
