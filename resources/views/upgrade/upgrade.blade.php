@@ -2,7 +2,6 @@
 
 @section('page_title', 'Upgrade')
 
-
 @section('content')
 
 <form method="POST" action="{{ url('upgrade') }}" id="payment-form">
