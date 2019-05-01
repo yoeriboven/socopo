@@ -42,7 +42,7 @@ class SubscriptionsServiceTest extends TestCase
 
         $service = $this->createService(['plan' => $planKey]);
 
-        $this->assertTrue($service->alreadySubscribedToPlan());
+        $this->assertTrue($service->alreadySubscribedToPlan($plan));
     }
 
     private function createService($overrides = [])

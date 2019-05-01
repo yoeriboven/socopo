@@ -12,7 +12,7 @@ class PostRepository
      * @param  User $user
      * @return \Illuminate\Database\Eloquent\Collection;
      */
-    public function forUser($user, $take)
+    public function forUser($user, $take = 15)
     {
         // Get the IDs of the profiles the user follows
         $profiles = $user->profiles()->get()->keyBy('id');
