@@ -112,3 +112,13 @@ body {
   padding-bottom: 30px;
 }
 
+.pricing-label {
+  cursor: pointer;
+}
+
+.pricing-label > input:checked + .card {
+  /* (RADIO CHECKED) DIV STYLES */
+  border-width: 2px;
+  border-color: #467fcf;
+}
+
