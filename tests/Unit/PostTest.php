@@ -24,19 +24,6 @@ class PostTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_the_correct_profile_url()
-    {
-        $user = $this->signIn();
-
-        $profile = factory('App\Profile')->create(['username' => 'afcajax']);
-        $profile->attachUser($user);
-
-        $post = factory('App\Post')->create(['profile_id' => $profile->id]);
-
-        $this->assertEquals('https://www.instagram.com/afcajax', $post->profile_url);
-    }
-
-    /** @test */
     public function it_returns_the_correct_image_url()
     {
         $post = factory('App\Post')->create(['post_url' => 'http://www.instagram.com/p/eiaoei/', 'profile_id' => 0]);

@@ -44,16 +44,6 @@ class Post extends Model
     }
 
     /**
-     * Returns the url to the profile on Instagram
-     *
-     * @return string
-     */
-    public function getProfileUrlAttribute()
-    {
-        return 'https://www.instagram.com/'.$this->profile->username;
-    }
-
-    /**
      * Returns the url to the image
      *
      * @return string

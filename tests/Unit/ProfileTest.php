@@ -83,6 +83,14 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
+    public function it_returns_the_correct_profile_url()
+    {
+        $profile = factory('App\Profile')->create(['username' => 'afcajax']);
+
+        $this->assertEquals('https://www.instagram.com/afcajax', $profile->url);
+    }
+
+    /** @test */
     public function it_notifies_followers_of_new_posts()
     {
         $this->withoutExceptionHandling();

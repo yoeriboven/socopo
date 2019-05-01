@@ -93,4 +93,14 @@ class Profile extends Model
     {
         $this->followers->filter->hasSlackSetup()->each->notify(new NewPostAdded($post));
     }
+
+    /**
+     * Returns the url to the profile on Instagram
+     *
+     * @return string
+     */
+    public function getUrlAttribute()
+    {
+        return 'https://www.instagram.com/'.$this->username;
+    }
 }
