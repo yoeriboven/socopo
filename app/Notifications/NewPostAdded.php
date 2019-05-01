@@ -11,13 +11,20 @@ class NewPostAdded extends Notification
     use Queueable;
 
     /**
+     * Holds the information about the new post
+     *
+     * @var App\Post
+     */
+    public $post;
+
+    /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($post)
     {
-        //
+        $this->post = $post;
     }
 
     /**
@@ -40,6 +47,17 @@ class NewPostAdded extends Notification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-                    ->content('Is this message received on Slack?');
+                    ->content('*@'.$this->post->profile->username.' just posted on Instagram*')
+                    ->attachment(function ($attachment) {
+                        $attachment->content("\"{$this->post->caption}\"")
+                                    ->image($this->post->image_url)
+                                    ->color('#1326d3')
+                                    ->action('Comment on post', $this->post->post_url, 'primary')
+                                    ->action('Add more profiles', route('posts.index'), '')
+                                    ->footerIcon('https://platform.slack-edge.com/img/default_application_icon.png')
+                                    ->footer(config('app.name', 'Instagram'))
+                                    ->timestamp($this->post->posted_at);
+                    });
+        ;
     }
 }
