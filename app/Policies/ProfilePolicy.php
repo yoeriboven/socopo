@@ -25,12 +25,15 @@ class ProfilePolicy
     /**
      * Determine whether the user can create profiles.
      *
+     * Creating a new profile is not allowed if it means you will exceed
+     * the maximum amount of profiles allowed on your plan
+     *
      * @param  \App\User  $user
      * @return mixed
      */
     public function create(User $user)
     {
-        //
+        return $user->profiles()->count() < $user->plan()->maxProfiles;
     }
 
     /**

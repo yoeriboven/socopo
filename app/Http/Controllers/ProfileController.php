@@ -30,6 +30,11 @@ class ProfileController extends Controller
      */
     public function store(ProfileRequest $request, ProfileService $service)
     {
+        // Checks if the user is at their max profiles
+        if (auth()->user()->canNot('create', Profile::class)) {
+            return response(['message' => 'You have reached your maximum amount of profiles.'], 303);
+        }
+
         try {
             $profile = $service->store($request);
         } catch (DuplicateAttachmentException $e) {

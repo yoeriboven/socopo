@@ -148,4 +148,48 @@ class BillableTest extends TestCase
 
         $this->assertCount(0, $user->subscriptions()->notCancelled()->get());
     }
+
+    /** @test */
+    public function it_returns_the_correct_plan()
+    {
+        $this->assertInstanceOf('App\Plans\FreePlan', $this->user->plan());
+
+        // Assign a plan
+        $plan = app('plans')->first();
+        factory('App\Billing\Subscription')->create(['user_id' => $this->user->id, 'stripe_plan' => $plan->stripe_id]);
+
+        $this->assertInstanceOf(get_class($plan), $this->user->fresh()->plan());
+    }
+
+    /** @test */
+    public function it_returns_an_active_subscription_if_it_has_one()
+    {
+        $user = $this->user;
+
+        $subscriptionOne = factory('App\Billing\Subscription')->create([
+            'user_id' => $user->id,
+            'name' => 'Pro',
+            'created_at' => Carbon::now(),
+            'ends_at' => Carbon::now()->subDays(1)
+        ]);
+
+        $subscriptionTwo = factory('App\Billing\Subscription')->create([
+            'user_id' => $user->id,
+            'name' => 'Enterprise',
+            'created_at' => Carbon::now()->subDays(1)
+        ]);
+
+        $subscription = $user->activeSubscription();
+
+        $this->assertEquals('Enterprise', $subscription->name);
+    }
+
+    /** @test */
+    public function it_returns_a_new_object_if_no_active_subscription_is_found()
+    {
+        $subscription = $this->user->activeSubscription();
+
+        $this->assertInstanceOf('App\Billing\Subscription', $subscription);
+        $this->assertEmpty($subscription->all());
+    }
 }

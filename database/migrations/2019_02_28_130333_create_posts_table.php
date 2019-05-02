@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('profile_id');
             $table->string('ig_post_id');
-            $table->text('caption');
+            $table->text('caption')->nullable();
             $table->string('type');
             $table->string('image_url', 500);
             $table->string('post_url', 500);

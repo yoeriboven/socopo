@@ -24,10 +24,24 @@ trait Billable
     }
 
     /**
+     * Gets the first active subscription
+     *
+     * @return App\Billing\Subscription
+     */
+    public function activeSubscription()
+    {
+        return $this->subscriptions->sortByDesc(function ($value) {
+            return $value->created_at->getTimestamp();
+        })->first(function ($subscription) {
+            return $subscription->valid();
+        }, new Subscription);
+    }
+
+    /**
      * Get a subscription instance (by name).
      *
      * @param  string  $subscription
-     * @return \Laravel\Cashier\Subscription|null
+     * @return \Laravel\Cashier\Subscription | null
      */
     public function subscription($subscription = null)
     {
@@ -62,6 +76,18 @@ trait Billable
     public function newSubscription($subscription, $plan)
     {
         return new SubscriptionBuilder($this, $subscription, $plan);
+    }
+
+    /**
+     * Gets the Plan object with the stripe_plan ID stored in the database
+     *
+     * @return Plan
+     */
+    public function plan()
+    {
+        $subscription = $this->activeSubscription();
+
+        return app('plans')->withStripeId($subscription->stripe_plan);
     }
 
     /**
@@ -105,7 +131,7 @@ trait Billable
     {
         $this->cancelAllSubscriptions();
 
-        return $this->newSubscription($plan['name'], $plan['id'])->create($token, [
+        return $this->newSubscription($plan->name, $plan->stripe_id)->create($token, [
             'email' => $this->email
         ]);
     }
