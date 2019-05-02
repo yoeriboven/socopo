@@ -67,7 +67,6 @@ class Post extends Model
             'ig_post_id' => $post->id,
             'caption' => $post->caption,
             'type' => $post->typeName,
-            'image_url' => $post->displaySrc,
             'post_url' => $post->link,
             'posted_at' => Carbon::instance($post->date)
         ]);

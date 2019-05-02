@@ -19,7 +19,6 @@ class CreatePostsTable extends Migration
             $table->string('ig_post_id');
             $table->text('caption')->nullable();
             $table->string('type');
-            $table->string('image_url', 500);
             $table->string('post_url', 500);
             $table->timestamp('posted_at')->nullable();
             $table->timestamps();
