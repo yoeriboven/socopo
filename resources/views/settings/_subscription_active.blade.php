@@ -6,7 +6,7 @@
 		<strong>Plan: </strong> {{ $subscription->name }}<br/>
 
 		@if ($subscription->cancelled())
-			<strong>Subscribed until: </strong> {{ $subscription->ends_at->format('F jS, Y') }}<br/>
+			<strong>Cancel date: </strong> {{ $subscription->ends_at->format('F jS, Y') }}<br/>
 		@else
 			<strong>Renewal date: </strong> {{ $subscription->current_period_end->format('F jS, Y') }}<br/>
 		@endif

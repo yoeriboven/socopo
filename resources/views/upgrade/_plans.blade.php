@@ -9,7 +9,7 @@
 					<div class="row">
 						<div class="col-sm-6 col-lg-4">
 							<label class="pricing-label">
-								<input type="radio" class="custom-control-input" name="plan" value="plan_1">
+								<input type="radio" class="custom-control-input" name="plan" value="plan_1" {{ old('plan') == 'plan_1' ? 'checked' : '' }}>
 
 								<div class="card">
 									<div class="card-body text-center">
@@ -29,7 +29,7 @@
 
 						<div class="col-sm-6 col-lg-4">
 							<label class="pricing-label">
-								<input type="radio" class="custom-control-input" name="plan" value="plan_2">
+								<input type="radio" class="custom-control-input" name="plan" value="plan_2" {{ old('plan') == 'plan_2' ? 'checked' : '' }}>
 
 								<div class="card">
 									<div class="card-body text-center">
@@ -49,7 +49,7 @@
 
 						<div class="col-sm-6 col-lg-4">
 							<label class="pricing-label">
-								<input type="radio" class="custom-control-input" name="plan" value="plan_3">
+								<input type="radio" class="custom-control-input" name="plan" value="plan_3" {{ old('plan') == 'plan_3' ? 'checked' : '' }}>
 
 								<div class="card">
 									<div class="card-body text-center">
@@ -67,6 +67,8 @@
 							</label>
 						</div>
 					</div>
+
+					<p style="color:#cd201f;">{{ $errors->first('plan') }}</p>
 					<p class="text-muted">*All plans are monthly subscriptions</p>
 				</div>
 
