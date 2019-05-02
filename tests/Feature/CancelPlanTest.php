@@ -24,10 +24,10 @@ class CancelPlanTest extends TestCase
 
         $subscription = $user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($this->getStripeToken());
 
-        $this->assertFalse($user->subscription()->cancelled());
+        $this->assertFalse($user->subscription('Pro')->cancelled());
 
         $this->delete('subscription/cancel/'.$subscription->id);
 
-        $this->assertTrue($user->fresh()->subscription()->cancelled());
+        $this->assertTrue($user->fresh()->subscription('Pro')->cancelled());
     }
 }

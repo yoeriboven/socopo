@@ -49,14 +49,6 @@ class BillableTest extends TestCase
     }
 
     /** @test */
-    public function it_can_return_a_subscription_if_no_name_is_given()
-    {
-        $subscriptionOne = factory('App\Billing\Subscription')->create(['user_id' => $this->user->id, 'name' => 'Pro', 'stripe_plan' => 'one']);
-
-        $this->assertEquals($this->user->subscription()->stripe_plan, 'one');
-    }
-
-    /** @test */
     public function it_can_return_a_subscription_if_a_name_is_given()
     {
         $user = $this->user;
@@ -126,7 +118,7 @@ class BillableTest extends TestCase
 
         $user->subscribeToPlan($this->getStripeToken(), $planTwo);
 
-        $this->assertEquals($user->fresh()->subscription()->name, $planTwo->name);
+        $this->assertEquals($user->fresh()->activeSubscription()->name, $planTwo->name);
         $this->assertTrue($user->fresh()->subscription($planOne->name)->cancelled());
     }
 

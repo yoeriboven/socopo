@@ -14,7 +14,7 @@ class SettingsController extends Controller
         return view('settings.settings', [
             'slack' => auth()->user()->settings->slack_url,
             'details' => auth()->user()->details,
-            'subscription' => auth()->user()->subscription()
+            'subscription' => auth()->user()->activeSubscription()
         ]);
     }
 }

@@ -156,7 +156,7 @@ class UpgradePlanTest extends TestCase
         $subscription_data = $this->getSubscriptionData(['plan' => $planTwo->id, 'stripeToken' => $this->getStripeToken()]);
         $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data));
 
-        $this->assertEquals($user->fresh()->subscription()->name, $planTwo->name);
+        $this->assertEquals($user->fresh()->activeSubscription()->name, $planTwo->name);
         $this->assertTrue($user->fresh()->subscription($planOne->name)->cancelled());
     }
 
