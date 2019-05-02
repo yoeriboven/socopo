@@ -67,9 +67,13 @@ class UserTest extends TestCase
     /** @test */
     public function it_can_have_details()
     {
-        factory('App\UserDetails')->create(['user_id' => $this->user->id]);
-
         $this->assertInstanceOf('App\UserDetails', $this->user->details);
+    }
+
+    /** @test */
+    public function a_user_details_record_is_created_upon_creating_a_user()
+    {
+        $this->assertNotNull($this->user->details);
     }
 
     /** @test */
@@ -78,6 +82,12 @@ class UserTest extends TestCase
         factory('App\Settings')->create(['user_id' => $this->user->id]);
 
         $this->assertInstanceOf('App\Settings', $this->user->settings);
+    }
+
+    /** @test */
+    public function a_settings_record_is_created_upon_creating_a_user()
+    {
+        $this->assertNotNull($this->user->settings);
     }
 
     /** @test */
