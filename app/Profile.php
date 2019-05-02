@@ -43,7 +43,7 @@ class Profile extends Model
     {
         $user = $user ?? auth()->user();
 
-        $user->profiles()->syncWithoutDetaching([$this->id]);
+        $this->followers()->syncWithoutDetaching([$user->id]);
 
         return $this;
     }
@@ -57,7 +57,7 @@ class Profile extends Model
     {
         $user = $user ?? auth()->user();
 
-        $user->profiles()->detach($this);
+        $this->followers()->detach($user);
 
         return $this;
     }
