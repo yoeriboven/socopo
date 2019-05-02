@@ -20,12 +20,11 @@ class SubscriptionsServiceTest extends TestCase
 
         $user = $this->signIn();
 
-        $planKey = array_key_first(config('plans'));
-        $plan = config('plans')[$planKey];
+        $plan = app('plans')->first();
 
-        factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
+        factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => $plan->name]);
 
-        $service = $this->createService(['plan' => $planKey]);
+        $service = $this->createService(['plan' => $plan->id]);
 
         $service->upgrade();
     }
@@ -35,12 +34,11 @@ class SubscriptionsServiceTest extends TestCase
     {
         $user = $this->signIn();
 
-        $planKey = array_key_first(config('plans'));
-        $plan = config('plans')[$planKey];
+        $plan = app('plans')->first();
 
-        factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
+        factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => $plan->name]);
 
-        $service = $this->createService(['plan' => $planKey]);
+        $service = $this->createService(['plan' => $plan->id]);
 
         $this->assertTrue($service->alreadySubscribedToPlan($plan));
     }

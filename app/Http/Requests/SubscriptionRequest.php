@@ -17,7 +17,7 @@ class SubscriptionRequest extends FormRequest
     {
         $subscription_rules = [
             'stripeToken' => 'required',
-            'plan' => ['required', Rule::in(array_keys(config('plans')))]
+            'plan' => ['required', Rule::in(app('plans')->pluck('id'))]
         ];
 
         return array_merge($subscription_rules, UserDetails::getValidationRules());

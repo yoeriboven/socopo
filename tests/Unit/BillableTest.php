@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use Illuminate\Support\Carbon;
 use Tests\Traits\InteractsWithStripe;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -114,21 +115,19 @@ class BillableTest extends TestCase
         $user = $this->user;
 
         // Subscribe to plan
-        $planKey = array_keys(config('plans'))[0];
-        $planOne = config('plans')[$planKey];
+        $planOne = app('plans')->get(0);
 
         $user->subscribeToPlan($this->getStripeToken(), $planOne);
 
         $user->refresh();
 
         // Subscribe to different plan
-        $planKey = array_keys(config('plans'))[1];
-        $planTwo = config('plans')[$planKey];
+        $planTwo = app('plans')->get(1);
 
         $user->subscribeToPlan($this->getStripeToken(), $planTwo);
 
-        $this->assertEquals($user->fresh()->subscription()->name, $planTwo['name']);
-        $this->assertTrue($user->fresh()->subscription($planOne['name'])->cancelled());
+        $this->assertEquals($user->fresh()->subscription()->name, $planTwo->name);
+        $this->assertTrue($user->fresh()->subscription($planOne->name)->cancelled());
     }
 
     /** @test */
@@ -137,10 +136,9 @@ class BillableTest extends TestCase
         $user = $this->user;
 
         // Subscribe to plan
-        $planKey = array_keys(config('plans'))[0];
-        $planOne = config('plans')[$planKey];
+        $plan = app('plans')->first();
 
-        $user->subscribeToPlan($this->getStripeToken(), $planOne);
+        $user->subscribeToPlan($this->getStripeToken(), $plan);
 
         $this->assertTrue($user->fresh()->isSubscribed());
 

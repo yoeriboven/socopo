@@ -111,13 +111,12 @@ class UpgradePlanTest extends TestCase
     {
         $user = $this->signIn();
 
-        $planKey = array_key_first(config('plans'));
-        $plan = config('plans')[$planKey];
+        $plan = app('plans')->first();
 
-        $subscription_data = $this->getSubscriptionData(['plan' => $planKey, 'stripeToken' => $this->getStripeToken()]);
+        $subscription_data = $this->getSubscriptionData(['plan' => $plan->id, 'stripeToken' => $this->getStripeToken()]);
         $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data));
 
-        $this->assertEquals($plan['id'], $user->fresh()->subscription($plan['name'])->stripe_plan);
+        $this->assertEquals($plan->stripe_id, $user->fresh()->subscription($plan->name)->stripe_plan);
     }
 
     /** @test */
@@ -127,12 +126,11 @@ class UpgradePlanTest extends TestCase
 
         $user = $this->signIn();
 
-        $planKey = array_key_first(config('plans'));
-        $plan = config('plans')[$planKey];
+        $plan = app('plans')->get(0);
 
-        $subscription = factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => $plan['name']]);
+        $subscription = factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'name' => $plan->name]);
 
-        $subscription_data = $this->getSubscriptionData(['plan' => $planKey]);
+        $subscription_data = $this->getSubscriptionData(['plan' => $plan->id]);
 
         $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data))
             ->assertSessionHasErrors();
@@ -145,23 +143,21 @@ class UpgradePlanTest extends TestCase
         $user = $this->signIn();
 
         // Subscribe to plan
-        $planKey = array_keys(config('plans'))[0];
-        $planOne = config('plans')[$planKey];
+        $planOne = app('plans')->get(0);
 
-        $subscription_data = $this->getSubscriptionData(['plan' => $planKey, 'stripeToken' => $this->getStripeToken()]);
+        $subscription_data = $this->getSubscriptionData(['plan' => $planOne->id, 'stripeToken' => $this->getStripeToken()]);
         $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data));
 
         $user->refresh();
 
         // Subscribe to different plan
-        $planKey = array_keys(config('plans'))[1];
-        $planTwo = config('plans')[$planKey];
+        $planTwo = app('plans')->get(1);
 
-        $subscription_data = $this->getSubscriptionData(['plan' => $planKey, 'stripeToken' => $this->getStripeToken()]);
+        $subscription_data = $this->getSubscriptionData(['plan' => $planTwo->id, 'stripeToken' => $this->getStripeToken()]);
         $this->post('upgrade', array_merge($this->getUserDetails(), $subscription_data));
 
-        $this->assertEquals($user->fresh()->subscription()->name, $planTwo['name']);
-        $this->assertTrue($user->fresh()->subscription($planOne['name'])->cancelled());
+        $this->assertEquals($user->fresh()->subscription()->name, $planTwo->name);
+        $this->assertTrue($user->fresh()->subscription($planOne->name)->cancelled());
     }
 
 

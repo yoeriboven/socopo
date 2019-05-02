@@ -64,7 +64,7 @@ class SubscriptionsService
      */
     public function alreadySubscribedToPlan($plan)
     {
-        return !! $this->request->user()->subscribed($plan['name']);
+        return !! $this->request->user()->subscribed($plan->name);
     }
 
     /**
@@ -74,7 +74,7 @@ class SubscriptionsService
      */
     public function getPlan()
     {
-        return config('plans')[$this->request->plan];
+        return app('plans')->withId($this->request->plan);
     }
 
     /**
