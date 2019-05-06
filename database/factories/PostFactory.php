@@ -15,7 +15,6 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'ig_post_id' => $faker->randomNumber(),
         'caption' => $faker->sentence(),
         'type' => $type,
-        'image_url' => $faker->imageUrl(),
         'post_url' => $faker->url,
         'posted_at' => $date
     ];

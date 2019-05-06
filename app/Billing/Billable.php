@@ -6,6 +6,8 @@ use Mpociot\VatCalculator\Facades\VatCalculator;
 
 trait Billable
 {
+    use \Laravel\Cashier\Billable;
+
     /**
      * Gets the subscriptions and returns whether at least one is valid
      *

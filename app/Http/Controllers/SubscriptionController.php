@@ -53,7 +53,7 @@ class SubscriptionController extends Controller
             return back()->withErrors(['Upgrading your account has failed. Please try again later.']);
         }
 
-        return redirect()->route('posts.index')->with(['success' => 'Your account has been upgraded.']);
+        return redirect()->route('settings')->with(['success' => 'Your account has been upgraded.']);
     }
 
     /**

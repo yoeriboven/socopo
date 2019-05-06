@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col col-login mx-auto">
                         <div class="text-center mb-6">
-                            <img src="{{ asset('demo/images/tabler.svg') }}" class="h-6" alt="">
+                            <a href="{{ url('/') }}"><img src="{{ asset('demo/images/tabler.svg') }}" class="h-6" alt=""></a>
                         </div>
 
                         @yield('content')

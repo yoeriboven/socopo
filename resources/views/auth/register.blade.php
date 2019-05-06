@@ -10,12 +10,6 @@
         <div class="card-title">Create new account</div>
 
         <div class="form-group">
-            <label class="form-label">Name</label>
-            <input type="text" name="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="Enter name" value="{{ old('name') }}">
-            <div class="invalid-feedback">{{ $errors->first('name') }}</div>
-        </div>
-
-        <div class="form-group">
             <label class="form-label">Email address</label>
             <input type="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="Enter email" value="{{ old('email') }}">
             <div class="invalid-feedback">{{ $errors->first('email') }}</div>
