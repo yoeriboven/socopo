@@ -19,7 +19,9 @@
 
 <p class="text-right font-weight-bold"><a href="#profiles" id="modalOpener" data-toggle="modal" data-target="#profilesModal">Manage profiles</a></p>
 
-@if (count($posts) == 0)
+@if (auth()->user()->profiles()->count() == 0 || ! auth()->user()->settings->slack_url)
+	@include('set_up')
+@elseif (count($posts) == 0)
 	<div class="card">
 		Geen posts. Ga naar profile manager.
 	</div>
