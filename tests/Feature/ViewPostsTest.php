@@ -21,6 +21,7 @@ class ViewPostsTest extends TestCase
     {
         // Given we have a user that follows a profile with a post
         $user = $this->signIn();
+        $user->settings->update(['slack_url' => 'something']);
 
         // The user should see this post
         $post = $this->createPostForUser($user);
@@ -34,6 +35,34 @@ class ViewPostsTest extends TestCase
         $this->get(route('posts.index'))
             ->assertSee($post->caption)
             ->assertDontSee($hiddenPost->caption);
+    }
+
+    /** @test */
+    public function if_an_authorized_user_doesnt_follow_profiles_it_should_see_a_setup_view()
+    {
+        // Given we have a user that follows 0 profiles
+        $user = $this->signIn();
+
+        // When he visits the posts page
+        // Then he should see set up
+        $this->get(route('posts.index'))
+            ->assertSee('Set up');
+    }
+
+    /** @test */
+    public function if_an_authorized_user_doesnt_have_slack_setup_it_should_see_a_setup_view()
+    {
+        // Given we have a user that follows a profile with a post but doesnt have slack setup
+        $user = $this->signIn();
+
+        // The user should see this post
+        $post = $this->createPostForUser($user);
+
+        // When he visits the posts page
+        // Then he shouldn't see the post
+        $this->get(route('posts.index'))
+            ->assertSee('Set up')
+            ->assertDontSee($post->caption);
     }
 
     protected function createPostForUser($user)

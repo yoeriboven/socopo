@@ -30,7 +30,7 @@
 <body>
     <div id="app" class="page">
         <div class="flex-fill">
-            @include('partials.header')
+            @include('partials._header')
 
             <div class="my-3 my-md-5">
                 <div class="container">
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            @include('partials.footer')
+            @include('partials._footer')
         </div>
     </div>
 

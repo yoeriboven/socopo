@@ -20,13 +20,13 @@
 <p class="text-right font-weight-bold"><a href="#profiles" id="modalOpener" data-toggle="modal" data-target="#profilesModal">Manage profiles</a></p>
 
 @if (!$hasProfiles || !$hasSlack)
-	@include('set_up')
+	@include('_set_up')
 @elseif (count($posts) == 0)
 	<div class="card">
 		Geen posts. Ga naar profile manager.
 	</div>
 @else
-    @each('post', $posts, 'post')
+    @each('_post', $posts, 'post')
 
     {{ $posts->links() }}
 @endif
