@@ -37082,7 +37082,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", name: "username", placeholder: "@..." },
+              attrs: { type: "text", placeholder: "@..." },
               domProps: { value: _vm.username },
               on: {
                 input: function($event) {
