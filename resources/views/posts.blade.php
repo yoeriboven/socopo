@@ -19,7 +19,7 @@
 
 <p class="text-right font-weight-bold"><a href="#profiles" id="modalOpener" data-toggle="modal" data-target="#profilesModal">Manage profiles</a></p>
 
-@if (auth()->user()->profiles()->count() == 0 || ! auth()->user()->settings->slack_url)
+@if (!$hasProfiles || !$hasSlack)
 	@include('set_up')
 @elseif (count($posts) == 0)
 	<div class="card">
