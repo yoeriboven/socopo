@@ -81,7 +81,7 @@ class Profile extends Model
      */
     public function followers()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 
     /**
@@ -91,7 +91,13 @@ class Profile extends Model
      */
     public function notifyFollowers(Post $post)
     {
-        $this->followers->filter->hasSlackSetup()->each->notify(new NewPostAdded($post));
+        $this->followers->filter(function ($follower) {
+            return $follower->hasSlackSetup();
+        })->reject(function ($follower) use ($post) {
+            return $follower->pivot->created_at->gt($post->posted_at);
+        })->each(function ($follower) use ($post) {
+            $follower->notify(new NewPostAdded($post));
+        });
     }
 
     /**

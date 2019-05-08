@@ -61,14 +61,15 @@ class CheckNewPostsTest extends TestCase
     {
         Notification::fake();
 
-        $historicPostedAt = Carbon::now()->subYear();
-
         // Given
         $user = factory('App\User')->create();
         $user->settings->update(['slack_url' => 'Something']);
 
-        $profileOne = factory('App\Profile')->create(['username' => 'daviddobrik']);
-        $profileOne->attachUser($user);
+        $profile = factory('App\Profile')->create(['username' => 'daviddobrik']);
+        $profile->attachUser($user);
+
+        // This line is purely because the profile has to be attached before the post was posted
+        $profile->followers()->where('user_id', $user->id)->first()->pivot->update(['created_at' => Carbon::now()->subYears(20)]);
 
         // When we call the command
         (new \App\InstagramCommand)->handle();

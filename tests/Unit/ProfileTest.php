@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Profile;
 use Tests\TestCase;
+use Illuminate\Support\Carbon;
 use App\Notifications\NewPostAdded;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -106,7 +107,7 @@ class ProfileTest extends TestCase
         $users[0]->settings->update(['slack_url' => 'Something']);
         $users[1]->settings->update(['slack_url' => 'Something']);
 
-        $post = factory('App\Post')->create(['profile_id' => $profile->id]);
+        $post = factory('App\Post')->create(['profile_id' => $profile->id, 'posted_at' => Carbon::now()->addDays(1)]);
 
         // When
         $profile->notifyFollowers($post);
@@ -124,6 +125,7 @@ class ProfileTest extends TestCase
         // Given
         $profile = factory('App\Profile')->create();
         $user = factory('App\User')->create();
+        $user->settings->update(['slack_url' => 'Something']);
 
         $post = factory('App\Post')->create(['profile_id' => $profile->id]);
 
@@ -135,7 +137,7 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
-    public function followers_without_a_slack_url_arent_notified()
+    public function it_doesnt_notify_users_who_dont_have_slack_set_up()
     {
         Notification::fake();
 
@@ -152,6 +154,29 @@ class ProfileTest extends TestCase
         $profile->notifyFollowers($post);
 
         // Then
+        Notification::assertNotSentTo($user, NewPostAdded::class);
+    }
+
+    /** @test */
+    public function it_doesnt_notify_users_who_follow_the_profile_after_the_new_post_has_been_made()
+    {
+        Notification::fake();
+
+        // Given we have a user,
+        $user = factory('App\User')->create();
+        $user->settings()->update(['slack_url' => 'Something']);
+
+        // who follows a profile
+        $profile = factory('App\Profile')->create();
+        $profile->attachUser($user);
+        // dump($profile->followers()->where('user_id', $user->id)->first()->pivot->created_at);
+        // and the new post is added before the user followed the profile
+        $post = factory('App\Post')->create(['profile_id' => $profile->id, 'posted_at' => Carbon::now()->subDays(1)]);
+
+        // When
+        $profile->notifyFollowers($post);
+
+        // Then there should be no notification sent
         Notification::assertNotSentTo($user, NewPostAdded::class);
     }
 }
