@@ -94,6 +94,8 @@ class Profile extends Model
         $this->followers->filter(function ($follower) {
             return $follower->hasSlackSetup();
         })->reject(function ($follower) use ($post) {
+            // Reject followers which have added the profile after the post was posted on IG
+            // Without this, a follower could be notified of posts added weeks ago
             return $follower->pivot->created_at->gt($post->posted_at);
         })->each(function ($follower) use ($post) {
             $follower->notify(new NewPostAdded($post));
