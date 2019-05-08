@@ -1,4 +1,3 @@
-
 <div class="card insta_post">
 	<div class="row">
 		<div class="col-md-8 insta_image">

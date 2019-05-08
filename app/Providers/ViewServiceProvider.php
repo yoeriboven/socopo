@@ -24,7 +24,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer('posts', function ($view) {
+        View::composer('posts.posts', function ($view) {
             $view->with('hasProfiles', auth()->user()->profiles()->count());
             $view->with('hasSlack', auth()->user()->settings->slack_url);
         });

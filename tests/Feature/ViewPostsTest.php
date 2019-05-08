@@ -50,6 +50,19 @@ class ViewPostsTest extends TestCase
     }
 
     /** @test */
+    public function a_special_view_is_shown_if_there_are_no_posts_found_yet()
+    {
+        $user = $this->signIn();
+        $user->settings->update(['slack_url' => 'something']);
+
+        $profile = factory('App\Profile')->create();
+        $profile->attachUser($user);
+
+        $this->get(route('posts.index'))
+            ->assertSee('No posts yet');
+    }
+
+    /** @test */
     public function if_an_authorized_user_doesnt_have_slack_setup_it_should_see_a_setup_view()
     {
         // Given we have a user that follows a profile with a post but doesnt have slack setup
