@@ -47,7 +47,7 @@ class NewPostAdded extends Notification
     public function toSlack($notifiable)
     {
         return (new SlackMessage)
-                    ->content('*@'.$this->post->profile->username.' just posted on Instagram*')
+                    ->content('*@'.$this->post->profile->username.' just posted on Instagram ('.$this->post->posted_at->diffForHumans().')*')
                     ->attachment(function ($attachment) {
                         $attachment->content("\"{$this->post->caption}\"")
                                     ->image($this->post->image_url)
