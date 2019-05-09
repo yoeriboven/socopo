@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var stripe = Stripe('pk_test_RXuzN7bgWPnVTKmLKrCNrJ0x00rPjK3VAO');
+var stripe = Stripe(stripeKey);
 var elements = stripe.elements(); // Custom styling can be passed to options when creating an Element.
 
 var style = {
