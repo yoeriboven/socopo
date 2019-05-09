@@ -1,8 +1,8 @@
 <div class="row settings_panel pb-30">
-	<div class="col-3">
+	<div class="col-sm-3 mb-3">
 		<h4 class="card-title">Slack connection</h4>
 	</div>
-	<div class="col-9">
+	<div class="col-sm-9">
 		<div class="row">
 
 			@if ($errors->has('slack'))

@@ -1,8 +1,8 @@
 <div class="row settings_panel">
-	<div class="col-3">
+	<div class="col-md-3 mb-3">
 		<h4 class="card-title">User info</h4>
 	</div>
-	<div class="col-9">
+	<div class="col-md-9">
 		<form method="POST" action="{{ url('settings/details') }}">
 			@csrf
 

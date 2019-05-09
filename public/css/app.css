@@ -90,6 +90,12 @@ body {
   width: 100%;
 }
 
+@media (max-width: 768px) {
+  .insta_post .insta_meta {
+    padding: 0px 20px;
+  }
+}
+
 .insta_post .caption {
   margin-top: 20px;
 }
@@ -114,6 +120,7 @@ body {
 
 .pricing-label {
   cursor: pointer;
+  width: 100%;
 }
 
 .pricing-label > input:checked + .card {

@@ -1,8 +1,8 @@
 <div class="row settings_panel pb-30">
-	<div class="col-3">
+	<div class="col-sm-3 mb-3">
 		<h4 class="card-title">Subscription</h4>
 	</div>
-	<div class="col-9">
+	<div class="col-sm-9">
 		You are not subscribed yet. Upgrade your account to get more perks.<br/><br/>
 
 		<div class="row">

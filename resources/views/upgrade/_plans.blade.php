@@ -1,13 +1,13 @@
 <div class="card">
     <div class="card-body">
 		<div class="row">
-			<div class="col-3">
+			<div class="col-lg-3 mb-3">
 				<h4 class="card-title">Step 1: Pick a plan</h4>
 			</div>
-			<div class="col-9">
+			<div class="col-lg-9">
 				<div class="form-group">
 					<div class="row">
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-12 col-md-4">
 							<label class="pricing-label">
 								<input type="radio" class="custom-control-input" name="plan" value="plan_1" {{ old('plan') == 'plan_1' ? 'checked' : '' }}>
 
@@ -27,7 +27,7 @@
 							</label>
 						</div>
 
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-12 col-md-4">
 							<label class="pricing-label">
 								<input type="radio" class="custom-control-input" name="plan" value="plan_2" {{ old('plan') == 'plan_2' ? 'checked' : '' }}>
 
@@ -47,7 +47,7 @@
 							</label>
 						</div>
 
-						<div class="col-sm-6 col-lg-4">
+						<div class="col-12 col-md-4">
 							<label class="pricing-label">
 								<input type="radio" class="custom-control-input" name="plan" value="plan_3" {{ old('plan') == 'plan_3' ? 'checked' : '' }}>
 

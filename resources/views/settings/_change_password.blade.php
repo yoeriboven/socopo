@@ -1,8 +1,8 @@
 <div class="row settings_panel">
-	<div class="col-3">
+	<div class="col-sm-3 mb-3">
 		<h4 class="card-title">Change Password</h4>
 	</div>
-	<div class="col-9">
+	<div class="col-sm-9">
 		<form method="POST" action="{{ url('settings/change_password') }}">
 			@csrf
 

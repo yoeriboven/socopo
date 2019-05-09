@@ -88,6 +88,12 @@ body {
         }
     }
 
+    @media (max-width: 768px) {
+        .insta_meta {
+            padding:0px 20px;
+        }
+    }
+
     .caption {
         margin-top:20px;
     }
@@ -111,9 +117,9 @@ body {
     padding-bottom:30px;
 }
 
-
 .pricing-label {
     cursor: pointer;
+    width: 100%;
 }
 
 .pricing-label > input:checked + .card { /* (RADIO CHECKED) DIV STYLES */

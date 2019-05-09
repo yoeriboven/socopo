@@ -1,8 +1,8 @@
 <div class="row settings_panel pb-30">
-	<div class="col-3">
+	<div class="col-sm-3 mb-3">
 		<h4 class="card-title">Subscription</h4>
 	</div>
-	<div class="col-9">
+	<div class="col-sm-9">
 		<strong>Plan: </strong> {{ $subscription->name }}<br/>
 
 		@if ($subscription->cancelled())
@@ -11,7 +11,7 @@
 			<strong>Renewal date: </strong> {{ $subscription->current_period_end->format('F jS, Y') }}<br/>
 		@endif
 
-		<div class="row">
+		<div class="row mt-3">
 			<div class="col-6">
 				@if (! $subscription->cancelled())
 					<a href="#" data-toggle="modal" data-target="#cancelSubscriptionModal" style="position: absolute;bottom: 0;">Cancel subscription</a>
