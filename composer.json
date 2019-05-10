@@ -17,6 +17,7 @@
         "laravel/socialite": "^4.1",
         "laravel/tinker": "^1.0",
         "mpociot/vat-calculator": "^2.4",
+        "sentry/sentry-laravel": "1.0.2",
         "socialiteproviders/slack": "^3.0"
     },
     "require-dev": {

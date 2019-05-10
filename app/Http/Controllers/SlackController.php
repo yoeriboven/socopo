@@ -33,6 +33,8 @@ class SlackController extends Controller
 
             return redirect()->route('settings')->with('slack.success', 'Slack authorization succeeded.');
         } catch (\Exception $e) {
+            app('sentry')->captureException($e);
+
             return redirect()->route('settings')->withErrors(['slack' => 'Authorization failed']);
         }
     }
