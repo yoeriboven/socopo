@@ -13,12 +13,12 @@ class CreateSubscriptionsTable extends Migration
     public function up()
     {
         Schema::create('subscriptions', function ($table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->smallIncrements('id');
+            $table->unsignedSmallInteger('user_id');
             $table->string('name');
             $table->string('stripe_id')->collation('utf8mb4_bin');
             $table->string('stripe_plan');
-            $table->integer('quantity');
+            $table->unsignedTinyInteger('quantity');
             $table->timestamp('current_period_end')->nullable();
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('ends_at')->nullable();

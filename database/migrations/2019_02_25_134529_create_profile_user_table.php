@@ -15,8 +15,8 @@ class CreateProfileUserTable extends Migration
     {
         Schema::create('profile_user', function (Blueprint $table) {
             $table->primary(['profile_id', 'user_id']);
-            $table->unsignedInteger('profile_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedSmallInteger('profile_id');
+            $table->unsignedSmallInteger('user_id');
             $table->timestamps();
         });
     }

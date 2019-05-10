@@ -14,8 +14,8 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('profile_id');
+            $table->smallIncrements('id');
+            $table->unsignedSmallInteger('profile_id');
             $table->string('ig_post_id');
             $table->text('caption')->nullable();
             $table->string('type');

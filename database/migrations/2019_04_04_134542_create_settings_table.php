@@ -14,8 +14,8 @@ class CreateSettingsTable extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->smallIncrements('id');
+            $table->unsignedSmallInteger('user_id')->unique();
             $table->string('slack_url')->nullable();
             $table->timestamps();
         });
