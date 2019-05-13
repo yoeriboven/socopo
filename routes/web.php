@@ -46,4 +46,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 /* Authorization */
 Auth::routes(['verify' => true]);
 
+/* Stripe Webhook */
+Route::post('stripe/webhook', 'StripeWebhookController@handleWebhook');
+
 Route::get('ig', 'Controller@instagramTester');
