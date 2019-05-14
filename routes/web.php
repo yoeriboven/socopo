@@ -11,12 +11,6 @@
 |
 */
 
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-//
-
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'PostController@index')->name('posts.index');
 

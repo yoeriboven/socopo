@@ -49,7 +49,7 @@ class Profile extends Model
     }
 
     /**
-     * Detaches the current profile to the given user
+     * Detaches the current profile from the given user
      *
      * @param  User $user
      */
@@ -75,7 +75,7 @@ class Profile extends Model
     }
 
     /**
-     * A user belongs to many followers (Users)
+     * A profile belongs to many followers (Users)
      *
      * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
