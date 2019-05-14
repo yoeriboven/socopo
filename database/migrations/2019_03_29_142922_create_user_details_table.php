@@ -23,6 +23,8 @@ class CreateUserDetailsTable extends Migration
             $table->string('city')->nullable();
             $table->string('country')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

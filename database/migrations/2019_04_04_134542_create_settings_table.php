@@ -18,6 +18,8 @@ class CreateSettingsTable extends Migration
             $table->unsignedSmallInteger('user_id')->unique();
             $table->string('slack_url')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

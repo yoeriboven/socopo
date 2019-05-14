@@ -18,6 +18,9 @@ class CreateProfileUserTable extends Migration
             $table->unsignedSmallInteger('profile_id');
             $table->unsignedSmallInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('profile_id')->references('id')->on('profiles');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

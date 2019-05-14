@@ -22,6 +22,8 @@ class CreatePostsTable extends Migration
             $table->string('post_url', 500);
             $table->timestamp('posted_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('profile_id')->references('id')->on('profiles');
         });
     }
 

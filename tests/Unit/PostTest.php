@@ -26,7 +26,12 @@ class PostTest extends TestCase
     /** @test */
     public function it_returns_the_correct_image_url()
     {
-        $post = factory('App\Post')->create(['post_url' => 'http://www.instagram.com/p/eiaoei/', 'profile_id' => 0]);
+        $user = $this->signIn();
+
+        $profile = factory('App\Profile')->create();
+        $profile->attachUser($user);
+
+        $post = factory('App\Post')->create(['post_url' => 'http://www.instagram.com/p/eiaoei/', 'profile_id' => $profile->id]);
 
         $this->assertEquals('http://www.instagram.com/p/eiaoei/media/?size=l', $post->image_url);
     }

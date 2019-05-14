@@ -79,8 +79,6 @@ class UserTest extends TestCase
     /** @test */
     public function it_can_have_settings()
     {
-        factory('App\Settings')->create(['user_id' => $this->user->id]);
-
         $this->assertInstanceOf('App\Settings', $this->user->settings);
     }
 
