@@ -25,7 +25,8 @@ class BillableTest extends TestCase
 
         $this->assertFalse($user->isSubscribed());
 
-        $user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($this->getStripeToken());
+        $plan_id = app('plans')->first()->stripe_id;
+        $user->newSubscription('Pro', $plan_id)->create($this->getStripeToken());
 
         $this->assertTrue($user->fresh()->isSubscribed());
 
@@ -63,7 +64,8 @@ class BillableTest extends TestCase
     /** @test */
     public function it_stores_the_current_period_end_when_a_new_subscription_is_created()
     {
-        $subscription = $this->user->newSubscription('Pro', 'plan_ErRIL8fIR4sfRt')->create($this->getStripeToken());
+        $plan_id = app('plans')->first()->stripe_id;
+        $subscription = $this->user->newSubscription('Pro', $plan_id)->create($this->getStripeToken());
 
         $subscription = $subscription->asStripeSubscription();
 

@@ -4,7 +4,8 @@ namespace App\Providers;
 
 use App\Plans\Plans;
 use App\Plans\ProPlan;
-use App\Plans\EnterprisePlan;
+use App\Plans\BrandPlan;
+use App\Plans\AgencyPlan;
 use Illuminate\Support\ServiceProvider;
 
 class PlansServiceProvider extends ServiceProvider
@@ -20,7 +21,8 @@ class PlansServiceProvider extends ServiceProvider
             $plans = new Plans();
 
             $plans->push(new ProPlan());
-            $plans->push(new EnterprisePlan());
+            $plans->push(new BrandPlan());
+            $plans->push(new AgencyPlan());
 
             return $plans;
         });

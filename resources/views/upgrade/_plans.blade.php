@@ -3,6 +3,7 @@
 		<div class="row">
 			<div class="col-lg-3 mb-3">
 				<h4 class="card-title">Step 1: Pick a plan</h4>
+				<p>On the free plan Instagram is checked every 10 minutes and you can add 10 profiles.</p>
 			</div>
 			<div class="col-lg-9">
 				<div class="form-group">
@@ -13,14 +14,11 @@
 
 								<div class="card">
 									<div class="card-body text-center">
-										<div class="card-category">Start-up</div>
-										<div class="display-3 my-4">$20</div>
+										<div class="card-category">Pro</div>
+										<div class="display-3 my-4">$19</div>
 										<ul class="list-unstyled leading-loose">
 											<li><strong>25</strong> Profiles</li>
-											<li><i class="fe fe-check text-success mr-2" aria-hidden="true"></i> Sharing Tools</li>
-											<li><i class="fe fe-x text-danger mr-2" aria-hidden="true"></i> Design Tools</li>
-											<li><i class="fe fe-x text-danger mr-2" aria-hidden="true"></i> Private Messages</li>
-											<li><i class="fe fe-x text-danger mr-2" aria-hidden="true"></i> Twitter API</li>
+											<li>Checks every 5 minutes</li>
 										</ul>
 									</div>
 								</div>
@@ -33,14 +31,11 @@
 
 								<div class="card">
 									<div class="card-body text-center">
-										<div class="card-category">Company</div>
-										<div class="display-3 my-4">$50</div>
+										<div class="card-category">Brand</div>
+										<div class="display-3 my-4">$49</div>
 										<ul class="list-unstyled leading-loose">
 											<li><strong>100</strong> Profiles</li>
-											<li><i class="fe fe-check text-success mr-2" aria-hidden="true"></i> Sharing Tools</li>
-											<li><i class="fe fe-x text-danger mr-2" aria-hidden="true"></i> Design Tools</li>
-											<li><i class="fe fe-x text-danger mr-2" aria-hidden="true"></i> Private Messages</li>
-											<li><i class="fe fe-x text-danger mr-2" aria-hidden="true"></i> Twitter API</li>
+											<li>Checks every 5 minutes</li>
 										</ul>
 									</div>
 								</div>
@@ -54,13 +49,10 @@
 								<div class="card">
 									<div class="card-body text-center">
 										<div class="card-category">Agency</div>
-										<div class="display-3 my-4">$70</div>
+										<div class="display-3 my-4">$69</div>
 										<ul class="list-unstyled leading-loose">
 											<li><strong>Unlimited</strong> Profiles</li>
-											<li><i class="fe fe-check text-success mr-2" aria-hidden="true"></i> Sharing Tools</li>
-											<li><i class="fe fe-x text-danger mr-2" aria-hidden="true"></i> Design Tools</li>
-											<li><i class="fe fe-x text-danger mr-2" aria-hidden="true"></i> Private Messages</li>
-											<li><i class="fe fe-x text-danger mr-2" aria-hidden="true"></i> Twitter API</li>
+											<li>Checks every minute</li>
 										</ul>
 									</div>
 								</div>

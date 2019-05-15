@@ -123,9 +123,19 @@ body {
   width: 100%;
 }
 
-.pricing-label > input:checked + .card {
+.pricing-label input:checked + .card {
   /* (RADIO CHECKED) DIV STYLES */
-  border-width: 2px;
-  border-color: #467fcf;
+  border-color: transparent;
+  box-shadow: 0 0 0 2px #467fcf;
+}
+
+.pricing-label:hover > .card {
+  border-color: transparent;
+  box-shadow: 0 0 0 2px #568cd8;
+}
+
+.pricing-label .card-body {
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
