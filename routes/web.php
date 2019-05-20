@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/landing', function () {
+    return view('front');
+});
+
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/', 'PostController@index')->name('posts.index');
 

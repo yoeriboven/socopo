@@ -3,19 +3,16 @@ body {
 }
 
 /* Helpers */
-
 .full-width {
   width: 100%;
 }
 
 /* Overrides */
-
 @media (min-width: 1280px) {
   .container {
     max-width: 1000px;
   }
 }
-
 .card {
   border-radius: 20px;
 }
@@ -29,11 +26,9 @@ body {
   border-bottom: none;
   color: white;
 }
-
 .header h2 {
   margin-bottom: 0;
 }
-
 .header .text-default {
   color: white !important;
 }
@@ -42,7 +37,6 @@ body {
   color: white;
   font-size: 1.05rem;
 }
-
 .nav-item a:hover {
   text-decoration: none;
   color: #c4c4c4;
@@ -55,21 +49,17 @@ body {
 #profilesModal table {
   width: 100%;
 }
-
 #profilesModal table tr:nth-child(odd) {
   background: #f5f5f5;
 }
-
 #profilesModal table tr > td {
   padding: 22px 0px;
 }
-
 #profilesModal table tr > td:first-child {
   width: 1px;
   padding: 0px 5px;
   white-space: nowrap;
 }
-
 #profilesModal table tr > td:nth-child(2) {
   padding-left: 10px;
 }
@@ -81,25 +71,20 @@ body {
 .insta_post {
   overflow: hidden;
 }
-
 .insta_post .insta_image {
   padding-right: 0px;
 }
-
 .insta_post .insta_image img {
   width: 100%;
 }
-
 @media (max-width: 768px) {
   .insta_post .insta_meta {
     padding: 0px 20px;
   }
 }
-
 .insta_post .caption {
   margin-top: 20px;
 }
-
 .insta_post .btn {
   margin-bottom: 10px;
 }
@@ -109,7 +94,6 @@ body {
   border-bottom: 1px solid rgba(0, 40, 100, 0.12);
   padding-bottom: 10px;
 }
-
 .settings_panel:last-child {
   border-bottom: none;
 }
@@ -122,20 +106,16 @@ body {
   cursor: pointer;
   width: 100%;
 }
-
 .pricing-label input:checked + .card {
   /* (RADIO CHECKED) DIV STYLES */
   border-color: transparent;
   box-shadow: 0 0 0 2px #467fcf;
 }
-
 .pricing-label:hover > .card {
   border-color: transparent;
   box-shadow: 0 0 0 2px #568cd8;
 }
-
 .pricing-label .card-body {
   padding-left: 5px;
   padding-right: 5px;
 }
-

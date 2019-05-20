@@ -13,7 +13,11 @@ const mix = require('laravel-mix');
 
 mix.sass('resources/sass/bundle.scss', 'public/css/dashboard.css')
    .sass('resources/sass/app.scss', 'public/css')
+   .sass('resources/sass/front.scss', 'public/css')
    .js('resources/js/app.js', 'public/js')
    .js('resources/js/stripe.js', 'public/js')
    .version()
-   .disableNotifications();
+   .disableNotifications()
+   .options({
+     processCssUrls: false
+   });

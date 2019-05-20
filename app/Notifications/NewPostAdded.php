@@ -51,7 +51,7 @@ class NewPostAdded extends Notification
                     ->attachment(function ($attachment) {
                         $attachment->content("\"{$this->post->caption}\"")
                                     ->image($this->post->image_url)
-                                    ->color('#1326d3')
+                                    ->color('#4392F1')
                                     ->action('Comment on post', $this->post->post_url, 'primary')
                                     ->action('Add more profiles', route('posts.index'), '')
                                     ->footerIcon('https://platform.slack-edge.com/img/default_application_icon.png')
