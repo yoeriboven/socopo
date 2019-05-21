@@ -3,7 +3,7 @@
 		<h4 class="card-title">Change Password</h4>
 	</div>
 	<div class="col-sm-9">
-		<form method="POST" action="{{ url('settings/change_password') }}">
+		<form method="POST" action="{{ route('change_password.store') }}">
 			@csrf
 
 			<div class="row">

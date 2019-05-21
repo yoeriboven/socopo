@@ -3,7 +3,7 @@
 		<h4 class="card-title">User info</h4>
 	</div>
 	<div class="col-md-9">
-		<form method="POST" action="{{ url('settings/details') }}">
+		<form method="POST" action="{{ route('user_details.store') }}">
 			@csrf
 
 			@if (Session::has('user_details.success'))

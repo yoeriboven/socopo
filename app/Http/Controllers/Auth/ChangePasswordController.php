@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 class ChangePasswordController extends Controller
 {
-    public function change(Request $request)
+    public function store(Request $request)
     {
         request()->validate([
             'old_password' => 'required',

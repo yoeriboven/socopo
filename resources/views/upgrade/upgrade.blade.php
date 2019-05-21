@@ -4,7 +4,7 @@
 
 @section('content')
 
-<form method="POST" action="{{ url('upgrade') }}" id="payment-form">
+<form method="POST" action="{{ route('subscription.store') }}" id="payment-form">
     @csrf
 
     @include('upgrade._plans')

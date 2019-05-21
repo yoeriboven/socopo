@@ -32,7 +32,7 @@ class UserRegistrationTest extends TestCase
         $user = factory('App\User')->create(['email_verified_at' => null]);
         $this->actingAs($user);
 
-        $this->get('/')
+        $this->get(route('home'))
             ->assertRedirect('/email/verify');
     }
 }

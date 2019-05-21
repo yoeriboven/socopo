@@ -13,9 +13,14 @@
 <body>
     <div class="container">
         <nav>
-            <a href="" class="btn btn-primary float-right ml-3">Try for free</a>
-            <a href="" class="btn float-right">Log in</a>
+            @auth
+                <a href="{{ route('home') }}" class="btn btn-primary float-right ml-3">View Dashboard</a>
+            @endauth
 
+            @guest
+                <a href="{{ route('register') }}" class="btn btn-primary float-right ml-3">Try for free</a>
+                <a href="{{ route('login') }}" class="btn float-right">Log in</a>
+            @endguest
         </nav>
 
         <div class="row pt-3">
@@ -23,7 +28,7 @@
                 <h2>Top Comments on Instagram</h2>
                 <h3>Get more engagement by being the first comment users see.</h3>
                 <p class="mb-3">Add Instagram profiles to Commenter and we will continuously check whether they upload something new. You will receive a notification on Slack the second a new post shows up.</p>
-                <a href="" class="btn btn-lg btn-primary mt-2">Try for free</a>
+                <a href="{{ route('register') }}" class="btn btn-lg btn-primary mt-2">Try for free</a>
             </main>
 
             <aside class="col-5">
@@ -35,8 +40,6 @@
                 </div>
             </aside>
         </div>
-
-
     </div>
 </body>
 </html>

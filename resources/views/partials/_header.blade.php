@@ -3,13 +3,13 @@
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="d-flex">
-                    <a class="header-brand" href="/">
+                    <a class="header-brand" href="{{ route('home') }}">
                         <h2>Commenter</h2>
                     </a>
 
                     <div class="d-flex order-md-2 ml-auto">
                         <div class="nav-item d-md-flex">
-                          <a href="/settings"><i class="fe fe-settings"></i></a>
+                          <a href="{{ route('settings') }}"><i class="fe fe-settings"></i></a>
                         </div>
                         <div class="nav-item d-md-flex">
                             <a href="{{ route('logout') }}" onclick="event.preventDefault();

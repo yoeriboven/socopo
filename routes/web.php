@@ -10,13 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/landing', function () {
-    return view('front');
-});
-
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/', 'PostController@index')->name('posts.index');
+    Route::get('posts', 'PostController@index')->name('home');
 
     /* Profile routes (return JSON) */
     Route::group(['middleware' => 'ajax'], function () {
@@ -27,12 +22,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     /* Setting routes */
     Route::get('settings', 'SettingsController@index')->name('settings');
-    Route::post('settings/details', 'UserDetailsController@store');
-    Route::post('settings/change_password', 'Auth\ChangePasswordController@change');
+    Route::post('settings/details', 'UserDetailsController@store')->name('user_details.store');
+    Route::post('settings/change_password', 'Auth\ChangePasswordController@store')->name('change_password.store');
 
     /* Upgrade Plan */
     Route::get('upgrade', 'SubscriptionController@index')->name('upgrade');
-    Route::post('upgrade', 'SubscriptionController@store');
+    Route::post('upgrade', 'SubscriptionController@store')->name('subscription.store');
     Route::delete('subscription/cancel/{subscription}', 'SubscriptionController@destroy')->name('subscription.destroy');
 
     /* Slack authorization */
@@ -43,6 +38,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 /* Authorization */
 Auth::routes(['verify' => true]);
+
+/* Front page */
+Route::get('/', function () {
+    return view('front');
+});
 
 /* Stripe Webhook */
 Route::post('stripe/webhook', 'StripeWebhookController@handleWebhook');

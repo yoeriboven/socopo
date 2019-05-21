@@ -12,7 +12,7 @@ class ViewPostsTest extends TestCase
     /** @test */
     public function guests_cant_view_posts()
     {
-        $this->get('/')
+        $this->get('/posts')
              ->assertRedirect('login');
     }
 
@@ -32,7 +32,7 @@ class ViewPostsTest extends TestCase
 
         // When he visits the posts page
         // Then he sees the posts
-        $this->get(route('posts.index'))
+        $this->get('/posts')
             ->assertSee($post->caption)
             ->assertDontSee($hiddenPost->caption);
     }
@@ -45,7 +45,7 @@ class ViewPostsTest extends TestCase
 
         // When he visits the posts page
         // Then he should see set up
-        $this->get(route('posts.index'))
+        $this->get('/posts')
             ->assertSee('Set up');
     }
 
@@ -58,7 +58,7 @@ class ViewPostsTest extends TestCase
         $profile = factory('App\Profile')->create();
         $profile->attachUser($user);
 
-        $this->get(route('posts.index'))
+        $this->get('/posts')
             ->assertSee('No posts yet');
     }
 
@@ -73,7 +73,7 @@ class ViewPostsTest extends TestCase
 
         // When he visits the posts page
         // Then he shouldn't see the post
-        $this->get(route('posts.index'))
+        $this->get('/posts')
             ->assertSee('Set up')
             ->assertDontSee($post->caption);
     }
