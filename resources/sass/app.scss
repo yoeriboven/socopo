@@ -1,5 +1,6 @@
 body {
-	background:#F0F4F8;
+    border-top:5px solid #4392F1;
+    background: #fefefe;
 }
 /* Helpers */
 .full-width {
@@ -20,9 +21,8 @@ body {
 }
 
 .header {
-    background: #334E68;
-    border-bottom: none;
-    color:white;
+    background:white;
+    color:#4392F1;
 
     h2 {
     	margin-bottom: 0;
@@ -34,12 +34,12 @@ body {
 }
 
 .nav-item a {
-    color:white;
+    color:#4392F1;
     font-size:1.05rem;
 
     &:hover{
         text-decoration:none;
-        color:#c4c4c4;
+        color:#327dd6;
     }
 }
 
@@ -86,6 +86,10 @@ body {
         img {
             width:100%;
         }
+    }
+
+    .insta_meta {
+        padding-right:20px;
     }
 
     @media (max-width: 768px) {

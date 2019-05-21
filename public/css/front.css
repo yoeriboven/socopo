@@ -3846,6 +3846,7 @@ html {
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  border-top: 5px solid #4392F1;
   padding: 20px 0px;
 }
 
