@@ -27,7 +27,8 @@
             <main class="col-7">
                 <h2>Top Comments on Instagram</h2>
                 <h3>Get more engagement by being the first comment users see.</h3>
-                <p class="mb-3">Add Instagram profiles to Commenter and we will continuously check whether they upload something new. You will receive a notification on Slack the second a new post shows up.</p>
+                <p>Immediately write a comment when a user uploads a new post and it'll have the greatest amount of impressions.</p>
+                <p class="mb-3">Add Instagram profiles to {{ config('app.name') }} and we will continuously check whether they upload something new. You will receive a notification on Slack the second a new post shows up.</p>
                 <a href="{{ route('register') }}" class="btn btn-lg btn-primary mt-2">Try for free</a>
             </main>
 
@@ -40,6 +41,10 @@
                 </div>
             </aside>
         </div>
+
+        <footer>
+            &#169; 2019 - {{ config('app.name') }} - <a href="mailto:yoeri@yoeri.me">Contact</a>
+        </footer>
     </div>
 </body>
 </html>

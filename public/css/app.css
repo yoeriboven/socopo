@@ -1,6 +1,6 @@
 body {
   border-top: 5px solid #4392F1;
-  background: #fefefe;
+  background: #F0F4F8;
 }
 
 /* Helpers */
@@ -23,7 +23,7 @@ body {
 }
 
 .header {
-  background: white;
+  background: #fdfdfd;
   color: #4392F1;
 }
 .header h2 {

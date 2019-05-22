@@ -3848,6 +3848,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   border-top: 5px solid #4392F1;
   padding: 20px 0px;
+  overflow-x: hidden;
 }
 
 .btn {
@@ -3855,7 +3856,6 @@ body {
   border: 2px solid #4392F1;
   border-radius: 20px;
   color: #4392F1;
-  font-weight: 500;
   display: inline-block;
 }
 .btn:hover, .btn:active, .btn:focus {
@@ -3913,6 +3913,19 @@ p {
 }
 .slack-notification > img {
   margin-right: -10px;
+}
+
+footer {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 40px;
+  color: #adb5bd;
+}
+footer a {
+  color: #adb5bd;
+}
+footer a:hover {
+  color: #868e96;
 }
 
 /**

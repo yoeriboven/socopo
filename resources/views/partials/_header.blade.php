@@ -4,7 +4,7 @@
             <div class="col-lg-10">
                 <div class="d-flex">
                     <a class="header-brand" href="{{ route('home') }}">
-                        <h2>Commenter</h2>
+                        <h2>Socopo</h2>
                     </a>
 
                     <div class="d-flex order-md-2 ml-auto">
