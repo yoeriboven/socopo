@@ -2,10 +2,25 @@
 
 namespace App\Plans;
 
-class FreePlan
+class FreePlan extends Plan
 {
-    public $id = null;
-    public $stripe_id = null;
-    public $name = 'Free';
-    public $maxProfiles = 10;
+    public function getId()
+    {
+        return null;
+    }
+
+    public function getName()
+    {
+        return 'Free';
+    }
+
+    public function getStripeId()
+    {
+        return null;
+    }
+
+    public function getMaxProfiles()
+    {
+        return 10;
+    }
 }

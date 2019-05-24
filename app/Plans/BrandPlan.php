@@ -2,10 +2,25 @@
 
 namespace App\Plans;
 
-class BrandPlan
+class BrandPlan extends Plan
 {
-    public $id = 'plan_2';
-    public $stripe_id = 'plan_F4TqVGwBuululj';
-    public $name = 'Brand';
-    public $maxProfiles = 100;
+    public function getId()
+    {
+        return 'plan_2';
+    }
+
+    public function getName()
+    {
+        return 'Brand';
+    }
+
+    public function getStripeId()
+    {
+        return config('services.stripe.plans.brand');
+    }
+
+    public function getMaxProfiles()
+    {
+        return 100;
+    }
 }

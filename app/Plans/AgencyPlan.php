@@ -2,10 +2,25 @@
 
 namespace App\Plans;
 
-class AgencyPlan
+class AgencyPlan extends Plan
 {
-    public $id = 'plan_3';
-    public $stripe_id = 'plan_F4TrC25pyaNflA';
-    public $name = 'Agency';
-    public $maxProfiles = 100000;
+    public function getId()
+    {
+        return 'plan_3';
+    }
+
+    public function getName()
+    {
+        return 'Agency';
+    }
+
+    public function getStripeId()
+    {
+        return config('services.stripe.plans.agency');
+    }
+
+    public function getMaxProfiles()
+    {
+        return 100000;
+    }
 }

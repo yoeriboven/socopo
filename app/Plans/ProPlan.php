@@ -2,10 +2,25 @@
 
 namespace App\Plans;
 
-class ProPlan
+class ProPlan extends Plan
 {
-    public $id = 'plan_1';
-    public $stripe_id = 'plan_F4ToZlVXsGNRgC';
-    public $name = 'Pro';
-    public $maxProfiles = 20;
+    public function getId()
+    {
+        return 'plan_1';
+    }
+
+    public function getName()
+    {
+        return 'Pro';
+    }
+
+    public function getStripeId()
+    {
+        return config('services.stripe.plans.pro');
+    }
+
+    public function getMaxProfiles()
+    {
+        return 20;
+    }
 }

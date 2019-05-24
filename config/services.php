@@ -38,6 +38,11 @@ return [
             'secret' => env('STRIPE_WEBHOOK_SECRET'),
             'tolerance' => env('STRIPE_WEBHOOK_TOLERANCE', 300),
         ],
+        'plans' => [
+            'pro' => env('STRIPE_PLAN_PRO'),
+            'brand' => env('STRIPE_PLAN_BRAND'),
+            'agency' => env('STRIPE_PLAN_AGENCY')
+        ],
     ],
 
     'slack' => [
