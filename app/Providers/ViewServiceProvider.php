@@ -28,5 +28,12 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('hasProfiles', auth()->user()->profiles()->count());
             $view->with('hasSlack', auth()->user()->settings->slack_url);
         });
+
+        View::composer([
+            'settings._subscription_inactive',
+            'settings._subscription_active'
+        ], function ($view) {
+            $view->with('plan', auth()->user()->plan());
+        });
     }
 }

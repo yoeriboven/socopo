@@ -35,7 +35,7 @@
 										<div class="display-3 my-4">$49</div>
 										<ul class="list-unstyled leading-loose">
 											<li><strong>100</strong> Profiles</li>
-											<li>Checks every 5 minutes</li>
+											<li>Checks every 3 minutes</li>
 										</ul>
 									</div>
 								</div>

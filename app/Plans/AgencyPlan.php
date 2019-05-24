@@ -14,6 +14,11 @@ class AgencyPlan extends Plan
         return 'Agency';
     }
 
+    public function getInterval()
+    {
+        return 1;
+    }
+
     public function getStripeId()
     {
         return config('services.stripe.plans.agency');

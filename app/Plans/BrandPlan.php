@@ -14,6 +14,11 @@ class BrandPlan extends Plan
         return 'Brand';
     }
 
+    public function getInterval()
+    {
+        return 3;
+    }
+
     public function getStripeId()
     {
         return config('services.stripe.plans.brand');

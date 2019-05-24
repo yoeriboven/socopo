@@ -14,6 +14,11 @@ class ProPlan extends Plan
         return 'Pro';
     }
 
+    public function getInterval()
+    {
+        return 5;
+    }
+
     public function getStripeId()
     {
         return config('services.stripe.plans.pro');

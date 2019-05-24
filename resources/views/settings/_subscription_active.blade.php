@@ -6,10 +6,17 @@
 		<strong>Plan: </strong> {{ $subscription->name }}<br/>
 
 		@if ($subscription->cancelled())
-			<strong>Cancel date: </strong> {{ $subscription->ends_at->format('F jS, Y') }}<br/>
+			<strong>Cancel date: </strong> {{ $subscription->ends_at->format('F jS, Y') }}<br/><br/>
 		@else
-			<strong>Renewal date: </strong> {{ $subscription->current_period_end->format('F jS, Y') }}<br/>
+			<strong>Renewal date: </strong> {{ $subscription->current_period_end->format('F jS, Y') }}<br/><br/>
 		@endif
+
+		<strong>Max Profiles: </strong>{{ $plan->maxProfiles }} profiles<br/>
+		<strong>Interval: </strong>{{ $plan->interval }} minutes
+		<span class="col-auto align-self-center">
+      		<span class="form-help" data-toggle="popover" data-placement="top"
+				data-content="How often we check your selected Instagram profiles.">?</span>
+ 		</span>
 
 		<div class="row mt-3">
 			<div class="col-6">

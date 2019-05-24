@@ -14,6 +14,11 @@ class FreePlan extends Plan
         return 'Free';
     }
 
+    public function getInterval()
+    {
+        return 10;
+    }
+
     public function getStripeId()
     {
         return null;
