@@ -54,8 +54,6 @@ class NewPostAdded extends Notification
                                     ->color('#4392F1')
                                     ->action('Comment on post', $this->post->post_url, 'primary')
                                     ->action('Add more profiles', route('home'), '')
-                                    ->footerIcon('https://platform.slack-edge.com/img/default_application_icon.png')
-                                    ->footer(config('app.name', 'Instagram'))
                                     ->timestamp($this->post->posted_at);
                     });
         ;
