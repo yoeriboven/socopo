@@ -4,11 +4,12 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Top Comments on Instagram - {{ config('app.name', 'Socopo') }}</title>
+    <meta name="description" content="Want Higher Engagement on Instagram? Use Socopo to be the top comment by being the first to write comments on new posts.">
 
     <!-- CSS -->
     <link href="{{ mix('css/front.css') }}" rel="stylesheet" />
 
-    <title>Top Comments on Instagram - {{ config('app.name', 'Socopo') }}</title>
 </head>
 <body>
     <div class="container">
