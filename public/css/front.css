@@ -3854,6 +3854,7 @@ body {
 #logo {
   color: #4392F1;
   font-size: 36px;
+  margin-bottom: 0;
 }
 
 .btn {
@@ -3883,7 +3884,13 @@ body {
 }
 
 main {
-  padding-top: 15rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-weight: 300;
+  color: #545454;
 }
 
 h2 {
@@ -3906,12 +3913,6 @@ h3 {
   color: #4392F1;
 }
 
-p {
-  font-weight: 300;
-  width: 80%;
-  color: #545454;
-}
-
 footer {
   font-size: 12px;
   text-align: center;
@@ -3923,4 +3924,24 @@ footer a {
 }
 footer a:hover {
   color: #868e96;
+}
+
+@media (min-width: 992px) {
+  main {
+    padding-top: 10rem;
+    text-align: left;
+  }
+
+  p {
+    width: 80%;
+  }
+}
+@media (min-width: 1200px) {
+  main {
+    padding-top: 15rem;
+  }
+}
+.vertical-align {
+  display: flex;
+  align-items: center;
 }

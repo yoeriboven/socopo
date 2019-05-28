@@ -13,12 +13,12 @@
 <body>
     <div class="container">
         <nav>
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row vertical-align">
+                <div class="col-6">
                     <h1 id="logo">Socopo</h1>
                 </div>
 
-                <div class="col-md-6" style="">
+                <div class="col-6">
                     @auth
                         <a href="{{ route('home') }}" class="btn btn-primary float-right ml-3">View Dashboard</a>
                     @endauth
@@ -33,7 +33,7 @@
         </nav>
 
         <div class="row pt-3">
-            <main class="col-7">
+            <main class="col-12 col-lg-7">
                 <h2>Top Comments on Instagram</h2>
                 <h3>Get more engagement by being the first comment users see.</h3>
                 <p>Immediately write a comment when a user uploads a new post and it'll have the greatest amount of impressions.</p>
@@ -41,7 +41,7 @@
                 <a href="{{ route('register') }}" class="btn btn-lg btn-primary mt-2">Try for free</a>
             </main>
 
-            <aside class="col-5">
+            <aside class="col-12 col-lg-5">
                 <div class="feature-post mt-4">
                     <img src="{{ asset('images/insta-post.png') }}" />
                 </div>
