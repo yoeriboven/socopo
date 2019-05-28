@@ -12,14 +12,21 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
-    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
-    <title>@yield('page_title') - Commenter</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-
-    <link href="{{ asset('css/dashboard.css') }}?<?= rand(); ?>" rel="stylesheet">
-    <link href="{{ asset('css/custom.css') }}?<?= rand(); ?>" rel="stylesheet" />
+    <title>@yield('page_title') - {{ config('app.name') }}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&amp;subset=latin-ext">
+    <link href="{{ mix('css/dashboard.css') }}" rel="stylesheet">
+    <style>
+        #logo > h2{
+            color:#4392F1;
+            font-size:40px;
+        }
+        #logo:hover {
+            text-decoration: none;
+        }
+        #logo:hover > h2 {
+            color:#327dd6;
+        }
+    </style>
 </head>
 <body class="">
     <div class="page">
@@ -28,7 +35,9 @@
                 <div class="row">
                     <div class="col col-login mx-auto">
                         <div class="text-center mb-6">
-                            <a href="{{ url('/') }}"><img src="{{ asset('demo/images/tabler.svg') }}" class="h-6" alt=""></a>
+                            <a id="logo" href="{{ url('/') }}">
+                                <h2>Socopo</h2>
+                            </a>
                         </div>
 
                         @yield('content')
