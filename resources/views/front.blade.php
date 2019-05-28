@@ -9,14 +9,15 @@
 
     <!-- CSS -->
     <link href="{{ mix('css/front.css') }}" rel="stylesheet" />
-
 </head>
 <body>
     <div class="container">
         <nav>
             <div class="row vertical-align">
                 <div class="col-6">
-                    <h1 id="logo">Socopo</h1>
+                    <a id="logo" href="{{ url('/') }}">
+                        <h1>Socopo</h1>
+                    </a>
                 </div>
 
                 <div class="col-6">
