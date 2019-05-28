@@ -161,7 +161,7 @@ function stripeTokenHandler(token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/yoeriboven/Sites/commenter/resources/js/stripe.js */"./resources/js/stripe.js");
+module.exports = __webpack_require__(/*! /Users/yoeriboven/Sites/socopo/resources/js/stripe.js */"./resources/js/stripe.js");
 
 
 /***/ })

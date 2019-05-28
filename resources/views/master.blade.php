@@ -17,13 +17,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
     <title>@yield('page_title') - {{ config('app.name') }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-   {{--  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Montserrat:400,500,600,700" rel="stylesheet"> --}}
-    <link href="https://fonts.googleapis.com/css?family=Mukta:400,500,600|Oxygen:400,700|Rubik:400,500,700|Ubuntu:400,500,700" rel="stylesheet">
-
     <link href="{{ mix('css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
 </head>

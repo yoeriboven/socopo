@@ -13,14 +13,23 @@
 <body>
     <div class="container">
         <nav>
-            @auth
-                <a href="{{ route('home') }}" class="btn btn-primary float-right ml-3">View Dashboard</a>
-            @endauth
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 id="logo">Socopo</h1>
+                </div>
 
-            @guest
-                <a href="{{ route('register') }}" class="btn btn-primary float-right ml-3">Try for free</a>
-                <a href="{{ route('login') }}" class="btn float-right">Log in</a>
-            @endguest
+                <div class="col-md-6" style="">
+                    @auth
+                        <a href="{{ route('home') }}" class="btn btn-primary float-right ml-3">View Dashboard</a>
+                    @endauth
+
+                    @guest
+                        <a href="{{ route('register') }}" class="btn btn-primary float-right ml-3">Try for free</a>
+                        <a href="{{ route('login') }}" class="btn float-right">Log in</a>
+                    @endguest
+                </div>
+            </div>
+
         </nav>
 
         <div class="row pt-3">
@@ -33,17 +42,14 @@
             </main>
 
             <aside class="col-5">
-                <div class="slack-notification">
-                    <img class="animated bounceInRight" src="{{ asset('images/slack-notification.png') }}" />
-                </div>
                 <div class="feature-post mt-4">
-                    <img src="images/insta-post.png" />
+                    <img src="{{ asset('images/insta-post.png') }}" />
                 </div>
             </aside>
         </div>
 
         <footer>
-            &#169; 2019 - {{ config('app.name', 'Socopo') }} - <a href="mailto:yoeri@yoeri.me">Contact</a>
+            &#169; 2019 - <a href="https://www.yoeri.me" target="_blank" rel="noopener">Yoeri.me</a> - <a href="mailto:yoeri@yoeri.me">Contact</a>
         </footer>
     </div>
 </body>
