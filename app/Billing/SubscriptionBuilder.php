@@ -10,6 +10,7 @@ class SubscriptionBuilder extends BaseSubscriptionBuilder
      * Create a new Stripe subscription.
      *
      * Note: we added the storing of current_period_end
+     * the rest of the method comes from Laravel\Cashier\SubscriptionBuilder
      *
      * @param  string|null  $token
      * @param  array  $options
