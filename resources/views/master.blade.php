@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600&amp;subset=latin-ext">
     <link href="{{ mix('css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
+    @include('partials._google_analytics')
 </head>
 <body>
     <div id="app" class="page">
