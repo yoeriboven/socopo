@@ -29,10 +29,10 @@ class CheckNewPostsTest extends TestCase
 
         /*
             Profiles:
-            1. Has one post in DB and a new post on IG
-            2. Has one post in DB but no new post on IG
-            3. Has no post in DB and also no new post on IG
-            4. Has no post in DB but multiple new posts on IG
+            1. Has one post in DB and a new post on IG (so should store new post)
+            2. Has one post in DB but no new post on IG (so should not store new post)
+            3. Has no post in DB and also no new post on IG (so should have nothing in db)
+            4. Has no post in DB but multiple new posts on IG (so should store the latest post)
         */
         $profileOne = factory('App\Profile')->create(['username' => 'daviddobrik']);
         factory('App\Post')->create(['profile_id' => $profileOne->id, 'ig_post_id' => 1996822142546072191, 'posted_at' => $historicPostedAt]);
