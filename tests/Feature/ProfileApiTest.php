@@ -31,8 +31,8 @@ class ProfileApiTest extends TestCase
     {
         $this->signIn();
 
-        $attachedOne = factory('App\Profile')->create()->attachUser($user);
-        $attachedTwo = factory('App\Profile')->create()->attachUser($user);
+        $attachedOne = factory('App\Profile')->create()->attachUser();
+        $attachedTwo = factory('App\Profile')->create()->attachUser();
         $notAttached = factory('App\Profile')->create();
 
         $this->get('api/profiles')

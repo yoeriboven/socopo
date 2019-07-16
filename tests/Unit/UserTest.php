@@ -44,6 +44,23 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    public function it_can_check_if_a_post_was_uploaded_before_the_profile_user_attachment()
+    {
+        $user = $this->signIn();
+
+        $profile = factory('App\Profile')->create();
+        $profile->attachUser();
+
+        // This post was posted on IG before the profile was attached to the user
+        $post = factory('App\Post')->create(['profile_id' => $profile->id, 'posted_at' => Carbon::now()->subDays(1)]);
+
+        // Now $user contains a pivot table
+        $user = $profile->followers()->find($user->id);
+
+        $this->assertTrue($user->attachedAfterPostPublished($post));
+    }
+
+    /** @test */
     public function profiles_are_ordered_in_descending_order_by_when_they_were_attached()
     {
         $user = $this->signIn();

@@ -79,11 +79,24 @@ class User extends Authenticatable implements MustVerifyEmail
      * Returns whether a profile is attached to the user already
      *
      * @param  String $username
-     * @return Boolean
+     * @return boolean
      */
     public function attached($username)
     {
         return !! $this->profiles()->where('username', $username)->exists();
+    }
+
+    /**
+     * Returns whether a Profile was attached to this user after a Post was published on IG
+     *
+     * Could be used to avoid notifying users of posts published in the past
+     *
+     * @param  Post   $post
+     * @return boolean
+     */
+    public function attachedAfterPostPublished(Post $post)
+    {
+        return !! $this->pivot->created_at->gt($post->posted_at);
     }
 
     /**
@@ -119,7 +132,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Returns whether slack_url is set on settings
      *
-     * @return bool
+     * @return boolean
      */
     public function hasSlackSetup()
     {
