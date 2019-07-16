@@ -38,19 +38,7 @@ class ViewPostsTest extends TestCase
     }
 
     /** @test */
-    public function if_an_authorized_user_doesnt_follow_profiles_it_should_see_a_setup_view()
-    {
-        // Given we have a user that follows 0 profiles
-        $user = $this->signIn();
-
-        // When he visits the posts page
-        // Then he should see set up
-        $this->get('/posts')
-            ->assertSee('Set up');
-    }
-
-    /** @test */
-    public function a_special_view_is_shown_if_there_are_no_posts_found_yet()
+    public function if_an_authorized_users_profiles_have_no_posts_stored_it_should_see_an_empty_data_view()
     {
         $user = $this->signIn();
         $user->settings->update(['slack_url' => 'something']);
@@ -60,6 +48,18 @@ class ViewPostsTest extends TestCase
 
         $this->get('/posts')
             ->assertSee('No posts yet');
+    }
+
+    /** @test */
+    public function if_an_authorized_user_doesnt_follow_profiles_it_should_see_a_setup_view()
+    {
+        // Given we have a user that follows 0 profiles
+        $user = $this->signIn();
+
+        // When he visits the posts page
+        // Then he should see set up
+        $this->get('/posts')
+            ->assertSee('Set up');
     }
 
     /** @test */

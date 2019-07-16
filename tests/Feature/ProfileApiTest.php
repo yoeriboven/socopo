@@ -31,8 +31,8 @@ class ProfileApiTest extends TestCase
     {
         $this->signIn();
 
-        $attachedOne = factory('App\Profile')->create()->attachUser();
-        $attachedTwo = factory('App\Profile')->create()->attachUser();
+        $attachedOne = factory('App\Profile')->create()->attachUser($user);
+        $attachedTwo = factory('App\Profile')->create()->attachUser($user);
         $notAttached = factory('App\Profile')->create();
 
         $this->get('api/profiles')
@@ -62,8 +62,9 @@ class ProfileApiTest extends TestCase
     public function a_user_can_only_detach_their_own_profiles()
     {
         // Given we have a signed in user
-        // and a profile that is not attached to them
         $user = $this->signIn();
+
+        // and a profile that is not attached to them
         $profile = factory('App\Profile')->create();
 
         $this->delete('api/profiles/'.$profile->id)
@@ -172,14 +173,12 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function a_status_code_is_shown_when_a_user_adds_an_account_but_is_at_the_max_of_their_plan()
     {
-        $this->withoutExceptionHandling();
-
         // A user is subscribed to a plan with a certain maximum amount of profiles
         $user = $this->signIn();
         $plan = app('plans')->first();
         factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'stripe_plan' => $plan->stripe_id]);
 
-        // The user is at their max profiles
+        // The user is at their max profiles (create {maxProfiles} Profiles)
         factory('App\Profile', $plan->maxProfiles)->create()->each(function ($profile) {
             $profile->attachUser();
         });

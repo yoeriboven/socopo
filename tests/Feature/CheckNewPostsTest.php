@@ -81,8 +81,6 @@ class CheckNewPostsTest extends TestCase
     /** @test */
     public function it_stores_the_correct_date()
     {
-        $this->withoutExceptionHandling();
-
         $profile = factory('App\Profile')->create(['username' => 'daviddobrik']);
 
         (new \App\InstagramCommand)->handle();

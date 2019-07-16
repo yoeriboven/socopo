@@ -12,11 +12,7 @@ class PostTest extends TestCase
     /** @test */
     public function it_has_a_profile()
     {
-        $user = $this->signIn();
-
         $profile = factory('App\Profile')->create();
-        $profile->attachUser($user);
-
         $post = factory('App\Post')->create(['profile_id' => $profile->id]);
 
         $this->assertTrue($profile->is($post->profile));
@@ -26,12 +22,11 @@ class PostTest extends TestCase
     /** @test */
     public function it_returns_the_correct_image_url()
     {
-        $user = $this->signIn();
-
         $profile = factory('App\Profile')->create();
-        $profile->attachUser($user);
-
-        $post = factory('App\Post')->create(['post_url' => 'http://www.instagram.com/p/eiaoei/', 'profile_id' => $profile->id]);
+        $post = factory('App\Post')->create([
+            'post_url' => 'http://www.instagram.com/p/eiaoei/',
+            'profile_id' => $profile->id
+        ]);
 
         $this->assertEquals('http://www.instagram.com/p/eiaoei/media/?size=l', $post->image_url);
     }

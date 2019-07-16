@@ -23,8 +23,6 @@ class PostRepositoryTest extends TestCase
     /** @test */
     public function it_fetches_the_posts_for_a_given_user()
     {
-        $this->withoutExceptionHandling();
-
         // Given we have two users, it should get the posts attached to the profiles the given user follows
         // and not those of the other user
         $authUser = factory('App\User')->create();
@@ -57,8 +55,6 @@ class PostRepositoryTest extends TestCase
     /** @test */
     public function it_fetches_the_latest_post_for_the_given_profiles()
     {
-        $this->withoutExceptionHandling();
-
         // Given there are two profiles each with two posts.
         $profileOne = factory('App\Profile')->create();
         $postOne = factory('App\Post')->create(['posted_at' => Carbon::now(), 'profile_id' => $profileOne->id]);

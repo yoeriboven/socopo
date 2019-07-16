@@ -23,7 +23,6 @@ class UpgradePlanTest extends TestCase
     /** @test */
     public function an_authorized_user_can_upgrade_their_plan()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $user_details = $this->getUserDetails();
@@ -62,7 +61,6 @@ class UpgradePlanTest extends TestCase
     /** @test */
     public function a_stripe_token_needs_to_be_valid()
     {
-        $this->withoutExceptionHandling();
         $this->signIn();
 
         $user_details = $this->getUserDetails();
@@ -122,8 +120,6 @@ class UpgradePlanTest extends TestCase
     /** @test */
     public function it_has_errors_when_a_user_is_already_subscribed_to_the_requested_plan()
     {
-        $this->withoutExceptionHandling();
-
         $user = $this->signIn();
 
         $plan = app('plans')->get(0);
@@ -139,7 +135,6 @@ class UpgradePlanTest extends TestCase
     /** @test */
     public function if_a_user_is_already_subscribed_to_another_plan_the_old_plan_will_be_cancelled()
     {
-        $this->withoutExceptionHandling();
         $user = $this->signIn();
 
         // Subscribe to plan

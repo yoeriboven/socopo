@@ -36,7 +36,6 @@ class ChangeUserDetailsTest extends TestCase
 
         $this->assertDatabaseHas('user_details', $details->toArray());
         $this->assertEquals($user->details->country, $attributes['country']);
-        $this->get('settings')->assertSee($details->name);
     }
 
     /** @test */
