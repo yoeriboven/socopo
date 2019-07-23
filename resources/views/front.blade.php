@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Top Comments on Instagram - {{ config('app.name', 'Socopo') }}</title>
+    <title>Top comments on Instagram - {{ config('app.name', 'Socopo') }}</title>
     <meta name="description" content="Want Higher Engagement on Instagram? Use Socopo to be the top comment by being the first to write comments on new posts.">
     <link href="{{ mix('css/front.css') }}" rel="stylesheet" />
     @include('partials._google_analytics')
@@ -34,7 +34,7 @@
 
         <div class="row pt-3">
             <main class="col-12 col-lg-7">
-                <h2>Top Comments on Instagram</h2>
+                <h2>Top comments on Instagram</h2>
                 <h3>Get more engagement by being the first comment users see.</h3>
                 <p>Immediately write a comment when a user uploads a new post and it'll have the greatest amount of impressions.</p>
                 <p class="mb-3">Add Instagram profiles to {{ config('app.name', 'Socopo') }} and we will continuously check whether they upload something new. You will receive a notification on Slack the second a new post shows up.</p>
