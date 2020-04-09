@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+    public $feed;
+
     /**
      * The attributes that are mass assignable.
      *

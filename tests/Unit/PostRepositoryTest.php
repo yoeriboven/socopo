@@ -53,24 +53,28 @@ class PostRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_fetches_the_latest_post_for_the_given_profiles()
+    public function it_fetches_the_latest_post_for_the_given_profile()
     {
-        // Given there are two profiles each with two posts.
-        $profileOne = factory('App\Profile')->create();
-        $postOne = factory('App\Post')->create(['posted_at' => Carbon::now(), 'profile_id' => $profileOne->id]);
-        $postTwo = factory('App\Post')->create(['posted_at' => Carbon::now()->subWeek(), 'profile_id' => $profileOne->id]);
+        $profile = factory('App\Profile')->create();
 
-        $profileTwo = factory('App\Profile')->create();
-        $postThree = factory('App\Post')->create(['posted_at' => Carbon::now()->subWeek(), 'profile_id' => $profileTwo->id]);
-        $postFour = factory('App\Post')->create(['posted_at' => Carbon::now(), 'profile_id' => $profileTwo->id]);
+        $post = factory('App\Post')->create(['posted_at' => Carbon::now(), 'profile_id' => $profile->id]);
+        factory('App\Post')->create(['posted_at' => Carbon::now()->subWeek(), 'profile_id' => $profile->id]);
 
-        // When we fetch them
-        $posts = $this->posts->latestForProfiles(collect([$profileOne, $profileTwo]));
+        $storedPost = $this->posts->latestForProfile($profile);
 
-        // Then it should contain the latest post for both users
-        $this->assertTrue($posts->contains($postOne));
-        $this->assertFalse($posts->contains($postTwo));
-        $this->assertFalse($posts->contains($postThree));
-        $this->assertTrue($posts->contains($postFour));
+        $this->assertTrue($storedPost->is($post));
+    }
+
+    /** @test */
+    public function it_fetches_the_post_based_on_posted_at_and_not_on_the_id()
+    {
+        $profile = factory('App\Profile')->create();
+
+        factory('App\Post')->create(['posted_at' => Carbon::now()->subWeek(), 'profile_id' => $profile->id]);
+        $post = factory('App\Post')->create(['posted_at' => Carbon::now(), 'profile_id' => $profile->id]);
+
+        $storedPost = $this->posts->latestForProfile($profile);
+
+        $this->assertTrue($storedPost->is($post));
     }
 }

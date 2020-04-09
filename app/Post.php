@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use App\Libraries\Instagram\Hydrator\Component\Media;
 
 class Post extends Model
 {
@@ -60,8 +59,10 @@ class Post extends Model
      * @param  App\Profile $profile
      * @return App\Post
      */
-    public static function storeFromInstagram(Media $post, Profile $profile)
+    public static function storeFromInstagram(Profile $profile)
     {
+        $post = $profile->feed->getLatestMedia();
+
         return static::create([
             'profile_id' => $profile->id,
             'ig_post_id' => $post->id,
