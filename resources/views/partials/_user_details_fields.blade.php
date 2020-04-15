@@ -12,8 +12,7 @@
 			<label class="form-label">VAT Number</label>
 			<div class="row gutters-sm">
 	            <div class="col">
-	            	<input type="text" class="form-control {{{ $errors->has('vat_id') ? 'is-invalid' : '' }}}" name="vat_id" placeholder="NL390193263B01" value="{{ old('vat_id') ?? $details->vat_id ?? '' }}">
-	            	<div class="invalid-feedback">{{ $errors->first('vat_id') }}</div>
+	            	Empty
 	            </div>
 	        	<span class="col-auto align-self-center">
 	          		<span class="form-help" data-toggle="popover" data-placement="top"

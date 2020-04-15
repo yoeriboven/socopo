@@ -170,26 +170,6 @@ class ProfileApiTest extends TestCase
             ->assertStatus(202);
     }
 
-    /** @test */
-    public function a_status_code_is_shown_when_a_user_adds_an_account_but_is_at_the_max_of_their_plan()
-    {
-        // A user is subscribed to a plan with a certain maximum amount of profiles
-        $user = $this->signIn();
-        $plan = app('plans')->first();
-        factory('App\Billing\Subscription')->create(['user_id' => $user->id, 'stripe_plan' => $plan->stripe_id]);
-
-        // The user is at their max profiles (create {maxProfiles} Profiles)
-        factory('App\Profile', $plan->maxProfiles)->create()->each(function ($profile) {
-            $profile->attachUser();
-        });
-
-        // When another profile is added, it returns a certain status code
-        $profile = factory('App\Profile')->make();
-
-        $this->post('/api/profiles', $profile->toArray())
-            ->assertStatus(303);
-    }
-
     protected function publishProfile($overrides = [])
     {
         $profile = factory('App\Profile')->make($overrides);

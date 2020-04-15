@@ -44,8 +44,3 @@ Auth::routes(['verify' => true]);
 Route::get('/', function () {
     return view('front');
 });
-
-/* Stripe Webhook */
-Route::post('stripe/webhook', 'StripeWebhookController@handleWebhook');
-
-Route::get('ig', 'Controller@instagramTester');

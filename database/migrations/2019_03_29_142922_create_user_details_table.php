@@ -16,7 +16,6 @@ class CreateUserDetailsTable extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->smallIncrements('id');
             $table->unsignedSmallInteger('user_id')->unique();
-            $table->string('vat_id')->nullable();
             $table->string('name')->nullable();
             $table->string('address')->nullable();
             $table->string('postal')->nullable();

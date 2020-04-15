@@ -33,7 +33,7 @@ class ProfilePolicy
      */
     public function create(User $user)
     {
-        return $user->profiles()->count() < $user->plan()->maxProfiles;
+        return true;
     }
 
     /**

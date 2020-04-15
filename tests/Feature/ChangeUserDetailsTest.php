@@ -22,7 +22,6 @@ class ChangeUserDetailsTest extends TestCase
         $user = $this->signIn();
 
         $attributes = [
-            'vat_id' => 'NL852924574B01',
             'name' => 'Yoeri.me',
             'address' => 'De Werf 9',
             'postal' => '9514CN',
@@ -42,12 +41,11 @@ class ChangeUserDetailsTest extends TestCase
     public function it_shows_the_current_details()
     {
         $user = $this->signIn();
-        $details = factory('App\UserDetails')->make(['vat_id' => 'NL102910397B01']);
+        $details = factory('App\UserDetails')->make();
         $user->details()->update($details->toArray());
 
         $this->get('settings')
             ->assertSee(e($details->name))
-            ->assertSee($details->vat_id)
             ->assertSee($details->address)
             ->assertSee($details->postal)
             ->assertSee($details->city);
@@ -96,27 +94,6 @@ class ChangeUserDetailsTest extends TestCase
                     ->assertSessionHasErrors($field);
             }
         }
-    }
-
-    /** @test */
-    public function if_a_vat_id_is_given_then_it_should_be_a_valid_one()
-    {
-        $user = $this->signIn();
-
-        // If no VAT ID given, that's fine
-        $details = factory('App\UserDetails')->make(['vat_id' => null]);
-        $this->post('settings/details', $details->toArray())
-            ->assertSessionDoesntHaveErrors('vat_id');
-
-        // But if it is given, then it should be valid
-        $details->vat_id = 'NL852924574B01';
-        $this->post('settings/details', $details->toArray())
-            ->assertSessionDoesntHaveErrors('vat_id');
-
-        // But if it is given, then it should be valid
-        $details->vat_id = 'NL853924574B01';
-        $this->post('settings/details', $details->toArray())
-            ->assertSessionHasErrors('vat_id');
     }
 
     /** @test */

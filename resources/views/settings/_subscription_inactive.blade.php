@@ -5,8 +5,8 @@
 	<div class="col-sm-9">
 		You are not subscribed yet. Upgrade your account to get more perks.<br/><br/>
 
-		<strong>Max Profiles: </strong>{{ $plan->maxProfiles }} profiles<br/>
-		<strong>Interval: </strong>{{ $plan->interval }} minutes
+		<strong>Max Profiles: </strong>{{ 'undefined' }} profiles<br/>
+		<strong>Interval: </strong>{{ 'undefined' }} minutes
 		<span class="col-auto align-self-center">
       		<span class="form-help" data-toggle="popover" data-placement="top"
 				data-content="How often we check your selected Instagram profiles.">?</span>
