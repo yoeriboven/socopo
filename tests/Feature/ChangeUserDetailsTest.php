@@ -45,7 +45,7 @@ class ChangeUserDetailsTest extends TestCase
         $user->details()->update($details->toArray());
 
         $this->get('settings')
-            ->assertSee(e($details->name))
+            ->assertSee($details->name)
             ->assertSee($details->address)
             ->assertSee($details->postal)
             ->assertSee($details->city);
