@@ -13,3 +13,5 @@ yarn-error.log
 .DS_Store
 /storage/*
 .idea
+_ide_helper.php
+.phpstorm.meta.php
