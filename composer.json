@@ -19,7 +19,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "sentry/sentry-laravel": "^1.7",
-        "socialiteproviders/slack": "^3.0"
+        "socialiteproviders/slack": "^3.0",
+        "yoeriboven/paddle-cashier": "dev-master"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
