@@ -45,8 +45,8 @@ class Kernel extends HttpKernel
         ],
 
         'ajax' => [
-            \App\Http\Middleware\AjaxOnly::class
-        ]
+            \App\Http\Middleware\AjaxOnly::class,
+        ],
     ];
 
     /**

@@ -13,7 +13,7 @@ class UserDetailsService
             'address' => $request->address,
             'postal' => $request->postal,
             'city' => $request->city,
-            'country' => $request->country
+            'country' => $request->country,
         ]);
     }
 }

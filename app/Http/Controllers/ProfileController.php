@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Profile;
-use Illuminate\Http\Request;
 use App\Services\ProfileService;
 use App\Http\Requests\ProfileRequest;
 use App\Exceptions\PrivateProfileException;

@@ -13,7 +13,7 @@ class Post extends Model
      * @var array
      */
     protected $dates = [
-        'posted_at'
+        'posted_at',
     ];
 
     /**
@@ -29,7 +29,7 @@ class Post extends Model
      * @var array
      */
     protected $casts = [
-        'ig_post_id' => 'integer'
+        'ig_post_id' => 'integer',
     ];
 
     /**
@@ -69,7 +69,7 @@ class Post extends Model
             'caption' => $post->caption,
             'type' => $post->typeName,
             'post_url' => $post->link,
-            'posted_at' => Carbon::instance($post->date)
+            'posted_at' => Carbon::instance($post->date),
         ]);
     }
 }

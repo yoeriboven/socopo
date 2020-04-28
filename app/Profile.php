@@ -22,7 +22,7 @@ class Profile extends Model
      * @var array
      */
     protected $casts = [
-        'avatar' => 'string'
+        'avatar' => 'string',
     ];
 
     /**
@@ -33,7 +33,7 @@ class Profile extends Model
     protected $hidden = [
         'pivot',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     /**

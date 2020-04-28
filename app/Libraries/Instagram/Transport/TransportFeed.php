@@ -30,8 +30,8 @@ class TransportFeed
 
         $headers = [
             'headers' => [
-                'user-agent' => self::USER_AGENT
-            ]
+                'user-agent' => self::USER_AGENT,
+            ],
         ];
 
         $res = $this->client->request('GET', $endpoint, $headers);

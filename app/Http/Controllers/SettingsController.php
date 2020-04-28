@@ -13,7 +13,7 @@ class SettingsController extends Controller
     {
         return view('settings.settings', [
             'slack' => auth()->user()->settings->slack_url,
-            'details' => auth()->user()->details
+            'details' => auth()->user()->details,
         ]);
     }
 }

@@ -176,7 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\PlansServiceProvider::class,
-        App\Providers\ViewServiceProvider::class
+        App\Providers\ViewServiceProvider::class,
 
     ],
 

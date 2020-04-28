@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\FetchNewPostsCommand::class
+        Commands\FetchNewPostsCommand::class,
     ];
 
     /**

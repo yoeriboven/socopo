@@ -15,7 +15,7 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => [ 'required', 'min:3', 'max:30', new ValidUsername ]
+            'username' => [ 'required', 'min:3', 'max:30', new ValidUsername ],
         ];
     }
 

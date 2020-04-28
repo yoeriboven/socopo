@@ -12,7 +12,7 @@ class ChangePasswordController extends Controller
     {
         request()->validate([
             'old_password' => 'required',
-            'password' => 'required|confirmed|min:8'
+            'password' => 'required|confirmed|min:8',
         ]);
 
         $user = auth()->user();
