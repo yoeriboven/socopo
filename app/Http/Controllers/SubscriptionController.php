@@ -17,9 +17,11 @@ class SubscriptionController extends Controller
      */
     public function index()
     {
-        return view('upgrade.upgrade', [
-            'details' => auth()->user()->details,
-        ]);
+        $payLink = auth()->user()->newSubscription('default', 627813)
+            ->returnTo(route('home'))
+            ->create();
+
+        return view('upgrade.upgrade', compact('payLink'));
     }
 
     /**

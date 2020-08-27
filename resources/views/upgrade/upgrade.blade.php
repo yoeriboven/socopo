@@ -4,12 +4,12 @@
 
 @section('content')
 
-<form method="POST" action="{{ route('subscription.store') }}" id="payment-form">
-    @csrf
+@include('upgrade._plans')
 
-    @include('upgrade._plans')
-    @include('upgrade._user_details')
-    @include('upgrade._billing')
-</form>
+<x-paddle-button :url="$payLink" class="px-8 py-4">
+    Subscribe Pro
+</x-paddle-button>
+
+@paddleJS
 
 @endsection

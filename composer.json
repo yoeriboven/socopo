@@ -13,14 +13,14 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
+        "laravel/cashier-paddle": "^1.0",
         "laravel/framework": "^7.0",
         "laravel/slack-notification-channel": "^2.0",
         "laravel/socialite": "^4.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "sentry/sentry-laravel": "^1.7",
-        "socialiteproviders/slack": "^3.0",
-        "yoeriboven/paddle-cashier": "dev-master"
+        "socialiteproviders/slack": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
