@@ -62,15 +62,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
+        return User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-
-        $user->createAsCustomer([
-            'trial_ends_at' => now()->addDays(14)
-        ]);
-
-        return $user;
     }
 }
