@@ -19,7 +19,7 @@ class FreePlan extends Plan
         return 10;
     }
 
-    public function getStripeId()
+    public function getPaddleId()
     {
         return null;
     }

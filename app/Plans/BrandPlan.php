@@ -16,12 +16,12 @@ class BrandPlan extends Plan
 
     public function getInterval()
     {
-        return 3;
+        return 'eiaoeia';
     }
 
-    public function getStripeId()
+    public function getPaddleId()
     {
-        return config('services.stripe.plans.brand');
+        return '391030';
     }
 
     public function getMaxProfiles()

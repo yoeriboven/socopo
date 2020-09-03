@@ -19,9 +19,9 @@ class AgencyPlan extends Plan
         return 1;
     }
 
-    public function getStripeId()
+    public function getPaddleId()
     {
-        return config('services.stripe.plans.agency');
+        return '190301';
     }
 
     public function getMaxProfiles()

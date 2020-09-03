@@ -19,9 +19,9 @@ class ProPlan extends Plan
         return 5;
     }
 
-    public function getStripeId()
+    public function getPaddleId()
     {
-        return config('services.stripe.plans.pro');
+        return '627813';
     }
 
     public function getMaxProfiles()
