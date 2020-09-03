@@ -3,16 +3,16 @@
 		<h4 class="card-title">Subscription</h4>
 	</div>
 	<div class="col-sm-9">
-		<strong>Plan: </strong> {{ 'undefined' }}<br/>
+		<strong>Plan: </strong> {{ auth()->user()->plan()->getName() }}<br/>
 
-		@if (true)
-			<strong>Cancel date: </strong> {{ 'undefined' }}<br/><br/>
+		@if (auth()->user()->subscription()->cancelled())
+			<strong>Subscription ends at: </strong> {{ auth()->user()->subscription()->ends_at->format('d-m-Y') }}<br/><br/>
 		@else
-			<strong>Renewal date: </strong> {{ 'undefined' }}<br/><br/>
+			<strong>Renewal date: </strong> {{ auth()->user()->subscription()->nextPayment()->date()->format('d-m-Y') }}<br/><br/>
 		@endif
 
-		<strong>Max Profiles: </strong>{{ 'undefined' }} profiles<br/>
-		<strong>Interval: </strong>{{ 'undefined' }} minutes
+		<strong>Max Profiles: </strong>{{ auth()->user()->plan()->getMaxProfiles() }} profiles<br/>
+		<strong>Interval: </strong>{{ auth()->user()->plan()->getInterval() }} minutes
 		<span class="col-auto align-self-center">
       		<span class="form-help" data-toggle="popover" data-placement="top"
 				data-content="How often we check your selected Instagram profiles.">?</span>

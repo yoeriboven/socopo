@@ -18,7 +18,7 @@
 	<div class="card-body">
 		@include('settings._slack')
 
-		@if (true)
+		@if (auth()->user()->subscribed())
 			@include('settings._subscription_active')
 		@else
 			@include('settings._subscription_inactive')
