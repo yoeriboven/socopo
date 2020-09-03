@@ -120,6 +120,20 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Gets the Plan object with the stripe_plan ID stored in the database
+     *
+     * @return \App\Plans\Plan
+     */
+    public function plan()
+    {
+        if (! $this->subscribed()) {
+            return new \App\Plans\FreePlan();
+        }
+
+        return (new \App\Plans\PlanCollection())->withPaddleId($this->subscription()->paddle_plan);
+    }
+
+    /**
      * Sets the slack_url on the settings object
      *
      * @param string $url

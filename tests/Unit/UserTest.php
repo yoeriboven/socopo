@@ -122,4 +122,21 @@ class UserTest extends TestCase
         $this->user->settings->update(['slack_url' => 'Not null']);
         $this->assertTrue($this->user->hasSlackSetup());
     }
+
+    /** @test */
+    public function it_returns_the_correct_plan()
+    {
+        $this->assertInstanceOf('\App\Plans\FreePlan', $this->user->plan());
+
+        $this->user->createAsCustomer();
+        $this->user->subscriptions()->create([
+            'name' => 'default',
+            'paddle_id' => 244,
+            'paddle_plan' => 627813,
+            'paddle_status' => 'active',
+            'quantity' => 1,
+        ]);
+
+        $this->assertInstanceOf('\App\Plans\ProPlan', $this->user->plan());
+    }
 }

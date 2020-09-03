@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Plans\Plans;
+use App\Plans\PlanCollection;
 use PHPUnit\Framework\TestCase;
 
 class PlanCollectionTest extends TestCase
@@ -19,9 +19,6 @@ class PlanCollectionTest extends TestCase
     public function it_returns_the_plan_by_a_paddle_id()
     {
         $collection = new PlanCollection();
-
-        $plan = $collection->withPaddleId(null);
-        $this->assertInstanceOf('\App\Plans\FreePlan', $plan);
 
         $plan = $collection->withPaddleId('627813');
         $this->assertInstanceOf('\App\Plans\ProPlan', $plan);

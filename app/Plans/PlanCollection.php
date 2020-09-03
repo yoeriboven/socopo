@@ -4,7 +4,7 @@ namespace App\Plans;
 
 use Illuminate\Support\Collection;
 
-class Plans extends Collection
+class PlanCollection extends Collection
 {
     protected $plans = [
         ProPlan::class,
@@ -22,7 +22,7 @@ class Plans extends Collection
     }
 
     /**
-     * Returns the plan with a certain stripe_id
+     * Returns the plan with a certain paddle_id
      *
      * @param  string $paddle_id
      * @return Plan
@@ -31,6 +31,6 @@ class Plans extends Collection
     {
         return $this->first(function ($plan) use ($paddle_id) {
             return $plan->paddle_id == $paddle_id;
-        }, new FreePlan());
+        });
     }
 }
