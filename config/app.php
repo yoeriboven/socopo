@@ -231,6 +231,8 @@ return [
 
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
+        'Plans' => App\Plans\PlansFacade::class,
+
     ],
 
 ];

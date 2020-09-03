@@ -126,7 +126,7 @@ class UserTest extends TestCase
     /** @test */
     public function it_returns_the_correct_plan()
     {
-        $this->assertInstanceOf('\App\Plans\FreePlan', $this->user->plan());
+        $this->assertInstanceOf('\App\Plans\Plans\FreePlan', $this->user->plan());
 
         $this->user->createAsCustomer();
         $this->user->subscriptions()->create([
@@ -137,6 +137,6 @@ class UserTest extends TestCase
             'quantity' => 1,
         ]);
 
-        $this->assertInstanceOf('\App\Plans\ProPlan', $this->user->plan());
+        $this->assertInstanceOf('\App\Plans\Plans\ProPlan', $this->user->plan());
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Plans;
+namespace App\Plans\Plans;
 
 class AgencyPlan extends Plan
 {

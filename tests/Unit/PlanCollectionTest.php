@@ -21,6 +21,6 @@ class PlanCollectionTest extends TestCase
         $collection = new PlanCollection();
 
         $plan = $collection->withPaddleId('627813');
-        $this->assertInstanceOf('\App\Plans\ProPlan', $plan);
+        $this->assertInstanceOf('\App\Plans\Plans\ProPlan', $plan);
     }
 }

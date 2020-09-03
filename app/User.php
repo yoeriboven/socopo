@@ -2,7 +2,9 @@
 
 namespace App;
 
+use Plans;
 use Laravel\Paddle\Billable;
+use App\Plans\Plans\FreePlan;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -120,17 +122,17 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Gets the Plan object with the stripe_plan ID stored in the database
+     * Gets the Plan object with the paddle_plan ID stored in the database
      *
      * @return \App\Plans\Plan
      */
     public function plan()
     {
         if (! $this->subscribed()) {
-            return new \App\Plans\FreePlan();
+            return new FreePlan();
         }
 
-        return (new \App\Plans\PlanCollection())->withPaddleId($this->subscription()->paddle_plan);
+        return Plans::withPaddleId($this->subscription()->paddle_plan);
     }
 
     /**

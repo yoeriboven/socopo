@@ -2,6 +2,9 @@
 
 namespace App\Plans;
 
+use App\Plans\Plans\ProPlan;
+use App\Plans\Plans\BrandPlan;
+use App\Plans\Plans\AgencyPlan;
 use Illuminate\Support\Collection;
 
 class PlanCollection extends Collection
