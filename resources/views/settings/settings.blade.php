@@ -24,6 +24,10 @@
 			@include('settings._subscription_inactive')
 		@endif
 
+		@if (auth()->user()->receipts()->count())
+			@include('settings._invoices')
+		@endif
+
 		@include('settings._user_details')
 		@include('settings._change_password')
 	</div>

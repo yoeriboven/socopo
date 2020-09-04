@@ -117,6 +117,12 @@ body {
     &:last-child {
         border-bottom:none;
     }
+
+    #invoicesTable {
+        th:first-child, td:first-child {
+            padding-left:0;
+        }
+    }
 }
 
 .pb-30 {

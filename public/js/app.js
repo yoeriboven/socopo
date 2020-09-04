@@ -50190,10 +50190,10 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/yoeriboven/Sites/socopo/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /Users/yoeriboven/Sites/socopo/resources/sass/bundle.scss */"./resources/sass/bundle.scss");
-__webpack_require__(/*! /Users/yoeriboven/Sites/socopo/resources/sass/app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! /Users/yoeriboven/Sites/socopo/resources/sass/front.scss */"./resources/sass/front.scss");
+__webpack_require__(/*! /Users/yoeriboven_werk/Sites/socopo/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /Users/yoeriboven_werk/Sites/socopo/resources/sass/bundle.scss */"./resources/sass/bundle.scss");
+__webpack_require__(/*! /Users/yoeriboven_werk/Sites/socopo/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /Users/yoeriboven_werk/Sites/socopo/resources/sass/front.scss */"./resources/sass/front.scss");
 
 
 /***/ })
