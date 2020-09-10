@@ -25,6 +25,19 @@ class PlanCollection extends Collection
     }
 
     /**
+     * Returns the plan with a certain id
+     *
+     * @param  string $id
+     * @return Plan
+     */
+    public function withId($id)
+    {
+        return $this->first(function ($plan) use ($id) {
+            return $plan->id == $id;
+        });
+    }
+
+    /**
      * Returns the plan with a certain paddle_id
      *
      * @param  string $paddle_id
