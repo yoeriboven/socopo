@@ -10,7 +10,7 @@
 					<div class="row">
 						<div class="col-12 col-md-4">
 							<label class="pricing-label">
-								<input type="radio" class="custom-control-input" name="plan" value="plan_1" {{ old('plan') == 'plan_1' ? 'checked' : '' }}>
+								<input type="radio" wire:model="plan_id" class="custom-control-input" name="plan" value="plan_1" {{ old('plan') == 'plan_1' ? 'checked' : '' }}>
 
 								<div class="card">
 									<div class="card-body text-center">
@@ -27,7 +27,7 @@
 
 						<div class="col-12 col-md-4">
 							<label class="pricing-label">
-								<input type="radio" class="custom-control-input" name="plan" value="plan_2" {{ old('plan') == 'plan_2' ? 'checked' : '' }}>
+								<input type="radio" wire:model="plan_id" class="custom-control-input" name="plan" value="plan_2" {{ old('plan') == 'plan_2' ? 'checked' : '' }}>
 
 								<div class="card">
 									<div class="card-body text-center">
@@ -44,7 +44,7 @@
 
 						<div class="col-12 col-md-4">
 							<label class="pricing-label">
-								<input type="radio" class="custom-control-input" name="plan" value="plan_3" {{ old('plan') == 'plan_3' ? 'checked' : '' }}>
+								<input type="radio" wire:model="plan_id" class="custom-control-input" name="plan" value="plan_3" {{ old('plan') == 'plan_3' ? 'checked' : '' }}>
 
 								<div class="card">
 									<div class="card-body text-center">
