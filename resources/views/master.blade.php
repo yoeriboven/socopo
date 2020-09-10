@@ -18,6 +18,7 @@
     <link href="{{ mix('css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet" />
     @include('partials._google_analytics')
+    @stack('styles')
 </head>
 <body>
     <div id="app" class="page">

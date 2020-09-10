@@ -17,5 +17,10 @@
 @once
 	@push('scripts')
 		@paddleJS
+		@livewireScripts
+	@endpush
+
+	@push('styles')
+		@livewireStyles
 	@endpush
 @endonce
