@@ -63,8 +63,6 @@
 					<p style="color:#cd201f;">{{ $errors->first('plan') }}</p>
 					<p class="text-muted">*All plans are monthly subscriptions</p>
 				</div>
-
-
 			</div>
 		</div>
 	</div>
