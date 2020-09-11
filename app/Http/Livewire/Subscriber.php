@@ -14,7 +14,7 @@ class Subscriber extends Component
         $plan = Plans::withId($this->plan_id);
 
         $payLink = auth()->user()->newSubscription('default', $plan->paddle_id)
-            ->returnTo(route('home'))
+            ->returnTo(route('subscription.waiting-for-confirmation'))
             ->create();
 
         $this->emit('readyForPaddle', $payLink);
