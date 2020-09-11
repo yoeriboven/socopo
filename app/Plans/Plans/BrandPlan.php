@@ -16,12 +16,12 @@ class BrandPlan extends Plan
 
     public function getInterval()
     {
-        return 'eiaoeia';
+        return 3;
     }
 
     public function getPaddleId()
     {
-        return '391030';
+        return config('cashier.plans.brand');
     }
 
     public function getMaxProfiles()

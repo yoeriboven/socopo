@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Plans\PlanCollection;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class PlanCollectionTest extends TestCase
 {
@@ -29,7 +29,7 @@ class PlanCollectionTest extends TestCase
     {
         $collection = new PlanCollection();
 
-        $plan = $collection->withPaddleId('627813');
+        $plan = $collection->withPaddleId('629570');
         $this->assertInstanceOf('\App\Plans\Plans\ProPlan', $plan);
     }
 }

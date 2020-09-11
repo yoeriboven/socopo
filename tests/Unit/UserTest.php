@@ -132,7 +132,7 @@ class UserTest extends TestCase
         $this->user->subscriptions()->create([
             'name' => 'default',
             'paddle_id' => 244,
-            'paddle_plan' => 627813,
+            'paddle_plan' => 629570,
             'paddle_status' => 'active',
             'quantity' => 1,
         ]);

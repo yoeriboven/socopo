@@ -21,7 +21,7 @@ class AgencyPlan extends Plan
 
     public function getPaddleId()
     {
-        return '190301';
+        return config('cashier.plans.agency');
     }
 
     public function getMaxProfiles()

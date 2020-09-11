@@ -21,11 +21,11 @@ class ProPlan extends Plan
 
     public function getPaddleId()
     {
-        return '627813';
+        return config('cashier.plans.pro');
     }
 
     public function getMaxProfiles()
     {
-        return 20;
+        return 25;
     }
 }
