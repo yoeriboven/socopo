@@ -61,7 +61,7 @@ class FetchNewPostsJob implements ShouldQueue
         $storedPost = PostRepository::latestForProfile($this->profile);
 
         if ($storedPost) {
-            // Checks if the latest IG post is newer than what we have stored
+            // Checks if the latest IG post is different (newer) to what we have stored
             return $this->profile->feed->getLatestMedia()->id != $storedPost->ig_post_id;
         }
 
