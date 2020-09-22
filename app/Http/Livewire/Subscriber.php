@@ -3,19 +3,22 @@
 namespace App\Http\Livewire;
 
 use Plans;
+use App\UserDetails;
 use Livewire\Component;
 use App\Actions\UpdateUserDetails;
 
 class Subscriber extends Component
 {
     public $plan_id;
-    public $userDetails = [
-        'name' => '',
-        'address' => 'Valderijstraat 12',
-        'postal' => '94014',
-        'city' => 'Brookdams',
-        'country' => 'NL',
-    ];
+    public $userDetails;
+
+    public function mount()
+    {
+        $this->userDetails = auth()->user()->details()
+            ->select('name', 'address', 'postal', 'city', 'country')
+            ->first()
+            ->toArray();
+    }
 
     public function subscribe(UpdateUserDetails $updater)
     {
