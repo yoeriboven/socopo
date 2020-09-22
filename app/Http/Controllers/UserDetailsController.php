@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Actions\UpdateUserDetails;
 use App\Services\UserDetailsService;
-use App\Http\Requests\UserDetailsRequest;
 
 class UserDetailsController extends Controller
 {
@@ -19,12 +20,13 @@ class UserDetailsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request         $request
+     * @param  App\Actions\UpdateUserDetails    $updater
      * @return \Illuminate\Http\Response
      */
-    public function store(UserDetailsRequest $request, UserDetailsService $service)
+    public function store(Request $request, UpdateUserDetails $updater)
     {
-        $service->store($request);
+        $updater->update($request->user(), $request->all());
 
         return back()->with('user_details.success', 'Details changed succesfully.');
     }
