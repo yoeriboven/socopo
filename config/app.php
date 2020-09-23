@@ -176,6 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
+        App\Providers\PlanServiceProvider::class,
 
     ],
 
@@ -230,8 +231,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
-        'Plans' => App\Plans\PlansFacade::class,
 
     ],
 

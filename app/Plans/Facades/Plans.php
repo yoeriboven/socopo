@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Plans;
+namespace App\Plans\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class PlansFacade extends Facade
+class Plans extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return PlanCollection::class;
+        return 'plans';
     }
 }

@@ -9,19 +9,13 @@ use Illuminate\Support\Collection;
 
 class PlanCollection extends Collection
 {
-    protected $plans = [
-        ProPlan::class,
-        BrandPlan::class,
-        AgencyPlan::class,
-    ];
-
-    public function __construct($items = [])
+    public static function withPlans($plans)
     {
-        $plans = collect($this->plans)->map(function ($plan) {
+        $plans = collect($plans)->map(function ($plan) {
             return new $plan();
         });
 
-        parent::__construct($plans);
+        return new static($plans);
     }
 
     /**

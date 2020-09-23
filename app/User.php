@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Plans;
+use App\Plans\Facades\Plans;
 use Laravel\Paddle\Billable;
 use App\Plans\Plans\FreePlan;
 use Illuminate\Notifications\Notifiable;

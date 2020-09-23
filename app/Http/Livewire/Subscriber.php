@@ -2,9 +2,9 @@
 
 namespace App\Http\Livewire;
 
-use Plans;
 use App\UserDetails;
 use Livewire\Component;
+use App\Plans\Facades\Plans;
 use App\Actions\UpdateUserDetails;
 
 class Subscriber extends Component
