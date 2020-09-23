@@ -25,16 +25,4 @@ class WaitingForConfirmationTest extends TestCase
         Livewire::test(WaitingForConfirmation::class)
             ->assertRedirect('/posts');
     }
-
-    protected function subscribe()
-    {
-        $this->user->createAsCustomer();
-        $this->user->subscriptions()->create([
-            'name' => 'default',
-            'paddle_id' => 244,
-            'paddle_plan' => 627813,
-            'paddle_status' => 'active',
-            'quantity' => 1,
-        ]);
-    }
 }

@@ -26,4 +26,16 @@ abstract class TestCase extends BaseTestCase
 
         return $this->user;
     }
+
+    protected function subscribe($planId = 627813)
+    {
+        $this->user->createAsCustomer();
+        $this->user->subscriptions()->create([
+            'name' => 'default',
+            'paddle_id' => 244,
+            'paddle_plan' => $planId,
+            'paddle_status' => 'active',
+            'quantity' => 1,
+        ]);
+    }
 }

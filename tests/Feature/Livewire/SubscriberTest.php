@@ -72,14 +72,7 @@ class SubscriberTest extends TestCase
 
         $plan = Plans::first();
 
-        $this->user->createAsCustomer();
-        $this->user->subscriptions()->create([
-            'name' => 'default',
-            'paddle_id' => 244,
-            'paddle_plan' => $plan->paddle_id,
-            'paddle_status' => 'active',
-            'quantity' => 1,
-        ]);
+        $this->subscribe($plan->paddle_id);
 
         Livewire::test(Subscriber::class)
             ->assertSet('plan_id', $plan->id);

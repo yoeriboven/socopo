@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use App\Plans\Facades\Plans;
 use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -128,15 +129,10 @@ class UserTest extends TestCase
     {
         $this->assertInstanceOf('\App\Plans\Plans\FreePlan', $this->user->plan());
 
-        $this->user->createAsCustomer();
-        $this->user->subscriptions()->create([
-            'name' => 'default',
-            'paddle_id' => 244,
-            'paddle_plan' => 629570,
-            'paddle_status' => 'active',
-            'quantity' => 1,
-        ]);
+        $plan = Plans::first();
 
-        $this->assertInstanceOf('\App\Plans\Plans\ProPlan', $this->user->plan());
+        $this->subscribe($plan->paddle_id);
+
+        $this->assertInstanceOf(get_class($plan), $this->user->plan());
     }
 }
