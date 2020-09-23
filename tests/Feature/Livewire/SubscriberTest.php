@@ -66,6 +66,26 @@ class SubscriberTest extends TestCase
     }
 
     /** @test */
+    public function it_mounts_with_the_existing_plan()
+    {
+        $user = $this->signIn();
+
+        $plan = Plans::first();
+
+        $this->user->createAsCustomer();
+        $this->user->subscriptions()->create([
+            'name' => 'default',
+            'paddle_id' => 244,
+            'paddle_plan' => $plan->paddle_id,
+            'paddle_status' => 'active',
+            'quantity' => 1,
+        ]);
+
+        Livewire::test(Subscriber::class)
+            ->assertSet('plan_id', $plan->id);
+    }
+
+    /** @test */
     public function it_mounts_with_the_existing_user_details()
     {
         $user = $this->signIn();

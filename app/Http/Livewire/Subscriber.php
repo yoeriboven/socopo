@@ -15,6 +15,7 @@ class Subscriber extends Component
 
     public function mount()
     {
+        $this->plan_id = auth()->user()->plan()->id;
         $this->userDetails = auth()->user()->details()
             ->select('name', 'address', 'postal', 'city', 'country')
             ->first()
