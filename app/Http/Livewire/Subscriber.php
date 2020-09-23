@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\UserDetails;
 use Livewire\Component;
 use App\Plans\Facades\Plans;
+use Illuminate\Validation\Rule;
 use App\Actions\UpdateUserDetails;
 
 class Subscriber extends Component
@@ -22,6 +23,10 @@ class Subscriber extends Component
 
     public function subscribe(UpdateUserDetails $updater)
     {
+        $this->validate([
+            'plan_id' => ['required', Rule::in(Plans::pluck('id'))],
+        ]);
+
         $updater->update(auth()->user(), $this->userDetails);
 
         $plan = Plans::withId($this->plan_id);
