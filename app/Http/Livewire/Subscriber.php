@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Plans\Facades\Plans;
 use Illuminate\Validation\Rule;
 use App\Actions\UpdateUserDetails;
+use Illuminate\Validation\ValidationException;
 
 class Subscriber extends Component
 {
@@ -30,19 +31,15 @@ class Subscriber extends Component
 
         $updater->update(auth()->user(), $this->userDetails);
 
+        $this->subscribe();
+    }
+
+    protected function subscribe()
+    {
         $plan = Plans::withId($this->plan_id);
 
         if (auth()->user()->subscribed()) {
-            if (auth()->user()->subscribedToPlan($plan->paddle_id)) {
-                $this->addError('plan_id', "You're already subscribed to this plan.");
-                return;
-            } else {
-                auth()->user()->subscription()->swap($plan->paddle_id);
-
-                session()->flash('success', "You have upgraded to the $plan->name plan. Awesome!");
-
-                $this->redirect(route('settings'));
-            }
+            $this->swapSubscription($plan);
         }
 
         $payLink = auth()->user()->newSubscription('default', $plan->paddle_id)
@@ -50,6 +47,21 @@ class Subscriber extends Component
             ->create();
 
         $this->emit('readyForPaddle', $payLink);
+    }
+
+    protected function swapSubscription($plan)
+    {
+        if (auth()->user()->subscribedToPlan($plan->paddle_id)) {
+            throw ValidationException::withMessages([
+                'plan_id' => "You're already subscribed to this plan.",
+            ]);
+        }
+
+        auth()->user()->subscription()->swap($plan->paddle_id);
+
+        session()->flash('success', "You're subscription has changed to the $plan->name plan. Awesome!");
+
+        $this->redirect(route('settings'));
     }
 
     public function render()
