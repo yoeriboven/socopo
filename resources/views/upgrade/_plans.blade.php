@@ -60,7 +60,7 @@
 						</div>
 					</div>
 
-					<p style="color:#cd201f;">{{ $errors->first('plan') }}</p>
+					<p style="color:#cd201f;">{{ $errors->first('plan_id') }}</p>
 					<p class="text-muted">*All plans are monthly subscriptions</p>
 				</div>
 			</div>

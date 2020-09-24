@@ -1,4 +1,4 @@
-<form wire:submit.prevent="subscribe" id="payment-form">
+<form wire:submit.prevent="submit" id="payment-form">
     @csrf
 
     @include('upgrade._plans')
