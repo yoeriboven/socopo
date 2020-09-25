@@ -4,7 +4,6 @@ namespace Tests\Feature\Actions;
 
 use Tests\TestCase;
 use Facades\App\Actions\UpdateUserDetails;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -50,36 +49,38 @@ class UpdateUserDetailsTest extends TestCase
         $this->assertEquals($user->details->fresh()->name, 'Superman');
     }
 
-    /** @test */
-    public function it_has_simple_validation_in_place()
+    /**
+     * @test
+     * @dataProvider invalidData
+    */
+    public function it_has_simple_validation_in_place($field, $values)
     {
         $user = $this->signIn();
 
+        foreach ($values as $value) {
+            $details = factory('App\UserDetails')->make([$field => $value])->toArray();
+
+            try {
+                UpdateUserDetails::update($user, $details);
+            } catch (ValidationException $e) {
+                $this->assertNotNull($e->errors($field));
+            }
+        }
+    }
+
+    public function invalidData()
+    {
         $minTester = 'D';
         $max15Tester = 'Fifteen is the max.';
         $max50Tester = 'Fifty should be the maximum amount of characters for this field.';
         $max100Tester = 'This text is longer than one hundred characters and therefore should be marked invalid by the validator.';
 
-        $invalidValues = [
-            'name' => [null, '', $minTester, $max50Tester],
-            'address' => [null, '', $minTester, $max100Tester],
-            'postal' => [null, '', $max15Tester],
-            'city' => [null, '', $max50Tester]
+        return [
+            ['name', [null, '', $minTester, $max50Tester]],
+            ['address', [null, '', $minTester, $max100Tester]],
+            ['postal', [null, '', $max15Tester]],
+            ['city', [null, '', $max50Tester]]
         ];
-
-        foreach ($invalidValues as $field => $values) {
-            foreach ($values as $value) {
-                $details = factory('App\UserDetails')->make([$field => $value])->toArray();
-
-                try {
-                    UpdateUserDetails::update($user, $details);
-                } catch (ValidationException $e) {
-                    $this->assertNotNull($e->errors($field));
-                }
-            }
-        }
-
-        $this->assertTrue(true);
     }
 
     /** @test */
