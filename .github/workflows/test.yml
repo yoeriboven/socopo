@@ -48,7 +48,7 @@ jobs:
         env:
           DB_DATABASE: socopo_test
           DB_CONNECTION: mysql
-          DB_USER: socopo_user
+          DB_USERNAME: socopo_user
           PADDLE_VENDOR_ID: ${{ secrets.PADDLE_VENDOR_ID }}
           PADDLE_VENDOR_AUTH_CODE: ${{ secrets.PADDLE_VENDOR_AUTH_CODE }}
           PADDLE_PUBLIC_KEY: ${{ secrets.PADDLE_PUBLIC_KEY }}
