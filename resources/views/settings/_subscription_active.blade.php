@@ -3,13 +3,19 @@
 		<h4 class="card-title">Subscription</h4>
 	</div>
 	<div class="col-sm-9">
+		@if (auth()->user()->subscription()->onGracePeriod())
+			<div class="alert alert-warning full-width" role="alert">
+				Your subscription has been cancelled and expires on {{ auth()->user()->subscription()->ends_at->format('d-m-Y') }}.
+			</div>
+		@endif
+
 		<strong>Plan: </strong> {{ auth()->user()->plan()->name }}<br/>
 
-		@if (auth()->user()->subscription()->cancelled())
-			<strong>Subscription ends at: </strong> {{ auth()->user()->subscription()->ends_at->format('d-m-Y') }}<br/><br/>
-		@else
-			<strong>Renewal date: </strong> {{ auth()->user()->subscription()->nextPayment()->date()->format('d-m-Y') }}<br/><br/>
+		@if (auth()->user()->subscription()->recurring())
+			<strong>Renewal date: </strong> {{ auth()->user()->subscription()->nextPayment()->date()->format('d-m-Y') }}<br/>
 		@endif
+
+		<br/>
 
 		<strong>Max Profiles: </strong>{{ auth()->user()->plan()->maxProfiles }} profiles<br/>
 		<strong>Interval: </strong>{{ auth()->user()->plan()->interval }} minutes
@@ -38,11 +44,9 @@
             <div class="modal-header">
                 <h5 class="modal-title">Are you sure?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <!-- <span aria-hidden="true">&times;</span> -->
                 </button>
             </div>
-            show form
-            {{-- <form action="{{ route('subscription.destroy', $subscription->id) }}" method="POST">
+            <form action="{{ route('subscription.destroy', auth()->user()->subscription()->id) }}" method="POST">
             	@csrf
 				@method('DELETE')
 
@@ -50,10 +54,10 @@
 					Are you sure you want to cancel your subscription?
 	            </div>
 	            <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Nevermind</button>
 			        <button type="submit" class="btn btn-danger">Cancel subscription</button>
 			    </div>
-			</form> --}}
+			</form>
         </div>
     </div>
 </div>

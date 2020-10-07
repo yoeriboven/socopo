@@ -25,4 +25,10 @@ class EndpointsTest extends TestCase
     {
         $this->get('settings')->assertRedirect(route('login'));
     }
+
+    /** @test */
+    public function cancel_subscription_requires_authorization()
+    {
+        $this->delete('subscription/cancel/1')->assertRedirect(route('login'));
+    }
 }
