@@ -8,6 +8,8 @@ class WaitingForConfirmation extends Component
 {
     public function render()
     {
+        auth()->user()->load('subscriptions');
+
         if (auth()->user()->subscribed()) {
             session()->flash('success', 'Your account has been upgraded. Welcome!');
 

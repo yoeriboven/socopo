@@ -133,6 +133,6 @@ class UserTest extends TestCase
 
         $this->subscribe($plan->paddle_id);
 
-        $this->assertInstanceOf(get_class($plan), $this->user->plan());
+        $this->assertInstanceOf(get_class($plan), $this->user->fresh()->plan());
     }
 }
