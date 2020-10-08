@@ -99,6 +99,26 @@ class ProfileApiTest extends TestCase
     }
 
     /** @test */
+    public function it_returns_the_profile_after_it_is_created()
+    {
+        $this->signIn();
+
+        // Avatar shouldn't be downloaded
+        $this->mock(InstagramDownloader::class, function ($mock) {
+            $mock->shouldReceive('getAvatar')->andReturn(self::AVATAR);
+        });
+
+        $profile = factory('App\Profile')->make();
+
+        $response = $this->post('/api/profiles', $profile->toArray());
+        $response->assertJson([
+            'profile' => [
+                'username' => $profile->username
+            ]
+        ]);
+    }
+
+    /** @test */
     public function a_profile_requires_a_valid_username()
     {
         // Limit - 30 symbols. Username must contains only letters, numbers, periods and underscores.

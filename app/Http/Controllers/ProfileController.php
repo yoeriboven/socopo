@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use App\Profile;
 use App\Services\ProfileService;
+use App\Actions\AttachProfileAction;
 use App\Http\Requests\ProfileRequest;
 use App\Exceptions\PrivateProfileException;
 use App\Exceptions\DuplicateAttachmentException;
@@ -25,9 +26,10 @@ class ProfileController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  App\Actions\AttachProfileAction $profileCreator
      * @return \Illuminate\Http\Response
      */
-    public function store(ProfileRequest $request, ProfileService $service)
+    public function store(ProfileRequest $request, AttachProfileAction $profileAttacher)
     {
         // Checks if the user is at their max profiles
         if (auth()->user()->canNot('create', Profile::class)) {
@@ -35,7 +37,7 @@ class ProfileController extends Controller
         }
 
         try {
-            $profile = $service->store($request);
+            $profile = $profileAttacher->attach(auth()->user(), $request->username);
         } catch (DuplicateAttachmentException $e) {
             return response(['message' => 'Profile has already been added.'], 202);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
