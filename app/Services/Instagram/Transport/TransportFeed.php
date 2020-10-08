@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libraries\Instagram\Transport;
+namespace App\Services\Instagram\Transport;
 
 use GuzzleHttp\Client;
 use App\Exceptions\InstagramException;

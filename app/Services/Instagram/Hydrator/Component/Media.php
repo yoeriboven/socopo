@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libraries\Instagram\Hydrator\Component;
+namespace App\Services\Instagram\Hydrator\Component;
 
 class Media
 {

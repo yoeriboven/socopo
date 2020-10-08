@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Libraries\Instagram;
+namespace App\Services\Instagram;
 
 use GuzzleHttp\Client;
 use App\Exceptions\InstagramException;
-use App\Libraries\Instagram\Hydrator\HtmlHydrator;
-use App\Libraries\Instagram\Transport\TransportFeed;
+use App\Services\Instagram\Hydrator\HtmlHydrator;
+use App\Services\Instagram\Transport\TransportFeed;
 
 class InstagramDownloader
 {

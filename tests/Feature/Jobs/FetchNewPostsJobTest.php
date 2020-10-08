@@ -9,7 +9,7 @@ use App\Notifications\NewPostAdded;
 use App\Repositories\PostRepository;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Libraries\Instagram\Transport\TransportFeed;
+use App\Services\Instagram\Transport\TransportFeed;
 
 class FetchNewPostsJobTest extends TestCase
 {

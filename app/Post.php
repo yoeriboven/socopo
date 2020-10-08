@@ -55,7 +55,7 @@ class Post extends Model
     /**
      * Stores new posts with Instagram data
      *
-     * @param  Libraries\Instagram\Hydrator\Component\Media $post
+     * @param  Services\Instagram\Hydrator\Component\Media $post
      * @param  App\Profile $profile
      * @return App\Post
      */

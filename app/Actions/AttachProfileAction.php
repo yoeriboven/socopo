@@ -5,7 +5,7 @@ namespace App\Actions;
 use App\User;
 use App\Profile;
 use App\Exceptions\DuplicateAttachmentException;
-use Facades\App\Libraries\Instagram\InstagramDownloader;
+use Facades\App\Services\Instagram\InstagramDownloader;
 
 class AttachProfileAction
 {

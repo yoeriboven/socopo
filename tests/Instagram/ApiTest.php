@@ -8,9 +8,9 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Handler\MockHandler;
 
 use App\Exceptions\InstagramException;
-use App\Libraries\Instagram\InstagramDownloader;
-use App\Libraries\Instagram\Hydrator\Component\Feed;
-use App\Libraries\Instagram\Hydrator\Component\Media;
+use App\Services\Instagram\InstagramDownloader;
+use App\Services\Instagram\Hydrator\Component\Feed;
+use App\Services\Instagram\Hydrator\Component\Media;
 
 class ApiTest extends TestCase
 {

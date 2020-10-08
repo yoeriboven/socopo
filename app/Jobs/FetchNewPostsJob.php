@@ -10,8 +10,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Facades\App\Libraries\Instagram\InstagramDownloader;
-use App\Libraries\Instagram\Hydrator\Component\Feed;
+use Facades\App\Services\Instagram\InstagramDownloader;
+use App\Services\Instagram\Hydrator\Component\Feed;
 
 class FetchNewPostsJob implements ShouldQueue
 {
@@ -72,7 +72,7 @@ class FetchNewPostsJob implements ShouldQueue
      * Fetches the feed from Instagram
      *
      * @param  string $username
-     * @return App\Libraries\Instagram\Hydrator\Component\Feed or null
+     * @return App\Services\Instagram\Hydrator\Component\Feed or null
      */
     private function getFeed()
     {
