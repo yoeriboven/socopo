@@ -4,19 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Actions\UpdateUserDetails;
-use App\Services\UserDetailsService;
 
 class UserDetailsController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * Store a newly created resource in storage.
      *
