@@ -11,18 +11,6 @@ class ProfilePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the profile.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Profile  $profile
-     * @return mixed
-     */
-    public function view(User $user, Profile $profile)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can create profiles.
      *
      * Creating a new profile is not allowed if it means you will exceed
@@ -37,18 +25,6 @@ class ProfilePolicy
     }
 
     /**
-     * Determine whether the user can update the profile.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Profile  $profile
-     * @return mixed
-     */
-    public function update(User $user, Profile $profile)
-    {
-        //
-    }
-
-    /**
      * Determine whether the user can delete the profile.
      *
      * @param  \App\User  $user
@@ -58,29 +34,5 @@ class ProfilePolicy
     public function delete(User $user, Profile $profile)
     {
         return $user->profiles()->where('profile_id', $profile->id)->exists();
-    }
-
-    /**
-     * Determine whether the user can restore the profile.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Profile  $profile
-     * @return mixed
-     */
-    public function restore(User $user, Profile $profile)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the profile.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Profile  $profile
-     * @return mixed
-     */
-    public function forceDelete(User $user, Profile $profile)
-    {
-        //
     }
 }
