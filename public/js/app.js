@@ -37519,7 +37519,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "text", placeholder: "@..." },
+              attrs: { type: "text", name: "username", placeholder: "@..." },
               domProps: { value: _vm.username },
               on: {
                 input: function($event) {

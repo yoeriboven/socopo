@@ -23,7 +23,7 @@ class ProfilesTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user, $attachedOne, $attachedTwo) {
             $browser->loginAs($user)
-                    ->visit('/')
+                    ->visit('/posts')
                     ->click('#modalOpener')
                     ->whenAvailable('.modal', function ($modal) use ($attachedOne, $attachedTwo) {
                         $modal->assertSee($attachedOne->username);
@@ -42,7 +42,7 @@ class ProfilesTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user, $attached) {
             $browser->loginAs($user)
-                    ->visit('/')
+                    ->visit('/posts')
                     ->click('#modalOpener')
                     ->pause(500)
                     ->whenAvailable('.modal', function ($modal) use ($attached) {
@@ -61,14 +61,14 @@ class ProfilesTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/')
+                    ->visit('/posts')
                     ->click('#modalOpener')
                     ->pause(500)
                     ->whenAvailable('.modal', function ($modal) {
-                        $modal->type('username', 'yoeriboven')
+                        $modal->type('username', 'daviddobrik')
                             ->click('@add-username')
-                            ->waitFor('.success-alert')
-                            ->assertSee('@yoeriboven');
+                            ->waitFor('.alert-success')
+                            ->assertSee('@daviddobrik');
                     });
         });
     }

@@ -3,7 +3,7 @@
 		<form @submit.prevent="addProfile">
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" v-model="username" class="form-control" placeholder="@...">
+                    <input type="text" name="username" v-model="username" class="form-control" placeholder="@...">
                     <span class="input-group-append">
                         <button class="btn btn-primary" v-bind:class="{ 'btn-loading': loading }" type="submit" :dusk="`add-username`">Add profile</button>
                     </span>
