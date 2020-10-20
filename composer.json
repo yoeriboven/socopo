@@ -21,7 +21,6 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "livewire/livewire": "^2.1",
-        "sentry/sentry-laravel": "^1.7",
         "socialiteproviders/slack": "^3.0"
     },
     "require-dev": {
