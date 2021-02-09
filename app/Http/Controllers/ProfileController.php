@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use App\Profile;
-use App\Services\ProfileService;
 use App\Actions\AttachProfileAction;
-use App\Http\Requests\ProfileRequest;
-use App\Exceptions\PrivateProfileException;
 use App\Exceptions\DuplicateAttachmentException;
+use App\Exceptions\PrivateProfileException;
+use App\Http\Requests\ProfileRequest;
+use App\Profile;
+use Exception;
 
 class ProfileController extends Controller
 {

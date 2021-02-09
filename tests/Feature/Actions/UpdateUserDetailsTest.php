@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Actions;
 
-use Tests\TestCase;
 use Facades\App\Actions\UpdateUserDetails;
 use Illuminate\Validation\ValidationException;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class UpdateUserDetailsTest extends TestCase
 {
@@ -19,7 +18,7 @@ class UpdateUserDetailsTest extends TestCase
             'address' => 'De Werf 9',
             'postal' => '9514CN',
             'city' => 'Gasselternijveen',
-            'country' => 'NL'
+            'country' => 'NL',
         ];
 
         $details = factory('App\UserDetails')->make($attributes)->toArray();
@@ -79,7 +78,7 @@ class UpdateUserDetailsTest extends TestCase
             ['name', [null, '', $minTester, $max50Tester]],
             ['address', [null, '', $minTester, $max100Tester]],
             ['postal', [null, '', $max15Tester]],
-            ['city', [null, '', $max50Tester]]
+            ['city', [null, '', $max50Tester]],
         ];
     }
 

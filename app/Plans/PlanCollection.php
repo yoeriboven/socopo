@@ -2,9 +2,6 @@
 
 namespace App\Plans;
 
-use App\Plans\Plans\ProPlan;
-use App\Plans\Plans\BrandPlan;
-use App\Plans\Plans\AgencyPlan;
 use Illuminate\Support\Collection;
 
 class PlanCollection extends Collection
@@ -19,7 +16,7 @@ class PlanCollection extends Collection
     }
 
     /**
-     * Returns the plan with a certain id
+     * Returns the plan with a certain id.
      *
      * @param  string $id
      * @return Plan
@@ -32,7 +29,7 @@ class PlanCollection extends Collection
     }
 
     /**
-     * Returns the plan with a certain paddle_id
+     * Returns the plan with a certain paddle_id.
      *
      * @param  string $paddle_id
      * @return Plan

@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Profile;
-use Tests\TestCase;
-use Illuminate\Support\Carbon;
 use App\Notifications\NewPostAdded;
-use Illuminate\Support\Facades\Notification;
+use App\Profile;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
@@ -26,7 +26,7 @@ class ProfileTest extends TestCase
         // It should show up in the database
         $this->assertDatabaseHas('profile_user', [
             'profile_id' => $profile->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
     }
 
@@ -44,7 +44,7 @@ class ProfileTest extends TestCase
         // It shouldn't exist in the database
         $this->assertDatabaseMissing('profile_user', [
             'profile_id' => $profile->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
     }
 
@@ -64,7 +64,7 @@ class ProfileTest extends TestCase
     public function it_can_update_the_avatar()
     {
         $profile = factory('App\Profile')->create([
-            'avatar' => 'instagramURL'
+            'avatar' => 'instagramURL',
         ]);
 
         $profile->updateAvatar('new link');

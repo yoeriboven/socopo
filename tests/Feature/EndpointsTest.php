@@ -7,7 +7,7 @@ use Tests\TestCase;
 class EndpointsTest extends TestCase
 {
     /**
-     * These test are to test whether endpoints use the 'auth' middleware
+     * These test are to test whether endpoints use the 'auth' middleware.
      *
      * These endpoints don't belong to another test file so they are tested in here
      */

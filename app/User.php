@@ -3,11 +3,11 @@
 namespace App;
 
 use App\Plans\Facades\Plans;
-use Laravel\Paddle\Billable;
 use App\Plans\Plans\FreePlan;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Paddle\Billable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -41,7 +41,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Boot the model
+     * Boot the model.
      */
     public static function boot()
     {
@@ -58,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * A user belongs to many profiles
+     * A user belongs to many profiles.
      *
      * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
@@ -68,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Fetches all profiles the user follows in the correct order
+     * Fetches all profiles the user follows in the correct order.
      *
      * @return \Illuminate\Database\Eloquent\Collection;
      */
@@ -78,7 +78,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Returns whether a profile is attached to the user already
+     * Returns whether a profile is attached to the user already.
      *
      * @param  String $username
      * @return boolean
@@ -89,7 +89,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Returns whether a Profile was attached to this user after a Post was published on IG
+     * Returns whether a Profile was attached to this user after a Post was published on IG.
      *
      * Could be used to avoid notifying users of posts published in the past
      *
@@ -102,7 +102,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * A user has details (name, address, country, etc.)
+     * A user has details (name, address, country, etc.).
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -112,7 +112,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * A user has settings
+     * A user has settings.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -122,7 +122,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Gets the Plan object with the paddle_plan ID stored in the database
+     * Gets the Plan object with the paddle_plan ID stored in the database.
      *
      * @return \App\Plans\Plan
      */
@@ -136,7 +136,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Sets the slack_url on the settings object
+     * Sets the slack_url on the settings object.
      *
      * @param string $url
      */
@@ -146,7 +146,7 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
-     * Returns whether slack_url is set on settings
+     * Returns whether slack_url is set on settings.
      *
      * @return boolean
      */

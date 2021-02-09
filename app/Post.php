@@ -2,13 +2,13 @@
 
 namespace App;
 
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Post extends Model
 {
     /**
-     * The attributes that should be cast to a Carbon instance
+     * The attributes that should be cast to a Carbon instance.
      *
      * @var array
      */
@@ -33,7 +33,7 @@ class Post extends Model
     ];
 
     /**
-     * The profile this post belongs to
+     * The profile this post belongs to.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -43,7 +43,7 @@ class Post extends Model
     }
 
     /**
-     * Returns the url to the image
+     * Returns the url to the image.
      *
      * @return string
      */
@@ -53,7 +53,7 @@ class Post extends Model
     }
 
     /**
-     * Stores new posts with Instagram data
+     * Stores new posts with Instagram data.
      *
      * @param  Services\Instagram\Hydrator\Component\Media $post
      * @param  App\Profile $profile

@@ -2,9 +2,9 @@
 
 namespace Tests\Browser;
 
-use Tests\DuskTestCase;
-use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Laravel\Dusk\Browser;
+use Tests\DuskTestCase;
 
 class ProfilesTest extends DuskTestCase
 {
@@ -23,9 +23,9 @@ class ProfilesTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user, $attachedOne, $attachedTwo) {
             $browser->loginAs($user)
-                    ->visit('/posts')
-                    ->click('#modalOpener')
-                    ->whenAvailable('.modal', function ($modal) use ($attachedOne, $attachedTwo) {
+                ->visit('/posts')
+                ->click('#modalOpener')
+                ->whenAvailable('.modal', function ($modal) use ($attachedOne, $attachedTwo) {
                         $modal->assertSee($attachedOne->username);
                         $modal->assertSee($attachedTwo->username);
                     });
@@ -42,10 +42,10 @@ class ProfilesTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user, $attached) {
             $browser->loginAs($user)
-                    ->visit('/posts')
-                    ->click('#modalOpener')
-                    ->pause(500)
-                    ->whenAvailable('.modal', function ($modal) use ($attached) {
+                ->visit('/posts')
+                ->click('#modalOpener')
+                ->pause(500)
+                ->whenAvailable('.modal', function ($modal) use ($attached) {
                         $modal->assertSee($attached->username)
                             ->click("@delete-profile-{$attached->id}")
                             ->pause(500)
@@ -61,10 +61,10 @@ class ProfilesTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/posts')
-                    ->click('#modalOpener')
-                    ->pause(500)
-                    ->whenAvailable('.modal', function ($modal) {
+                ->visit('/posts')
+                ->click('#modalOpener')
+                ->pause(500)
+                ->whenAvailable('.modal', function ($modal) {
                         $modal->type('username', 'daviddobrik')
                             ->click('@add-username')
                             ->waitFor('.alert-success')

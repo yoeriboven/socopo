@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Profile;
 use App\Jobs\FetchNewPostsJob;
+use App\Profile;
 use Illuminate\Console\Command;
 
 class FetchNewPostsCommand extends Command

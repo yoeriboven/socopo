@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use Laravel\Dusk\TestCase as BaseTestCase;
 use Facebook\WebDriver\Chrome\ChromeOptions;
-use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
+use Facebook\WebDriver\Remote\RemoteWebDriver;
+use Laravel\Dusk\TestCase as BaseTestCase;
 
 abstract class DuskTestCase extends BaseTestCase
 {
@@ -45,7 +45,7 @@ abstract class DuskTestCase extends BaseTestCase
     }
 
     /**
-     * Signs in a user
+     * Signs in a user.
      *
      * @param  App\User $user An optional user to sign in
      * @return App\User       Signed in user

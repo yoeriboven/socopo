@@ -37,7 +37,7 @@ class Profile extends Model
     ];
 
     /**
-     * Attaches the current profile to the given user
+     * Attaches the current profile to the given user.
      *
      * @param  User $user
      */
@@ -51,7 +51,7 @@ class Profile extends Model
     }
 
     /**
-     * Detaches the current profile from the given user
+     * Detaches the current profile from the given user.
      *
      * @param  User $user
      */
@@ -65,7 +65,7 @@ class Profile extends Model
     }
 
     /**
-     * Avatar gets updated if it's changed
+     * Avatar gets updated if it's changed.
      *
      * @param  String $link
      */
@@ -77,7 +77,7 @@ class Profile extends Model
     }
 
     /**
-     * A profile belongs to many followers (Users)
+     * A profile belongs to many followers (Users).
      *
      * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
@@ -87,7 +87,7 @@ class Profile extends Model
     }
 
     /**
-     * Notifies followers when a new post is stored
+     * Notifies followers when a new post is stored.
      *
      * @param  Post $post
      */
@@ -103,7 +103,7 @@ class Profile extends Model
     }
 
     /**
-     * Returns the url to the profile on Instagram
+     * Returns the url to the profile on Instagram.
      *
      * @return string
      */

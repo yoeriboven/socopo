@@ -2,10 +2,10 @@
 
 namespace App\Services\Instagram;
 
-use GuzzleHttp\Client;
 use App\Exceptions\InstagramException;
 use App\Services\Instagram\Hydrator\HtmlHydrator;
 use App\Services\Instagram\Transport\TransportFeed;
+use GuzzleHttp\Client;
 
 class InstagramDownloader
 {
@@ -29,7 +29,7 @@ class InstagramDownloader
     }
 
     /**
-     * Returns the feed for the given username
+     * Returns the feed for the given username.
      *
      * @return Hydrator\Component\Feed
      *
@@ -52,7 +52,7 @@ class InstagramDownloader
     }
 
     /**
-     * Returns the profile picture for the given username
+     * Returns the profile picture for the given username.
      *
      * @param  $userName Username
      *
@@ -72,7 +72,7 @@ class InstagramDownloader
     }
 
     /**
-     * Returns the profile data fetched from Instagram
+     * Returns the profile data fetched from Instagram.
      *
      * @return \stdClass
      */
@@ -86,7 +86,7 @@ class InstagramDownloader
     }
 
     /**
-     * Throws an exception if the userName is not set
+     * Throws an exception if the userName is not set.
      *
      * @param  String $userName
      *
@@ -100,7 +100,7 @@ class InstagramDownloader
     }
 
     /**
-     * Wait for a little while to avoid an 429 Rate limit from Instagram
+     * Wait for a little while to avoid an 429 Rate limit from Instagram.
      */
     private function avoidRateLimit()
     {

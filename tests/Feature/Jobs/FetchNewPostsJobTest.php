@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\Jobs;
 
-use Tests\TestCase;
 use App\Jobs\FetchNewPostsJob;
-use Illuminate\Support\Carbon;
 use App\Notifications\NewPostAdded;
 use App\Repositories\PostRepository;
-use Illuminate\Support\Facades\Notification;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Services\Instagram\Transport\TransportFeed;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
+use Tests\TestCase;
 
 class FetchNewPostsJobTest extends TestCase
 {
@@ -127,7 +127,7 @@ class FetchNewPostsJobTest extends TestCase
 
         $post = (new PostRepository)->latestForProfile($profile);
 
-        $this->assertEquals($post->posted_at, new Carbon("2019-03-20 19:00:10"));
+        $this->assertEquals($post->posted_at, new Carbon('2019-03-20 19:00:10'));
     }
 
     /** @test */

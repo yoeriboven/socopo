@@ -4,14 +4,14 @@ namespace App\Jobs;
 
 use App\Post;
 use App\Profile;
-use Illuminate\Bus\Queueable;
+use App\Services\Instagram\Hydrator\Component\Feed;
 use Facades\App\Repositories\PostRepository;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
+use Facades\App\Services\Instagram\InstagramDownloader;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Facades\App\Services\Instagram\InstagramDownloader;
-use App\Services\Instagram\Hydrator\Component\Feed;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
 class FetchNewPostsJob implements ShouldQueue
 {
@@ -48,7 +48,7 @@ class FetchNewPostsJob implements ShouldQueue
     }
 
     /**
-     * Checks if Instagram data is more recent than database data
+     * Checks if Instagram data is more recent than database data.
      *
      * @return bool
      */
@@ -69,7 +69,7 @@ class FetchNewPostsJob implements ShouldQueue
     }
 
     /**
-     * Fetches the feed from Instagram
+     * Fetches the feed from Instagram.
      *
      * @param  string $username
      * @return App\Services\Instagram\Hydrator\Component\Feed or null

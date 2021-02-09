@@ -7,7 +7,7 @@ use App\Post;
 class PostRepository
 {
     /**
-     * Fetches posts from accounts followed by the user
+     * Fetches posts from accounts followed by the user.
      *
      * @param  User $user
      * @return \Illuminate\Database\Eloquent\Collection;
@@ -29,7 +29,7 @@ class PostRepository
     }
 
     /**
-     * Gets the latest post for the given profiles
+     * Gets the latest post for the given profiles.
      *
      * @param  App\Profile $profile
      * @return App\Post
@@ -44,8 +44,8 @@ class PostRepository
             $join->on('max_table.profile_id', '=', 'posts.profile_id');
             $join->on('max_table.max_date', '=', 'posts.posted_at');
         })
-        ->addBinding($sub->getBindings(), 'join')
-        ->first();
+            ->addBinding($sub->getBindings(), 'join')
+            ->first();
 
         return $post;
     }

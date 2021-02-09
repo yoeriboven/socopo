@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ChangeUserDetailsTest extends TestCase
 {
@@ -26,7 +26,7 @@ class ChangeUserDetailsTest extends TestCase
             'address' => 'De Werf 9',
             'postal' => '9514CN',
             'city' => 'Gasselternijveen',
-            'country' => 'NL'
+            'country' => 'NL',
         ];
 
         $details = factory('App\UserDetails')->make($attributes);

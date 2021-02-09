@@ -7,7 +7,7 @@ use Laravel\Socialite\Facades\Socialite;
 class SlackController extends Controller
 {
     /**
-     * Redirects the user to the Slack authorization page
+     * Redirects the user to the Slack authorization page.
      */
     public function login()
     {
@@ -38,7 +38,7 @@ class SlackController extends Controller
     }
 
     /**
-     * Resets the slack URL and undoes the Slack connection
+     * Resets the slack URL and undoes the Slack connection.
      */
     public function logout()
     {
@@ -48,7 +48,7 @@ class SlackController extends Controller
     }
 
     /**
-     * Returns the url from Slack, needed to send messages to Slack
+     * Returns the url from Slack, needed to send messages to Slack.
      *
      * @return string
      */

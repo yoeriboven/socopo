@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class PostTest extends TestCase
 {
@@ -25,7 +25,7 @@ class PostTest extends TestCase
         $profile = factory('App\Profile')->create();
         $post = factory('App\Post')->create([
             'post_url' => 'http://www.instagram.com/p/eiaoei/',
-            'profile_id' => $profile->id
+            'profile_id' => $profile->id,
         ]);
 
         $this->assertEquals('http://www.instagram.com/p/eiaoei/media/?size=l', $post->image_url);

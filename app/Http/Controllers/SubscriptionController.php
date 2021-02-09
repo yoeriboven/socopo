@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Laravel\Paddle\Subscription;
-use App\Services\SubscriptionsService;
-use App\Http\Requests\SubscriptionRequest;
-use App\Exceptions\AlreadySubscribedToPlanException;
 
 class SubscriptionController extends Controller
 {

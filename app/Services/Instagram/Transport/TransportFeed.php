@@ -2,9 +2,9 @@
 
 namespace App\Services\Instagram\Transport;
 
-use GuzzleHttp\Client;
 use App\Exceptions\InstagramException;
 use App\Exceptions\PrivateProfileException;
+use GuzzleHttp\Client;
 
 class TransportFeed
 {

@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Commands;
 
-use Tests\TestCase;
 use App\Jobs\FetchNewPostsJob;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Facades\App\Console\Commands\FetchNewPostsCommand;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Queue;
+use Tests\TestCase;
 
 class FetchNewPostsCommandTest extends TestCase
 {

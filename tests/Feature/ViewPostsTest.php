@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ViewPostsTest extends TestCase
 {
@@ -13,7 +13,7 @@ class ViewPostsTest extends TestCase
     public function guests_cant_view_posts()
     {
         $this->get('/posts')
-             ->assertRedirect('login');
+            ->assertRedirect('login');
     }
 
     /** @test */

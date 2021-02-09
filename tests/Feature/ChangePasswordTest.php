@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class ChangePasswordTest extends TestCase
 {
@@ -79,7 +79,7 @@ class ChangePasswordTest extends TestCase
         $data = [
             'old_password' => 'old_password',
             'password' => 'new_password',
-            'password_confirmation' => 'new_password'
+            'password_confirmation' => 'new_password',
         ];
 
         return array_merge($data, $overrides);

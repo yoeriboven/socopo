@@ -1,16 +1,16 @@
 <?php
 namespace Tests\Instagram;
 
-use Tests\TestCase;
-use GuzzleHttp\Client;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Handler\MockHandler;
-
 use App\Exceptions\InstagramException;
-use App\Services\Instagram\InstagramDownloader;
 use App\Services\Instagram\Hydrator\Component\Feed;
 use App\Services\Instagram\Hydrator\Component\Media;
+use App\Services\Instagram\InstagramDownloader;
+use GuzzleHttp\Client;
+
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
+use Tests\TestCase;
 
 class ApiTest extends TestCase
 {
@@ -40,7 +40,7 @@ class ApiTest extends TestCase
         $invalidHtmlFixtures     = '<html></html>';
 
         $headers = [
-            'Set-Cookie' => 'cookie'
+            'Set-Cookie' => 'cookie',
         ];
 
         $response              = new Response(200, $headers, $validHtmlFixtures);

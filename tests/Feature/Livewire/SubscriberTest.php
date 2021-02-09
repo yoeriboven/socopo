@@ -2,13 +2,12 @@
 
 namespace Tests\Feature\Livewire;
 
-use Tests\TestCase;
-use Livewire\Livewire;
-use App\Plans\Facades\Plans;
-use App\Plans\PlanCollection;
 use App\Http\Livewire\Subscriber;
-use Illuminate\Support\Facades\Http;
+use App\Plans\Facades\Plans;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
+use Livewire\Livewire;
+use Tests\TestCase;
 
 class SubscriberTest extends TestCase
 {

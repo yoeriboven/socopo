@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Profile;
-use Tests\TestCase;
 use App\Services\Instagram\InstagramDownloader;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ProfileApiTest extends TestCase
 {
@@ -54,7 +54,7 @@ class ProfileApiTest extends TestCase
         $this->assertCount(0, $user->profiles);
         $this->assertDatabaseMissing('profile_user', [
             'profile_id' => $profile->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
     }
 
@@ -87,14 +87,14 @@ class ProfileApiTest extends TestCase
         // Assert it has been created
         $this->assertDatabaseHas('profiles', [
             'username' => $profile->username,
-            'avatar' => self::AVATAR
+            'avatar' => self::AVATAR,
         ]);
 
         // Assert it is attached to the signed in user
         $createdProfile = Profile::where('username', $profile->username)->get()->first();
         $this->assertDatabaseHas('profile_user', [
             'profile_id' => $createdProfile->id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
         ]);
     }
 
@@ -113,8 +113,8 @@ class ProfileApiTest extends TestCase
         $response = $this->post('/api/profiles', $profile->toArray());
         $response->assertJson([
             'profile' => [
-                'username' => $profile->username
-            ]
+                'username' => $profile->username,
+            ],
         ]);
     }
 
@@ -137,12 +137,12 @@ class ProfileApiTest extends TestCase
             'yoeri(',
             'yoeri!',
             'yoeri&',
-            'yo eri'
+            'yo eri',
         ];
 
         foreach ($usernames as $username) {
             $this->json('POST', '/api/profiles', ['username' => $username])
-                 ->assertStatus(422);
+                ->assertStatus(422);
         }
     }
 
@@ -152,7 +152,7 @@ class ProfileApiTest extends TestCase
         $this->signIn();
 
         $this->json('POST', '/api/profiles', ['username' => 'eioaienf'])
-             ->assertStatus(503);
+            ->assertStatus(503);
     }
 
     /** @test */
@@ -161,7 +161,7 @@ class ProfileApiTest extends TestCase
         $this->signIn();
 
         $this->json('POST', '/api/profiles', ['username' => 'yoeriboven'])
-             ->assertStatus(503);
+            ->assertStatus(503);
     }
 
     /** @test */
