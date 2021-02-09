@@ -21,6 +21,7 @@ jobs:
             env:
                 MYSQL_DATABASE: socopo_test
                 MYSQL_USER: socopo_user
+                MYSQL_PASSWORD: socopo_password
                 MYSQL_ROOT_PASSWORD: socopo_password
             ports:
                 - 3306
