@@ -94,7 +94,12 @@ class SubscriberTest extends TestCase
     /** @test */
     public function it_swaps_the_subscription_if_the_user_is_already_subscribed()
     {
-        Http::fake();
+        Http::fake([
+            'https://vendors.paddle.com/api/2.0/subscription/users/update' => Http::response([
+                'success' => true,
+                'response' => null,
+            ]),
+        ]);
 
         $oldPlan = Plans::first();
         $newPlan = Plans::last();
