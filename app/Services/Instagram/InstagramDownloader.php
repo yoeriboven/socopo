@@ -72,6 +72,16 @@ class InstagramDownloader
     }
 
     /**
+     * Returns a fake object to run Instagram tests on.
+     *
+     * @return FakeInstagramDownloder
+     */
+    public static function fake()
+    {
+        return new FakeInstagramDownloader();
+    }
+
+    /**
      * Returns the profile data fetched from Instagram.
      *
      * @return \stdClass

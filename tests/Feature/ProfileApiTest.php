@@ -76,10 +76,7 @@ class ProfileApiTest extends TestCase
     {
         $user = $this->signIn();
 
-        // Avatar shouldn't be downloaded
-        $this->mock(InstagramDownloader::class, function ($mock) {
-            $mock->shouldReceive('getAvatar')->andReturn(self::AVATAR);
-        });
+        InstagramDownloader::fake()->avatar(self::AVATAR);
 
         // Create the profile
         $profile = $this->publishProfile(['username' => 'yoeriboven']);
@@ -101,12 +98,9 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function it_returns_the_profile_after_it_is_created()
     {
-        $this->signIn();
+        InstagramDownloader::fake();
 
-        // Avatar shouldn't be downloaded
-        $this->mock(InstagramDownloader::class, function ($mock) {
-            $mock->shouldReceive('getAvatar')->andReturn(self::AVATAR);
-        });
+        $this->signIn();
 
         $profile = factory('App\Profile')->make();
 
@@ -151,8 +145,11 @@ class ProfileApiTest extends TestCase
     {
         $this->signIn();
 
+        InstagramDownloader::fake()->nonExistentProfile();
+
         $this->json('POST', '/api/profiles', ['username' => 'eioaienf'])
-            ->assertStatus(503);
+            ->assertStatus(503)
+            ->assertJson(['message' => 'Profile not found for this username.']);
     }
 
     /** @test */
@@ -160,13 +157,18 @@ class ProfileApiTest extends TestCase
     {
         $this->signIn();
 
+        InstagramDownloader::fake()->privateProfile();
+
         $this->json('POST', '/api/profiles', ['username' => 'yoeriboven'])
-            ->assertStatus(503);
+            ->assertStatus(503)
+            ->assertJson(['message' => 'This Instagram account is private.']);
     }
 
     /** @test */
     public function a_username_is_unique()
     {
+        InstagramDownloader::fake();
+
         $this->signIn();
 
         $this->assertCount(0, Profile::all());
@@ -180,6 +182,8 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function a_status_code_is_shown_when_an_account_tries_to_be_attached_again()
     {
+        InstagramDownloader::fake();
+
         $this->signIn();
 
         $profile = factory('App\Profile')->make(['username' => 'daviddobrik']);
