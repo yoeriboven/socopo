@@ -17,31 +17,27 @@ class InstagramDownloader
     /**
      * @var string
      */
-    private $userName;
+    private $username;
 
-    /**
-     * Api constructor.
-     * @param Client|null       $client
-     */
     public function __construct(Client $client = null)
     {
-        $this->client       = $client ?: new Client();
+        $this->client = $client ?: new Client();
     }
 
     /**
      * Returns the feed for the given username.
      *
-     * @return Hydrator\Component\Feed
+     * @param  string $username
      *
-     * @param  $userName Username
+     * @return Hydrator\Component\Feed
      *
      * @throws InstagramException
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Exception
      */
-    public function getFeed($userName)
+    public function getFeed($username)
     {
-        $this->checkUsername($userName);
+        $this->assertUsernameAllowed($username);
 
         $data = $this->getData();
 
@@ -54,7 +50,7 @@ class InstagramDownloader
     /**
      * Returns the profile picture for the given username.
      *
-     * @param  $userName Username
+     * @param  string $username
      *
      * @return Hydrator\Component\Feed
      *
@@ -62,9 +58,9 @@ class InstagramDownloader
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws \Exception
      */
-    public function getAvatar($userName)
+    public function getAvatar($username)
     {
-        $this->checkUsername($userName);
+        $this->assertUsernameAllowed($username);
 
         $data = $this->getData();
 
@@ -92,19 +88,19 @@ class InstagramDownloader
 
         $feed = app(TransportFeed::class);
         $feed->setClient($this->client);
-        return $feed->fetchData($this->userName);
+        return $feed->fetchData($this->username);
     }
 
     /**
-     * Throws an exception if the userName is not set.
+     * Throws an exception if the username is not set.
      *
-     * @param  String $userName
+     * @param  string $username
      *
      * @throws  InstagramException
      */
-    private function checkUsername($userName)
+    private function assertUsernameAllowed($username)
     {
-        if (empty($this->userName = $userName)) {
+        if (empty($this->username = $username)) {
             throw new InstagramException('Username cannot be empty');
         }
     }
