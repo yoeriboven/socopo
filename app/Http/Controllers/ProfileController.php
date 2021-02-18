@@ -44,6 +44,7 @@ class ProfileController extends Controller
         } catch (PrivateProfileException $e) {
             return response(['message' => 'This Instagram account is private.'], 503);
         } catch (Exception $e) {
+            app('sentry')->captureException($e);
             return response(['message' => 'Something failed on our end. We\'ve been notified and will fix this. You can also try again.'], 500);
         }
 

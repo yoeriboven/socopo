@@ -72,13 +72,14 @@ class FetchNewPostsJob implements ShouldQueue
      * Fetches the feed from Instagram.
      *
      * @param  string $username
-     * @return App\Services\Instagram\Hydrator\Component\Feed or null
+     * @return App\Services\Instagram\Hydrator\Component\Feed
      */
     private function getFeed()
     {
         try {
             return InstagramDownloader::getFeed($this->profile->username);
         } catch (\Exception $e) {
+            app('sentry')->captureException($e);
             return new Feed();
         }
     }
