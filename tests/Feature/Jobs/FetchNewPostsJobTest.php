@@ -153,7 +153,7 @@ class FetchNewPostsJobTest extends TestCase
 
     private function jsonToFeedData($username)
     {
-        $jsonData = file_get_contents(__DIR__ . '/stubs/'.$username.'.json');
+        $jsonData = file_get_contents(__DIR__ . '/fixtures/'.$username.'.json');
 
         $data = json_decode($jsonData);
 
