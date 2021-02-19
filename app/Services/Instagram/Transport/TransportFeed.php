@@ -12,9 +12,22 @@ class TransportFeed
     const USER_AGENT         = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36';
 
     /**
+     * Proxy to circumvent Instagram block.
+     * @var string
+     */
+    protected $proxy = '';
+
+    /**
      * @var Client
      */
     protected $client;
+
+    public function __construct()
+    {
+        if (app()->environment('production')) {
+            $this->proxy = 'https://app.scrapingbee.com/api/v1/?api_key='.config('services.scrapingbee.key').'&url=';
+        }
+    }
 
     /**
      * @param $userName
@@ -26,7 +39,7 @@ class TransportFeed
      */
     public function fetchData($userName)
     {
-        $endpoint = self::INSTAGRAM_ENDPOINT . $userName . '/';
+        $endpoint = $this->proxy . self::INSTAGRAM_ENDPOINT . $userName . '/';
 
         $headers = [
             'headers' => [
