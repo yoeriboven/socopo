@@ -58,4 +58,7 @@ jobs:
           PADDLE_PLAN_PRO_ID: ${{ secrets.PADDLE_PLAN_PRO_ID }}
           PADDLE_PLAN_BRAND_ID: ${{ secrets.PADDLE_PLAN_BRAND_ID }}
           PADDLE_PLAN_AGENCY_ID: ${{ secrets.PADDLE_PLAN_AGENCY_ID }}  
+          
+      - name: Deploy to Laravel Forge
+        run: curl ${{ secrets.FORGE_DEPLOYMENT_WEBHOOK }}
       
