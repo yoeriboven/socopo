@@ -35,6 +35,8 @@ class ApiTest extends TestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
+
         $validHtmlFixtures       = file_get_contents(__DIR__ . '/fixtures/pgrimaud.html');
         $invalidHtmlJsonFixtures = file_get_contents(__DIR__ . '/fixtures/invalid_pgrimaud.html');
         $invalidHtmlFixtures     = '<html></html>';
