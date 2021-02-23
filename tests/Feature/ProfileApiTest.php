@@ -148,7 +148,6 @@ class ProfileApiTest extends TestCase
         InstagramDownloader::fake()->nonExistentProfile();
 
         $this->json('POST', '/api/profiles', ['username' => 'eioaienf'])
-            ->assertStatus(503)
             ->assertJson(['message' => 'Profile not found for this username.']);
     }
 
@@ -160,7 +159,6 @@ class ProfileApiTest extends TestCase
         InstagramDownloader::fake()->privateProfile();
 
         $this->json('POST', '/api/profiles', ['username' => 'yoeriboven'])
-            ->assertStatus(503)
             ->assertJson(['message' => 'This Instagram account is private.']);
     }
 
@@ -191,7 +189,6 @@ class ProfileApiTest extends TestCase
         $this->post('/api/profiles', $profile->toArray());
 
         $this->post('/api/profiles', $profile->toArray())
-            ->assertStatus(202)
             ->assertJson(['message' => 'Profile has already been added.']);
     }
 

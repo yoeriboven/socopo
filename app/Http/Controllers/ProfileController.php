@@ -38,11 +38,11 @@ class ProfileController extends Controller
         try {
             $profile = $profileAttacher->attach(auth()->user(), $request->username);
         } catch (DuplicateAttachmentException $e) {
-            return response(['message' => 'Profile has already been added.'], 202);
+            return response(['message' => 'Profile has already been added.']);
         } catch (\GuzzleHttp\Exception\ClientException $e) {
-            return response(['message' => 'Profile not found for this username.'], 503);
+            return response(['message' => 'Profile not found for this username.']);
         } catch (PrivateProfileException $e) {
-            return response(['message' => 'This Instagram account is private.'], 503);
+            return response(['message' => 'This Instagram account is private.']);
         } catch (Exception $e) {
             app('sentry')->captureException($e);
             return response(['message' => 'Something failed on our end. We\'ve been notified and will fix this. You can also try again.'], 500);
