@@ -186,13 +186,32 @@ class ProfileApiTest extends TestCase
 
         $this->signIn();
 
-        $profile = factory('App\Profile')->make(['username' => 'daviddobrik']);
+        $profile = factory('App\Profile')->make();
 
         $this->post('/api/profiles', $profile->toArray());
 
         $this->post('/api/profiles', $profile->toArray())
             ->assertStatus(202)
             ->assertJson(['message' => 'Profile has already been added.']);
+    }
+
+    /** @test */
+    public function it_shows_an_error_if_the_max_profiles_of_your_subscription_was_found()
+    {
+        $user = $this->signIn();
+
+        // Attach the max amount of profiles on a user's plan
+        factory('App\Profile', $user->plan()->maxProfiles)
+            ->create()
+            ->each(function($profile) use ($user) {
+                $profile->attachUser($user);
+            });
+
+        // Check for an error if you attach more
+        $profile = factory('App\Profile')->make();
+        $this->post('/api/profiles', $profile->toArray())
+            ->assertStatus(403)
+            ->assertJson(['message' => 'You have reached your maximum amount of profiles. Upgrade your account.']);
     }
 
     protected function publishProfile($overrides = [])

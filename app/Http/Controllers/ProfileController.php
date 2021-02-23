@@ -32,7 +32,7 @@ class ProfileController extends Controller
     {
         // Checks if the user is at their max profiles
         if (auth()->user()->canNot('create', Profile::class)) {
-            return response(['message' => 'You have reached your maximum amount of profiles. Upgrade your account.'], 303);
+            return response(['message' => 'You have reached your maximum amount of profiles. Upgrade your account.'], 403);
         }
 
         try {
