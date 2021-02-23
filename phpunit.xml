@@ -12,9 +12,6 @@
     <testsuite name="Feature">
       <directory suffix="Test.php">./tests/Feature</directory>
     </testsuite>
-    <testsuite name="Instagram">
-      <directory suffix="Test.php">./tests/Instagram</directory>
-    </testsuite>
   </testsuites>
   <php>
     <server name="APP_ENV" value="testing"/>

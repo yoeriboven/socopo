@@ -14,7 +14,7 @@ class FakeInstagramDownloader
 {
     public function __construct()
     {
-        $html = file_get_contents(base_path('tests/Instagram/fixtures/valid.html'));
+        $html = file_get_contents(base_path('tests/Feature/fixtures/valid.html'));
 
         $client = $this->createClient($html);
 
@@ -23,7 +23,7 @@ class FakeInstagramDownloader
 
     public function privateProfile()
     {
-        $html = file_get_contents(base_path('tests/Instagram/fixtures/private.html'));
+        $html = file_get_contents(base_path('tests/Feature/fixtures/private.html'));
 
         $client = $this->createClient($html);
 
