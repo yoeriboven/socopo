@@ -48,7 +48,7 @@ class ProfileApiTest extends TestCase
 
         // When they reach the profile delete endpoint
         $this->delete('api/profiles/'.$profile->id)
-            ->assertStatus(204);
+            ->assertNoContent();
 
         // Then it should be deleted
         $this->assertCount(0, $user->profiles);
@@ -191,7 +191,8 @@ class ProfileApiTest extends TestCase
         $this->post('/api/profiles', $profile->toArray());
 
         $this->post('/api/profiles', $profile->toArray())
-            ->assertStatus(202);
+            ->assertStatus(202)
+            ->assertJson(['message' => 'Profile has already been added.']);
     }
 
     protected function publishProfile($overrides = [])
