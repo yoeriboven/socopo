@@ -93,12 +93,14 @@ class Profile extends Model
      */
     public function notifyFollowers(Post $post)
     {
-        $this->followers->filter(function ($follower) {
-            return $follower->hasSlackSetup();
-        })->reject(function ($follower) use ($post) {
-            return $follower->attachedAfterPostPublished($post);
-        })->each(function ($follower) use ($post) {
-            $follower->notify(new NewPostAdded($post));
+        $this->followers()->chunk(100, function($followers) use ($post) {
+            collect($followers)->filter(function ($follower) {
+                return $follower->hasSlackSetup();
+            })->reject(function ($follower) use ($post) {
+                return $follower->attachedAfterPostPublished($post);
+            })->each(function ($follower) use ($post) {
+                $follower->notify(new NewPostAdded($post));
+            });
         });
     }
 
