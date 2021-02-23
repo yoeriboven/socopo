@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Post;
 use App\Profile;
 use App\Services\Instagram\Hydrator\Component\Feed;
-use Facades\App\Repositories\PostRepository;
 use Facades\App\Services\Instagram\InstagramDownloader;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -58,7 +57,7 @@ class FetchNewPostsJob implements ShouldQueue
             return false;
         }
 
-        $storedPost = PostRepository::latestForProfile($this->profile);
+        $storedPost = Post::latestForProfile($this->profile);
 
         if ($storedPost) {
             // Checks if the latest IG post is different (newer) to what we have stored

@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\PostRepository;
-
 class PostController extends Controller
 {
     /**
@@ -11,10 +9,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PostRepository $posts)
+    public function index()
     {
         return view('posts.posts', [
-            'posts' => $posts->forUser(auth()->user(), 10),
+            'posts' => auth()->user()->feed(10),
         ]);
     }
 }

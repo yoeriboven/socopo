@@ -4,7 +4,7 @@ namespace Tests\Feature\Jobs;
 
 use App\Jobs\FetchNewPostsJob;
 use App\Notifications\NewPostAdded;
-use App\Repositories\PostRepository;
+use App\Post;
 use App\Services\Instagram\Transport\TransportFeed;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
@@ -37,7 +37,7 @@ class FetchNewPostsJobTest extends TestCase
         (new FetchNewPostsJob($profile))->handle();
 
         // Then we should see new posts
-        $posts = (new PostRepository)->latestForProfile($profile);
+        $posts = Post::latestForProfile($profile);
 
         $this->assertEquals(2003941048976752983, $posts->ig_post_id);
     }
@@ -57,7 +57,7 @@ class FetchNewPostsJobTest extends TestCase
         (new FetchNewPostsJob($profile))->handle();
 
         // Then we should see new posts
-        $post = (new PostRepository)->latestForProfile($profile);
+        $post = Post::latestForProfile($profile);
 
         $this->assertEquals(2005270146746340578, $post->ig_post_id);
     }
@@ -74,7 +74,7 @@ class FetchNewPostsJobTest extends TestCase
         (new FetchNewPostsJob($profile))->handle();
 
         // Then we should see new posts
-        $posts = (new PostRepository)->latestForProfile($profile);
+        $posts = Post::latestForProfile($profile);
 
         $this->assertNull($posts);
     }
@@ -91,7 +91,7 @@ class FetchNewPostsJobTest extends TestCase
         (new FetchNewPostsJob($profile))->handle();
 
         // Then we should see new posts
-        $posts = (new PostRepository)->latestForProfile($profile);
+        $posts = Post::latestForProfile($profile);
 
         $this->assertEquals(2004749804235801150, $posts->ig_post_id);
     }
@@ -125,7 +125,7 @@ class FetchNewPostsJobTest extends TestCase
 
         (new FetchNewPostsJob($profile))->handle();
 
-        $post = (new PostRepository)->latestForProfile($profile);
+        $post = Post::latestForProfile($profile);
 
         $this->assertEquals($post->posted_at, new Carbon('2019-03-20 19:00:10'));
     }
