@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use App\Exceptions\DuplicateAttachmentException;
+use App\Exceptions\PrivateProfileException;
 use App\Profile;
 use App\User;
 use Facades\App\Services\Instagram\InstagramDownloader;
@@ -17,8 +18,8 @@ class AttachProfileAction
 
         $ig = InstagramDownloader::getFeed($username);
 
-        if (!$profile->avatar) {
-            $profile->avatar = InstagramDownloader::getAvatar($username);
+        if ($ig->private) {
+            throw new PrivateProfileException();
         }
 
         $profile = Profile::createFromIG($username, $ig);
