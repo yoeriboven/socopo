@@ -30,10 +30,10 @@ class ProfileApiTest extends TestCase
     /** @test */
     public function a_user_can_view_the_profiles_they_follow()
     {
-        $this->signIn();
+        $user = $this->signIn();
 
-        $attachedOne = factory('App\Profile')->create()->attachUser();
-        $attachedTwo = factory('App\Profile')->create()->attachUser();
+        $attachedOne = factory('App\Profile')->create()->attachUser($user);
+        $attachedTwo = factory('App\Profile')->create()->attachUser($user);
         $notAttached = factory('App\Profile')->create();
 
         $this->get('api/profiles')
@@ -45,7 +45,7 @@ class ProfileApiTest extends TestCase
     {
         // Given we have a signed in user with a profile
         $user = $this->signIn();
-        $profile = factory('App\Profile')->create()->attachUser();
+        $profile = factory('App\Profile')->create()->attachUser($user);
 
         // When they reach the profile delete endpoint
         $this->delete('api/profiles/'.$profile->id)

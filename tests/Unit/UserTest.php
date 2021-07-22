@@ -39,7 +39,7 @@ class UserTest extends TestCase
 
         $this->assertFalse($user->attached($profile->username));
 
-        $profile->attachUser();
+        $profile->attachUser($user);
 
         $this->assertTrue($user->attached($profile->username));
     }
@@ -50,7 +50,7 @@ class UserTest extends TestCase
         $user = $this->signIn();
 
         $profile = factory('App\Profile')->create();
-        $profile->attachUser();
+        $profile->attachUser($user);
 
         // This post was posted on IG before the profile was attached to the user
         $post = factory('App\Post')->create(['profile_id' => $profile->id, 'posted_at' => Carbon::now()->subDays(1)]);

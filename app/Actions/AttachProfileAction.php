@@ -24,7 +24,7 @@ class AttachProfileAction
 
         $profile = Profile::createFromIG($username, $ig);
 
-        $profile->attachUser();
+        $profile->attachUser($user);
 
         return $profile;
     }

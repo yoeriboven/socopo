@@ -67,10 +67,8 @@ class Profile extends Model
      *
      * @param  User $user
      */
-    public function attachUser(User $user = null)
+    public function attachUser(User $user)
     {
-        $user = $user ?? auth()->user();
-
         $this->followers()->syncWithoutDetaching([$user->id]);
 
         return $this;
@@ -81,10 +79,8 @@ class Profile extends Model
      *
      * @param  User $user
      */
-    public function detachUser(User $user = null)
+    public function detachUser(User $user)
     {
-        $user = $user ?? auth()->user();
-
         $this->followers()->detach($user);
 
         return $this;
