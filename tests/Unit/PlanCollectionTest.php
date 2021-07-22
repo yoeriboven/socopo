@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Plans\Facades\Plans;
 use Tests\TestCase;
+use App\Plans\Facades\Plans;
 
 class PlanCollectionTest extends TestCase
 {

@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Plans\Facades\Plans;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Carbon;
 use Tests\TestCase;
+use App\Plans\Facades\Plans;
+use Illuminate\Support\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
 {

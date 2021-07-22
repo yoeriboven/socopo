@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\UpdateUserDetails;
 use Illuminate\Http\Request;
+use App\Actions\UpdateUserDetails;
 
 class UserDetailsController extends Controller
 {

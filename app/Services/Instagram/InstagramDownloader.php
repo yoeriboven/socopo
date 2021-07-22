@@ -2,10 +2,10 @@
 
 namespace App\Services\Instagram;
 
+use GuzzleHttp\Client;
 use App\Exceptions\InstagramException;
 use App\Services\Instagram\Hydrator\HtmlHydrator;
 use App\Services\Instagram\Transport\TransportFeed;
-use GuzzleHttp\Client;
 
 class InstagramDownloader
 {

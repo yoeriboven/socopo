@@ -2,16 +2,16 @@
 
 namespace App\Jobs;
 
-use App\Events\NewPostFound;
 use App\Post;
 use App\Profile;
-use App\Services\Instagram\Hydrator\Component\Feed;
-use Facades\App\Services\Instagram\InstagramDownloader;
+use App\Events\NewPostFound;
 use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
+use App\Services\Instagram\Hydrator\Component\Feed;
+use Facades\App\Services\Instagram\InstagramDownloader;
 
 class FetchNewPostsJob implements ShouldQueue
 {

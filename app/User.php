@@ -3,11 +3,11 @@
 namespace App;
 
 use App\Plans\Facades\Plans;
+use Laravel\Paddle\Billable;
 use App\Plans\Plans\FreePlan;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Paddle\Billable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {

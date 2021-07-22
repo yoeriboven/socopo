@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Actions;
 
+use Tests\TestCase;
 use Facades\App\Actions\UpdateUserDetails;
 use Illuminate\Validation\ValidationException;
-use Tests\TestCase;
 
 class UpdateUserDetailsTest extends TestCase
 {

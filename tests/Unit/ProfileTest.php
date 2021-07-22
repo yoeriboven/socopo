@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Notifications\NewPostAdded;
 use App\Profile;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
+use Illuminate\Support\Carbon;
+use App\Notifications\NewPostAdded;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProfileTest extends TestCase
 {

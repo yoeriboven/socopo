@@ -3,9 +3,9 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Illuminate\Notifications\Notification;
 
 class NewPostAdded extends Notification implements ShouldQueue
 {
@@ -50,13 +50,13 @@ class NewPostAdded extends Notification implements ShouldQueue
         return (new SlackMessage)
             ->content('*@'.$this->post->profile->username.' just posted on Instagram ('.$this->post->posted_at->diffForHumans().')*')
             ->attachment(function ($attachment) {
-                        $attachment->content("\"{$this->post->caption}\"")
-                            ->image($this->post->image_url)
-                            ->color('#4392F1')
-                            ->action('Comment on post', $this->post->post_url, 'primary')
-                            ->action('Add more profiles', route('home'), '')
-                            ->timestamp($this->post->posted_at);
-                    });
+                $attachment->content("\"{$this->post->caption}\"")
+                    ->image($this->post->image_url)
+                    ->color('#4392F1')
+                    ->action('Comment on post', $this->post->post_url, 'primary')
+                    ->action('Add more profiles', route('home'), '')
+                    ->timestamp($this->post->posted_at);
+            });
         ;
     }
 }

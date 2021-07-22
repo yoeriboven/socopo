@@ -3,9 +3,9 @@
 namespace App\Services\Instagram;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Handler\MockHandler;
 use Illuminate\Support\Facades\App;
 
 class FakeInstagramDownloader

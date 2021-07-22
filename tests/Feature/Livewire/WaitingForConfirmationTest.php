@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Livewire;
 
+use Tests\TestCase;
+use Livewire\Livewire;
 use App\Http\Livewire\WaitingForConfirmation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Livewire;
-use Tests\TestCase;
 
 class WaitingForConfirmationTest extends TestCase
 {

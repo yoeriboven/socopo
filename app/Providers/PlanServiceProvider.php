@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Plans\PlanCollection;
-use App\Plans\Plans\AgencyPlan;
-use App\Plans\Plans\BrandPlan;
 use App\Plans\Plans\ProPlan;
+use App\Plans\PlanCollection;
+use App\Plans\Plans\BrandPlan;
+use App\Plans\Plans\AgencyPlan;
 use Illuminate\Support\ServiceProvider;
 
 class PlanServiceProvider extends ServiceProvider

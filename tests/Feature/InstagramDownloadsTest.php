@@ -1,15 +1,15 @@
 <?php
 namespace Tests\Feature;
 
-use App\Exceptions\InstagramException;
-use App\Services\Instagram\Hydrator\Component\Feed;
-use App\Services\Instagram\Hydrator\Component\Media;
-use App\Services\Instagram\InstagramDownloader;
+use Tests\TestCase;
 use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use Tests\TestCase;
+use GuzzleHttp\Handler\MockHandler;
+use App\Exceptions\InstagramException;
+use App\Services\Instagram\InstagramDownloader;
+use App\Services\Instagram\Hydrator\Component\Feed;
+use App\Services\Instagram\Hydrator\Component\Media;
 
 class InstagramDownloadsTest extends TestCase
 {

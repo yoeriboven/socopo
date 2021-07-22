@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\Jobs;
 
-use App\Jobs\FetchNewPostsJob;
-use App\Notifications\NewPostAdded;
 use App\Post;
-use App\Services\Instagram\Transport\TransportFeed;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
+use App\Jobs\FetchNewPostsJob;
+use Illuminate\Support\Carbon;
+use App\Notifications\NewPostAdded;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Services\Instagram\Transport\TransportFeed;
 
 class FetchNewPostsJobTest extends TestCase
 {

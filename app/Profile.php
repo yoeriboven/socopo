@@ -3,8 +3,8 @@
 namespace App;
 
 use App\Notifications\NewPostAdded;
-use App\Services\Instagram\Hydrator\Component\Feed;
 use Illuminate\Database\Eloquent\Model;
+use App\Services\Instagram\Hydrator\Component\Feed;
 
 class Profile extends Model
 {

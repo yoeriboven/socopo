@@ -3,9 +3,9 @@
 namespace Tests\Feature;
 
 use App\Profile;
+use Tests\TestCase;
 use App\Services\Instagram\InstagramDownloader;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class ProfileApiTest extends TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace App\Services\Instagram\Transport;
 
-use App\Exceptions\InstagramException;
 use GuzzleHttp\Client;
+use App\Exceptions\InstagramException;
 
 class TransportFeed
 {

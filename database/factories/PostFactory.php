@@ -16,6 +16,6 @@ $factory->define(App\Post::class, function (Faker $faker) {
         'caption' => $faker->sentence(),
         'type' => $type,
         'post_url' => $faker->url,
-        'posted_at' => $date
+        'posted_at' => $date,
     ];
 });

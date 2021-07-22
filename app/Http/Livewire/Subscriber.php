@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Actions\UpdateUserDetails;
+use Livewire\Component;
 use App\Plans\Facades\Plans;
 use Illuminate\Validation\Rule;
+use App\Actions\UpdateUserDetails;
 use Illuminate\Validation\ValidationException;
-use Livewire\Component;
 
 class Subscriber extends Component
 {
