@@ -24,7 +24,7 @@ class UserTest extends TestCase
     public function it_is_attached_to_profiles()
     {
         $profile = factory('App\Profile')->create();
-        $profile->attachUser($this->user);
+        $profile->attach($this->user);
 
         $this->assertTrue($this->user->profiles->contains($profile));
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->user->profiles);
@@ -39,7 +39,7 @@ class UserTest extends TestCase
 
         $this->assertFalse($user->attached($profile->username));
 
-        $profile->attachUser($user);
+        $profile->attach($user);
 
         $this->assertTrue($user->attached($profile->username));
     }
@@ -50,7 +50,7 @@ class UserTest extends TestCase
         $user = $this->signIn();
 
         $profile = factory('App\Profile')->create();
-        $profile->attachUser($user);
+        $profile->attach($user);
 
         // This post was posted on IG before the profile was attached to the user
         $post = factory('App\Post')->create(['profile_id' => $profile->id, 'posted_at' => Carbon::now()->subDays(1)]);
@@ -69,7 +69,7 @@ class UserTest extends TestCase
         $profiles_ids = [];
 
         for ($i = 3; $i>=1; $i--) {
-            $profile = factory('App\Profile')->create()->attachUser($user);
+            $profile = factory('App\Profile')->create()->attach($user);
             $profiles_ids[] = $profile->id;
 
             // Because all Profiles in this test are attached at the same time
@@ -146,18 +146,18 @@ class UserTest extends TestCase
 
         // Both posts are attached to a profile $authUser follows
         $profileOne = factory('App\Profile')->create();
-        $profileOne->attachUser($authUser);
+        $profileOne->attach($authUser);
         [$postOne, $postTwo] = factory('App\Post', 2)->create(['profile_id' => $profileOne->id]);
 
         // Not attached to $authUser
         $profileTwo = factory('App\Profile')->create();
-        $profileTwo->attachUser($otherUser);
+        $profileTwo->attach($otherUser);
         $postThree = factory('App\Post')->create(['profile_id' => $profileTwo->id]);
 
         // Post is attached to a profile both $authUser and $otherUser follow
         $profileThree = factory('App\Profile')->create();
-        $profileThree->attachUser($authUser);
-        $profileThree->attachUser($otherUser);
+        $profileThree->attach($authUser);
+        $profileThree->attach($otherUser);
         $postFour = factory('App\Post')->create(['profile_id' => $profileThree->id]);
 
         $posts = $authUser->feed();

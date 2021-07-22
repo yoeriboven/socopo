@@ -64,7 +64,7 @@ class ProfileController extends Controller
             return response([], 401);
         }
 
-        $profile->detachUser(auth()->user());
+        $profile->detach(auth()->user());
         return response([], 204);
     }
 }

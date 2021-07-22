@@ -32,8 +32,8 @@ class ProfileApiTest extends TestCase
     {
         $user = $this->signIn();
 
-        $attachedOne = factory('App\Profile')->create()->attachUser($user);
-        $attachedTwo = factory('App\Profile')->create()->attachUser($user);
+        $attachedOne = factory('App\Profile')->create()->attach($user);
+        $attachedTwo = factory('App\Profile')->create()->attach($user);
         $notAttached = factory('App\Profile')->create();
 
         $this->get('api/profiles')
@@ -45,7 +45,7 @@ class ProfileApiTest extends TestCase
     {
         // Given we have a signed in user with a profile
         $user = $this->signIn();
-        $profile = factory('App\Profile')->create()->attachUser($user);
+        $profile = factory('App\Profile')->create()->attach($user);
 
         // When they reach the profile delete endpoint
         $this->delete('api/profiles/'.$profile->id)
@@ -202,7 +202,7 @@ class ProfileApiTest extends TestCase
         factory('App\Profile', $user->plan()->maxProfiles)
             ->create()
             ->each(function($profile) use ($user) {
-                $profile->attachUser($user);
+                $profile->attach($user);
             });
 
         // Check for an error if you attach more

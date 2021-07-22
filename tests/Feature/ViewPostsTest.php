@@ -44,7 +44,7 @@ class ViewPostsTest extends TestCase
         $user->settings->update(['slack_url' => 'something']);
 
         $profile = factory('App\Profile')->create();
-        $profile->attachUser($user);
+        $profile->attach($user);
 
         $this->get('/posts')
             ->assertSee('No posts yet');
@@ -81,7 +81,7 @@ class ViewPostsTest extends TestCase
     protected function createPostForUser($user)
     {
         $profile = factory('App\Profile')->create();
-        $profile->attachUser($user);
+        $profile->attach($user);
 
         return factory('App\Post')->create(['profile_id' => $profile->id]);
     }

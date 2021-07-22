@@ -18,8 +18,8 @@ class ProfilesTest extends DuskTestCase
         $attachedOne = factory('App\Profile')->create();
         $attachedTwo = factory('App\Profile')->create();
 
-        $attachedOne->attachUser();
-        $attachedTwo->attachUser();
+        $attachedOne->attach();
+        $attachedTwo->attach();
 
         $this->browse(function (Browser $browser) use ($user, $attachedOne, $attachedTwo) {
             $browser->loginAs($user)
@@ -38,7 +38,7 @@ class ProfilesTest extends DuskTestCase
         $user = $this->signIn();
 
         $attached = factory('App\Profile')->create();
-        $attached->attachUser();
+        $attached->attach();
 
         $this->browse(function (Browser $browser) use ($user, $attached) {
             $browser->loginAs($user)

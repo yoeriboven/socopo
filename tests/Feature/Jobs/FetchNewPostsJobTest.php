@@ -106,7 +106,7 @@ class FetchNewPostsJobTest extends TestCase
         $user->settings->update(['slack_url' => 'Something']);
 
         $profile = factory('App\Profile')->create(['username' => 'daviddobrik']);
-        $profile->attachUser($user);
+        $profile->attach($user);
 
         // This line is purely because the profile has to be attached before the post was posted
         $profile->followers()->where('user_id', $user->id)->first()->pivot->update(['created_at' => Carbon::now()->subYears(50)]);

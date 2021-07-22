@@ -67,7 +67,7 @@ class Profile extends Model
      *
      * @param  User $user
      */
-    public function attachUser(User $user)
+    public function attach(User $user)
     {
         $this->followers()->syncWithoutDetaching([$user->id]);
 
@@ -79,7 +79,7 @@ class Profile extends Model
      *
      * @param  User $user
      */
-    public function detachUser(User $user)
+    public function detach(User $user)
     {
         $this->followers()->detach($user);
 

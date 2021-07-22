@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
 
         foreach ($profiles as $profileData) {
             $profile = factory('App\Profile')->create($profileData);
-            $profile->attachUser($user);
+            $profile->attach($user);
 
             factory('App\Post')->create(['profile_id' => $profile->id]);
             factory('App\Post')->create(['profile_id' => $profile->id]);

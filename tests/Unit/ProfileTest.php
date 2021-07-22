@@ -21,7 +21,7 @@ class ProfileTest extends TestCase
         $profile = factory('App\Profile')->create();
 
         // When they are attached
-        $profile->attachUser($user);
+        $profile->attach($user);
 
         // It should show up in the database
         $this->assertDatabaseHas('profile_user', [
@@ -37,9 +37,9 @@ class ProfileTest extends TestCase
         $user = factory('App\User')->create();
         $profile = factory('App\Profile')->create();
 
-        $profile->attachUser($user);
+        $profile->attach($user);
 
-        $profile->detachUser($user);
+        $profile->detach($user);
 
         // It shouldn't exist in the database
         $this->assertDatabaseMissing('profile_user', [
@@ -54,8 +54,8 @@ class ProfileTest extends TestCase
         $user = factory('App\User')->create();
         $profile = factory('App\Profile')->create();
 
-        $profile->attachUser($user);
-        $profile->attachUser($user);
+        $profile->attach($user);
+        $profile->attach($user);
 
         $this->assertCount(1, $user->profiles);
     }
@@ -77,7 +77,7 @@ class ProfileTest extends TestCase
     {
         $user = factory('App\User')->create();
         $profile = factory('App\Profile')->create();
-        $profile->attachUser($user);
+        $profile->attach($user);
 
         $this->assertTrue($profile->followers->contains($user));
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $profile->followers);
@@ -100,8 +100,8 @@ class ProfileTest extends TestCase
         // Given
         $profile = factory('App\Profile')->create();
         $users = factory('App\User', 2)->create();
-        $profile->attachUser($users[0]);
-        $profile->attachUser($users[1]);
+        $profile->attach($users[0]);
+        $profile->attach($users[1]);
 
         // Notifications won't be sent if you don't have a slack_url to send it to
         $users[0]->settings->update(['slack_url' => 'Something']);
@@ -146,7 +146,7 @@ class ProfileTest extends TestCase
         $user->settings()->update(['slack_url' => null]);
 
         $profile = factory('App\Profile')->create();
-        $profile->attachUser($user);
+        $profile->attach($user);
 
         $post = factory('App\Post')->create(['profile_id' => $profile->id]);
 
@@ -168,7 +168,7 @@ class ProfileTest extends TestCase
 
         // who follows a profile
         $profile = factory('App\Profile')->create();
-        $profile->attachUser($user);
+        $profile->attach($user);
         // dump($profile->followers()->where('user_id', $user->id)->first()->pivot->created_at);
         // and the new post is added before the user followed the profile
         $post = factory('App\Post')->create(['profile_id' => $profile->id, 'posted_at' => Carbon::now()->subDays(1)]);
