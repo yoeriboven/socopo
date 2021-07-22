@@ -25,7 +25,7 @@ class ProfileController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  App\Actions\AttachProfileAction $profileCreator
+     * @param  \App\Actions\AttachProfileAction $profileCreator
      * @return \Illuminate\Http\Response
      */
     public function store(ProfileRequest $request, AttachProfileAction $profileAttacher)
