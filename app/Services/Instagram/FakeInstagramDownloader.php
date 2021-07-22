@@ -7,8 +7,6 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Support\Facades\App;
-use Mockery;
-use Mockery\MockInterface;
 
 class FakeInstagramDownloader
 {
@@ -35,16 +33,6 @@ class FakeInstagramDownloader
         $client = $this->createClient('', 404);
 
         App::instance(InstagramDownloader::class, new InstagramDownloader($client));
-    }
-
-    public function avatar(string $avatar)
-    {
-        App::instance(
-        	InstagramDownloader::class,
-        	Mockery::mock(InstagramDownloader::class, function (MockInterface $mock) use ($avatar) {
-        	    $mock->shouldReceive('getAvatar')->andReturn($avatar);
-        	})
-   		);
     }
 
     protected function createClient(string $html, int $code = 200)

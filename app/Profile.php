@@ -3,10 +3,16 @@
 namespace App;
 
 use App\Notifications\NewPostAdded;
+use App\Services\Instagram\Hydrator\Component\Feed;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+    /**
+     * The IG Feed connected to this profile.
+     *
+     * @var \App\Services\Instagram\Hydrator\Component\Feed
+     */
     public $feed;
 
     /**
@@ -35,6 +41,26 @@ class Profile extends Model
         'created_at',
         'updated_at',
     ];
+
+    /**
+     * Creates a profile using data from the Instagram Feed.
+     *
+     * @param  String $username
+     * @param  \App\Services\Instagram\Hydrator\Component\Feed   $feed     [description]
+     * @return Profile
+     */
+    public static function createFromIG($username, Feed $feed)
+    {
+        $profile = static::firstOrNew(['username' => $username]);
+
+        if (!$profile->avatar) {
+            $profile->avatar = $feed->profilePicture;
+        }
+
+        $profile->save();
+
+        return $profile;
+    }
 
     /**
      * Attaches the current profile to the given user.

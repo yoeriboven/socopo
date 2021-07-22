@@ -48,26 +48,6 @@ class InstagramDownloader
     }
 
     /**
-     * Returns the profile picture for the given username.
-     *
-     * @param  string $username
-     *
-     * @return Hydrator\Component\Feed
-     *
-     * @throws InstagramException
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Exception
-     */
-    public function getAvatar($username)
-    {
-        $this->assertUsernameAllowed($username);
-
-        $data = $this->getData();
-
-        return $data->profile_pic_url_hd;
-    }
-
-    /**
      * Returns a fake object to run Instagram tests on.
      *
      * @return FakeInstagramDownloder

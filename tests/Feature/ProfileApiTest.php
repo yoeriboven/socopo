@@ -11,7 +11,8 @@ class ProfileApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    const AVATAR = 'https://scontent-ams3-1.cdninstagram.com/vp/939c87a37fda9a5a14cb6fb2a160f562/5D11BFD4/t51.2885-19/s150x150/13774452_308754809468576_1008534704_a.jpg?_nc_ht=scontent-ams3-1.cdninstagram.com';
+    // The same avatar_url as in fixtures/valid.html
+    const AVATAR = 'https://scontent-cdg2-1.cdninstagram.com/vp/f49bc1ac9af43314d3354b4c4a987c6d/5B5BB12E/t51.2885-19/10483606_1498368640396196_604136733_a.jpg';
 
     /** @test */
     public function guest_cant_access_profile_controller()
@@ -76,7 +77,7 @@ class ProfileApiTest extends TestCase
     {
         $user = $this->signIn();
 
-        InstagramDownloader::fake()->avatar(self::AVATAR);
+        InstagramDownloader::fake();
 
         // Create the profile
         $profile = $this->publishProfile(['username' => 'yoeriboven']);
@@ -88,7 +89,7 @@ class ProfileApiTest extends TestCase
         ]);
 
         // Assert it is attached to the signed in user
-        $createdProfile = Profile::where('username', $profile->username)->get()->first();
+        $createdProfile = Profile::where('username', $profile->username)->first();
         $this->assertDatabaseHas('profile_user', [
             'profile_id' => $createdProfile->id,
             'user_id' => $user->id,

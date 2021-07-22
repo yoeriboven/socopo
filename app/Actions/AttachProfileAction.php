@@ -15,13 +15,14 @@ class AttachProfileAction
             throw new DuplicateAttachmentException();
         }
 
-        $profile = Profile::firstOrNew(['username' => $username]);
+        $ig = InstagramDownloader::getFeed($username);
 
         if (!$profile->avatar) {
             $profile->avatar = InstagramDownloader::getAvatar($username);
         }
 
-        $profile->save();
+        $profile = Profile::createFromIG($username, $ig);
+
         $profile->attachUser();
 
         return $profile;
