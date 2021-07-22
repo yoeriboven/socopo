@@ -94,7 +94,7 @@ class Profile extends Model
     public function notifyFollowers(Post $post)
     {
         $this->followers()->chunk(100, function($followers) use ($post) {
-            collect($followers)->filter(function ($follower) {
+            $followers->filter(function ($follower) {
                 return $follower->hasSlackSetup();
             })->reject(function ($follower) use ($post) {
                 return $follower->attachedAfterPostPublished($post);
