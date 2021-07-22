@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Events\NewPostFound;
 use App\Post;
 use App\Profile;
 use App\Services\Instagram\Hydrator\Component\Feed;
@@ -16,6 +17,11 @@ class FetchNewPostsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The Profile for which we will fetch new posts.
+     *
+     * @var \App\Profile
+     */
     private $profile;
 
     /**
@@ -38,7 +44,7 @@ class FetchNewPostsJob implements ShouldQueue
         $this->profile->feed = $this->getFeed();
 
         if ($this->hasNewPost()) {
-            $this->profile->updateAvatar($this->profile->feed->profilePicture);
+            NewPostFound::dispatch($this->profile);
 
             $post = Post::storeFromInstagram($this->profile);
 

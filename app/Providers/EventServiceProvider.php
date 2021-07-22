@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\NewPostFound;
+use App\Listeners\UpdateAvatarURL;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -21,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         \SocialiteProviders\Manager\SocialiteWasCalled::class => [
             // add your listeners (aka providers) here
             '\SocialiteProviders\\Slack\\SlackExtendSocialite@handle',
+        ],
+        NewPostFound::class => [
+            UpdateAvatarURL::class,
         ],
     ];
 
