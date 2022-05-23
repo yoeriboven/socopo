@@ -26,39 +26,39 @@ jobs:
             ports:
                 - 3306
             options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-          
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
-      
+          php-version: 8.0
+
       - name: Install Composer dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-      
+
       - name: Prepare Laravel Application
         run: |
           cp .env.example .env
           php artisan key:generate
-          
+
       - name: Run tests
         run: ./vendor/bin/phpunit
         env:
           DB_CONNECTION: mysql
           DB_PORT: ${{ job.services.mysql.ports['3306'] }}
-          DB_DATABASE: socopo_test  
+          DB_DATABASE: socopo_test
           DB_USERNAME: socopo_user
-          DB_PASSWORD: socopo_password  
+          DB_PASSWORD: socopo_password
           PADDLE_VENDOR_ID: ${{ secrets.PADDLE_VENDOR_ID }}
           PADDLE_VENDOR_AUTH_CODE: ${{ secrets.PADDLE_VENDOR_AUTH_CODE }}
           PADDLE_PUBLIC_KEY: ${{ secrets.PADDLE_PUBLIC_KEY }}
           PADDLE_PLAN_PRO_ID: ${{ secrets.PADDLE_PLAN_PRO_ID }}
           PADDLE_PLAN_BRAND_ID: ${{ secrets.PADDLE_PLAN_BRAND_ID }}
-          PADDLE_PLAN_AGENCY_ID: ${{ secrets.PADDLE_PLAN_AGENCY_ID }}  
-          
+          PADDLE_PLAN_AGENCY_ID: ${{ secrets.PADDLE_PLAN_AGENCY_ID }}
+
       - name: Deploy to Laravel Forge
         run: curl ${{ secrets.FORGE_DEPLOYMENT_WEBHOOK }}
-      
+
